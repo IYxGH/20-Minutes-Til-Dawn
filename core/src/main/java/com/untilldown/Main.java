@@ -8,35 +8,33 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.untilldown.Controller.MainMenuController;
+import com.untilldown.Controller.SignupMenuController;
+import com.untilldown.Model.GameAssetManager;
+import com.untilldown.View.MainMenuView;
+import com.untilldown.View.SignupMenuView;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends Game {
     private static Main main;
     private static SpriteBatch batch;
-//    private Texture image;
-//    private int x = 0;
 
     @Override
     public void create() {
         main = this;
         batch = new SpriteBatch();
-//        image = new Texture("libgdx.png");
+        getMain().setScreen(new SignupMenuView(new SignupMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
+
     }
 
     @Override
     public void render() {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        batch.begin();
-//        batch.draw(image, x, 210);
-//        batch.end();
-//
-//        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) x++;
+        super.render();
     }
 
     @Override
     public void dispose() {
         batch.dispose();
-//        image.dispose();
     }
 
     public static Main getMain() {
