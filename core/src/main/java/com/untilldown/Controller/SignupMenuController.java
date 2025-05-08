@@ -14,49 +14,42 @@ public class SignupMenuController {
         this.view = signUpView;
     }
 
-    public void handleInput() {
-        if (view.getSignUpButton().isPressed()) {
-            String username = view.getUsernameField().getText();
-            String password = view.getPasswordField().getText();
-
-            if (App.findUser(username) != null) {
-                view.showErrorMessage("Username is already in use!");
-                return;
-            }
-
-            if (!User.isPasswordValid(password)) {
-                view.showErrorMessage("Password is weak!");
-                return;
-            }
-
-            User user = new User(username, password);
-            App.getUsers().add(user);
-            App.setCurrentUser(user);
-
-            view.getSecurityQuestion().setVisible(true);
-            view.getSecurityAnswerField().setVisible(true);
-            view.getConfirmAnswerButton().setVisible(true);
-
+    public void handleRegisterInput(String username, String password) {
+        if (App.findUser(username) != null) {
+            view.showErrorMessage("Username is already in use!");
+            return;
         }
 
-        if (view.getConfirmAnswerButton().isPressed()) {
-            String answer = view.getSecurityAnswerField().getText();
-            if (answer.length() < 2) {
-                view.showErrorMessage("your Answer is too short!");
-                return;
-            }
-
-            App.getCurrentUser().setSecurityAnswer(answer);
-            goToMainMenu();
+        if (!User.isPasswordValid(password)) {
+            view.showErrorMessage("Password is weak!");
+            return;
         }
+
+        User user = new User(username, password);
+        App.getUsers().add(user);
+        App.setCurrentUser(user);
+
+        view.getSecurityQuestion().setVisible(true);
+        view.getSecurityAnswerField().setVisible(true);
+        view.getConfirmAnswerButton().setVisible(true);
+        view.showSecurityQuestionDialog();
+    }
+
+    public void handleConfirmAnswerInput(String answer) {
+        if (answer.length() < 2) {
+            view.showErrorMessage("your Answer is too short!");
+            return;
+        }
+
+        App.getCurrentUser().setSecurityAnswer(answer);
+        goToMainMenu();
+
     }
 
     public void goToMainMenu() {
         Main.getMain().setScreen(new MainMenuView(new MainMenuController(),
             GameAssetManager.getGameAssetManager().getSkin()));
     }
-
-
 
 
 }
