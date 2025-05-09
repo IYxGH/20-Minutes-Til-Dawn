@@ -19,7 +19,7 @@ public class SignupMenuView implements Screen {
     private TextField usernameField;
     private TextField passwordField;
     private TextButton signUpButton;
-    private TextButton skipButton;
+    private TextButton backButton;
     private Label errorMessage;
 
     private Label securityQuestion;
@@ -84,9 +84,6 @@ public class SignupMenuView implements Screen {
 //        dialog.setSize(width, height);
     }
 
-
-
-
     public SignupMenuView(SignupMenuController controller, Skin skin) {
         this.controller = controller;
         controller.setView(this);
@@ -95,7 +92,7 @@ public class SignupMenuView implements Screen {
         usernameField = new TextField("", skin);
         passwordField = new TextField("", skin);
         signUpButton = new TextButton("Sign Up", skin);
-        skipButton = new TextButton("Skip", skin);
+        backButton = new TextButton("Back", skin);
         errorMessage = new Label("", skin);
         errorMessage.setColor(Color.RED);
 
@@ -116,6 +113,13 @@ public class SignupMenuView implements Screen {
                     usernameField.getText(),
                     passwordField.getText()
                 );
+            }
+        });
+
+        backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.backToStartMenu();
             }
         });
 
@@ -152,7 +156,7 @@ public class SignupMenuView implements Screen {
 
         table.add(signUpButton).pad(10);
         table.row();
-        table.add(skipButton).pad(10);
+        table.add(backButton).pad(10);
         table.row().padTop(20);
 
         stage.addActor(table);
@@ -168,7 +172,7 @@ public class SignupMenuView implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -193,7 +197,7 @@ public class SignupMenuView implements Screen {
 
     // Getters for controller
     public TextButton getSignUpButton() { return signUpButton; }
-    public TextButton getSkipButton() { return skipButton; }
+    public TextButton getBackButton() { return backButton; }
     public TextField getUsernameField() { return usernameField; }
     public TextField getPasswordField() { return passwordField; }
 

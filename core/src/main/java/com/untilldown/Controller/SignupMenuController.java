@@ -6,6 +6,7 @@ import com.untilldown.Model.GameAssetManager;
 import com.untilldown.Model.User;
 import com.untilldown.View.MainMenuView;
 import com.untilldown.View.SignupMenuView;
+import com.untilldown.View.StartMenuView;
 
 public class SignupMenuController {
     private SignupMenuView view;
@@ -15,6 +16,11 @@ public class SignupMenuController {
     }
 
     public void handleRegisterInput(String username, String password) {
+        if (username.length() < 2) {
+            view.showErrorMessage("Username must be at least 2 characters");
+            return;
+        }
+
         if (App.findUser(username) != null) {
             view.showErrorMessage("Username is already in use!");
             return;
@@ -51,5 +57,8 @@ public class SignupMenuController {
             GameAssetManager.getGameAssetManager().getSkin()));
     }
 
-
+    public void backToStartMenu() {
+        Main.getMain().setScreen(new StartMenuView(new StartMenuController(),
+            GameAssetManager.getGameAssetManager().getSkin()));
+    }
 }
