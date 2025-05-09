@@ -4,6 +4,7 @@ import com.untilldown.Main;
 import com.untilldown.Model.App;
 import com.untilldown.Model.GameAssetManager;
 import com.untilldown.Model.User;
+import com.untilldown.View.ForgetPasswordMenuView;
 import com.untilldown.View.LoginMenuView;
 import com.untilldown.View.StartMenuView;
 
@@ -32,6 +33,11 @@ public class LoginMenuController{
 
     public void back() {
         Main.getMain().setScreen(new StartMenuView(new StartMenuController(),
+            GameAssetManager.getGameAssetManager().getSkin()));
+    }
+
+    public void goToForgetPasswordMenu(){
+        Main.getMain().setScreen(new ForgetPasswordMenuView(new ForgetPasswordMenuController(),
             GameAssetManager.getGameAssetManager().getSkin()));
     }
 }

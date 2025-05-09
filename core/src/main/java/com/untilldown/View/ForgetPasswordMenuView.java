@@ -9,51 +9,42 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.untilldown.Controller.LoginMenuController;
+import com.untilldown.Controller.ForgetPasswordMenuController;
 
-public class LoginMenuView implements Screen {
+public class ForgetPasswordMenuView implements Screen {
     private Stage stage;
     private TextField username;
+    private TextField answer;
     private TextField password;
     private Label errorMessage;
-    private TextButton loginButton;
-    private TextButton forgetPasswordButton;
+    private TextButton changePasswordButton;
     private TextButton backButton;
 
 
     private final Skin skin;
-    private final LoginMenuController controller;
+    private final ForgetPasswordMenuController controller;
 
-    public LoginMenuView(LoginMenuController controller, Skin skin) {
+    public ForgetPasswordMenuView(ForgetPasswordMenuController controller, Skin skin) {
         this.controller = controller;
         controller.setView(this);
         this.skin = skin;
 
         username = new TextField("", skin);
+        answer = new TextField("", skin);
         password = new TextField("", skin);
         errorMessage = new Label("", skin);
-        errorMessage.setVisible(false);
         errorMessage.setColor(Color.RED);
-        loginButton = new TextButton("Login", skin);
-        forgetPasswordButton = new TextButton("Forget Password", skin);
+        errorMessage.setVisible(false);
+        changePasswordButton = new TextButton("Change Password", skin);
         backButton = new TextButton("Back", skin);
 
 
-        loginButton.addListener(new ClickListener(){
+        changePasswordButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                controller.login(username.getText(), password.getText());
+                controller.changePassword(username.getText(), answer.getText(), password.getText());
             }
         });
-
-        forgetPasswordButton.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                controller.goToForgetPasswordMenu();
-            }
-        });
-
         backButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -61,6 +52,11 @@ public class LoginMenuView implements Screen {
             }
         });
 
+    }
+
+    public void showSuccessfulMessage(String message) {
+        Dialog dialog = new Dialog(message, skin);
+        dialog.show(stage);
     }
 
 
@@ -83,21 +79,24 @@ public class LoginMenuView implements Screen {
         table.add(username).expandX().width(objectWidth).height(0.07f * screenHeight);
         table.row().padTop(0.02f * screenHeight);
 
-        table.add(new Label("Password:", skin));
+        table.add(new Label("Whats your favorite club?", skin));
+        table.row().pad(0.01f * screenHeight);
+        table.add(answer).expandX().width(objectWidth).height(0.07f * screenHeight);
+        table.row().padTop(0.02f * screenHeight);
+
+        table.add(new Label("New Password:", skin));
         table.row().pad(0.01f * screenHeight);
         table.add(password).expandX().width(objectWidth).height(0.07f * screenHeight);
         table.row().padTop(0.02f * screenHeight);
-
         table.add(errorMessage).expandX();
         table.row().padTop(0.03f * screenHeight);
 
-        table.add(loginButton).expandX().width(objectWidth).height(0.1f * screenHeight);
-        table.row().padTop(0.02f * screenHeight);
-        table.add(forgetPasswordButton).expandX().width(objectWidth).height(0.1f * screenHeight);
+        table.add(changePasswordButton).expandX().width(objectWidth).height(0.1f * screenHeight);
         table.row().padTop(0.02f * screenHeight);
         table.add(backButton).expandX().width(objectWidth).height(0.1f * screenHeight);
         table.row().padTop(0.02f * screenHeight);
         stage.addActor(table);
+
 
     }
 

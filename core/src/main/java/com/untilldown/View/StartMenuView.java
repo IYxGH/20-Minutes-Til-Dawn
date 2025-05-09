@@ -19,6 +19,7 @@ public class StartMenuView implements Screen {
     private Skin skin;
     private TextButton signUpButton;
     private TextButton loginButton;
+    private TextButton playAsGuestButton;
     private Label titleLabel;
 
     private final StartMenuController controller;
@@ -29,6 +30,7 @@ public class StartMenuView implements Screen {
 
         signUpButton = new TextButton("Sign Up", skin);
         loginButton = new TextButton("Login", skin);
+        playAsGuestButton = new TextButton("Play As Guest", skin);
         titleLabel = new Label("20 MINUTES TILL DOWN", skin);
         titleLabel.setFontScale(1.5f);
         titleLabel.setColor(Color.CYAN);
@@ -44,6 +46,13 @@ public class StartMenuView implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 controller.goToLoginMenu();
+            }
+        });
+
+        playAsGuestButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.playAsGuest();
             }
         });
     }

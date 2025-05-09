@@ -21,4 +21,8 @@ public class StartMenuController {
         Main.getMain().setScreen(new LoginMenuView(new LoginMenuController(),
             GameAssetManager.getGameAssetManager().getSkin()));
     }
+
+    public void playAsGuest() {
+        // TODO
+    }
 }
