@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.untilldown.Controller.StartMenuController;
+import com.untilldown.Model.GameAssetManager;
 
 public class StartMenuView implements Screen {
     private Stage stage;
@@ -27,12 +28,11 @@ public class StartMenuView implements Screen {
     public StartMenuView(StartMenuController controller, Skin skin) {
         this.skin = skin;
         this.controller = controller;
-
         signUpButton = new TextButton("Sign Up", skin);
         loginButton = new TextButton("Login", skin);
         playAsGuestButton = new TextButton("Play As Guest", skin);
         titleLabel = new Label("20 MINUTES TILL DOWN", skin);
-        titleLabel.setFontScale(1.5f);
+        titleLabel.setFontScale(2.5f);
         titleLabel.setColor(Color.CYAN);
 
         signUpButton.addListener(new ClickListener() {
@@ -70,11 +70,14 @@ public class StartMenuView implements Screen {
         table.setFillParent(true);
         table.center();
 
-        table.add(titleLabel).expandX().center().padBottom(screenHeight * 0.3f);
+        table.add(titleLabel).expandX().center().padBottom(screenHeight * 0.1f);
         table.row();
         table.add(signUpButton).width(screenWidth * 0.25f).height(screenHeight * 0.1f);
-        table.row().padTop(screenHeight * 0.04f);
+        table.row().pad(screenHeight * 0.04f);
         table.add(loginButton).width(screenWidth * 0.25f).height(screenHeight * 0.1f);
+        table.row().pad(screenHeight * 0.04f);
+        table.add(playAsGuestButton).width(screenWidth * 0.25f).height(screenHeight * 0.1f);
+//        table.row().padBottom(screenHeight * 0.04f);
 
         stage.addActor(table);
 

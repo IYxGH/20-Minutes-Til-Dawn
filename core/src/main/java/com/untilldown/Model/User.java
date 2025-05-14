@@ -7,10 +7,13 @@ public class User {
     private String username;
     private String password;
     private String securityAnswer = null;
+    private int avatarAssignedID;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        GameAssetManager.getGameAssetManager();
+        avatarAssignedID = (int) (Math.random() * GameAssetManager.NUM_AVATARS);
     }
 
     public String getUsername() {
@@ -35,6 +38,14 @@ public class User {
 
     public void setSecurityAnswer(String securityAnswer) {
         this.securityAnswer = securityAnswer;
+    }
+
+    public int getAvatarAssignedID() {
+        return avatarAssignedID;
+    }
+
+    public void setAvatarAssignedID(int avatarAssignedID) {
+        this.avatarAssignedID = avatarAssignedID;
     }
 
     public static boolean isPasswordValid(String password) {
