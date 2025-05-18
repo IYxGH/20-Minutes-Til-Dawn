@@ -38,12 +38,10 @@ public class SignupMenuView implements Screen {
 
         Label errorLabel = new Label("", skin);
         errorLabel.setColor(1, 0, 0, 1);
-
         dialog.getContentTable().add(questionLabel).padTop(10).padLeft(10).padRight(10).row();
         dialog.getContentTable().add(answerField).width(300).padBottom(10).row();
         dialog.getContentTable().add(errorLabel).padBottom(10).row();
 
-        // Add custom confirm and skip buttons
         TextButton confirmButton = new TextButton("Confirm", skin);
         TextButton skipButton = new TextButton("Skip", skin);
 

@@ -1,10 +1,13 @@
 package com.untilldown.Model;
 
+import com.untilldown.Model.Enums.Language;
+
 import java.util.ArrayList;
 
 public class App {
     private static ArrayList<User> users = new ArrayList<>();
     private static User currentUser;
+    private static Language currentLanguage;
 
 
     public static ArrayList<User> getUsers() {
@@ -30,5 +33,9 @@ public class App {
             }
         }
         return null;
+    }
+
+    public static Language getCurrentLanguage() {
+        return currentLanguage;
     }
 }

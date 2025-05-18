@@ -1,5 +1,6 @@
 package com.untilldown.Model;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.untilldown.Model.Enums.AvatarType;
 
 import java.util.regex.Matcher;
@@ -11,6 +12,7 @@ public class User {
     private String securityAnswer = null;
     private boolean isGuest = false;
     private AvatarType avatarAssigned;
+    private Image avatarImage;
     private int TotalPoints;
 
     public User(String username, String password) {
@@ -66,6 +68,11 @@ public class User {
         this.avatarAssigned = avatarAssigned;
     }
 
+    public Image getAvatarImage() {
+        if (avatarAssigned  == null) return avatarImage;
+        return null; //TODO
+    }
+
     public static boolean isPasswordValid(String password) {
         String pattern = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%&*)(_]).{8,}$";
 
@@ -73,4 +80,6 @@ public class User {
 
         return matcher.matches();
     }
+
+
 }
