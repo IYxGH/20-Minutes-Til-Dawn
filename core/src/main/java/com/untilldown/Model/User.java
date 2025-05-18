@@ -9,7 +9,9 @@ public class User {
     private String username;
     private String password;
     private String securityAnswer = null;
+    private boolean isGuest = false;
     private AvatarType avatarAssigned;
+    private int TotalPoints;
 
     public User(String username, String password) {
         this.username = username;
@@ -18,12 +20,26 @@ public class User {
         avatarAssigned = AvatarType.getRandomAvatarType();
     }
 
+    public User(boolean isGuest) {
+        this.isGuest = isGuest;
+        username = "GUEST";
+        this.avatarAssigned = AvatarType.EL_PRIMO;
+    }
+
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public int getTotalPoints() {
+        return TotalPoints;
+    }
+
+    public void setTotalPoints(int totalPoints) {
+        TotalPoints = totalPoints;
     }
 
     public String getPassword() {

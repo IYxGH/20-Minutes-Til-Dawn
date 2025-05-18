@@ -1,8 +1,11 @@
 package com.untilldown.Controller;
 
 import com.untilldown.Main;
+import com.untilldown.Model.App;
 import com.untilldown.Model.GameAssetManager;
+import com.untilldown.Model.User;
 import com.untilldown.View.LoginMenuView;
+import com.untilldown.View.MainMenuView;
 import com.untilldown.View.SignupMenuView;
 
 public class StartMenuController {
@@ -23,6 +26,8 @@ public class StartMenuController {
     }
 
     public void playAsGuest() {
-        // TODO
+        App.setCurrentUser(new User(true));
+        Main.getMain().setScreen(new MainMenuView(new MainMenuController(),
+            GameAssetManager.getGameAssetManager().getSkin()));
     }
 }

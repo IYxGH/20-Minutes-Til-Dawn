@@ -30,6 +30,7 @@ public class MainMenuView implements Screen {
 
     private Image avatarImage;
     private Label userInfoLabel;
+    private Label userPointsLabel;
 
     public MainMenuView(MainMenuController controller, Skin skin) {
         this.skin = skin;
@@ -105,16 +106,16 @@ public class MainMenuView implements Screen {
 
         User currentUser = App.getCurrentUser();
         avatarImage = GameAssetManager.getGameAssetManager().getAvatarImage(currentUser.getAvatarAssigned());
-        avatarImage.setSize(screenWidth * 0.05f, screenWidth * 0.05f);
 
         userInfoLabel = new Label("User: " + currentUser.getUsername(), skin);
+        userPointsLabel = new Label("Points" + currentUser.getTotalPoints(), skin);
 
         Table topLeftTable = new Table();
         topLeftTable.top().left().pad(10);
         topLeftTable.setFillParent(true);
 
         Table userInfoTable = new Table();
-        userInfoTable.add(avatarImage).padRight(10);
+        userInfoTable.add(avatarImage).width(screenWidth * 0.05f).height(screenWidth * 0.05f).padRight(10);
         userInfoTable.add(userInfoLabel).left().top();
         topLeftTable.add(userInfoTable).left().top();
 

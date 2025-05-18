@@ -4,6 +4,9 @@ public enum AvatarType {
     EL_PRIMO("Avatars/ElPrimo.png"),
     BATMANI("Avatars/Batmani.png"),
     BEN_10("Avatars/BenTen.png"),
+    DASHER("Avatars/Dasher.png"),
+    SPARK("Avatars/Spark.png"),
+    RAVEN("Avatars/Raven.png"),
     ;
 
     private final String path;
