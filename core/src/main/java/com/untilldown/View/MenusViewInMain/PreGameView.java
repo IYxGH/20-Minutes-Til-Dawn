@@ -2,8 +2,20 @@ package com.untilldown.View.MenusViewInMain;
 
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.untilldown.Controller.MenuControllersInMain.PreGameController;
 
 public class PreGameView implements Screen {
+    private final PreGameController controller;
+    private final Skin skin;
+    private Stage stage;
+
+    public PreGameView(PreGameController controller, Skin skin) {
+        this.controller = controller;
+        this.skin = skin;
+    }
+
     @Override
     public void show() {
 

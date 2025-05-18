@@ -1,5 +1,7 @@
 package com.untilldown.Model;
 
+import com.untilldown.Model.Enums.AvatarType;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,13 +9,13 @@ public class User {
     private String username;
     private String password;
     private String securityAnswer = null;
-    private int avatarAssignedID;
+    private AvatarType avatarAssigned;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
         GameAssetManager.getGameAssetManager();
-        avatarAssignedID = (int) (Math.random() * GameAssetManager.NUM_AVATARS);
+        avatarAssigned = AvatarType.getRandomAvatarType();
     }
 
     public String getUsername() {
@@ -40,12 +42,12 @@ public class User {
         this.securityAnswer = securityAnswer;
     }
 
-    public int getAvatarAssignedID() {
-        return avatarAssignedID;
+    public AvatarType getAvatarAssigned() {
+        return avatarAssigned;
     }
 
-    public void setAvatarAssignedID(int avatarAssignedID) {
-        this.avatarAssignedID = avatarAssignedID;
+    public void setAvatarAssigned(AvatarType avatarAssigned) {
+        this.avatarAssigned = avatarAssigned;
     }
 
     public static boolean isPasswordValid(String password) {

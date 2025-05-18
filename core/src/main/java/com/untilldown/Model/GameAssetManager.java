@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.untilldown.Model.Enums.AvatarType;
 
 public class GameAssetManager extends AssetManager {
     public static final int NUM_AVATARS = 3;
@@ -33,27 +34,8 @@ public class GameAssetManager extends AssetManager {
     }
 
 
-    public void loadAvatars() {
-        for (int i = 0; i < NUM_AVATARS; i++) {
-            load("avatars/avatar" + i + ".png", Texture.class);
-        }
-    }
-
-    public boolean avatarsLoaded() {
-        for (int i = 0; i < NUM_AVATARS; i++) {
-            if (!isLoaded("avatars/avatar" + i + ".png")) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public Image getAvatarImage(int index) {
-        String path = "avatars/avatar" + index + ".png";
-        if (!isLoaded(path)) {
-            throw new GdxRuntimeException("Avatar not loaded: " + path);
-        }
-        Texture texture = get(path, Texture.class);
+    public Image getAvatarImage(AvatarType avatarType) {
+        Texture texture = new Texture(Gdx.files.internal(avatarType.getPath()));
         return new Image(texture);
     }
 }

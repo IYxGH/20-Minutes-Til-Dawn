@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,8 +26,6 @@ public class Main extends Game {
     public void create() {
         main = this;
         batch = new SpriteBatch();
-        GameAssetManager.getGameAssetManager().loadAvatars();
-        GameAssetManager.getGameAssetManager().update();
         getMain().setScreen(new StartMenuView(new StartMenuController(),
             GameAssetManager.getGameAssetManager().getSkin()));
 

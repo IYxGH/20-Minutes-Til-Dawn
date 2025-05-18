@@ -3,8 +3,10 @@ package com.untilldown.View;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.untilldown.Controller.MainMenuController;
@@ -43,6 +45,54 @@ public class MainMenuView implements Screen {
         this.logoutButton = new TextButton("Logout", skin);
 
         controller.setView(this);
+
+        continueGameButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.continueGame();
+            }
+        });
+
+        preGameButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.goToPreGame();
+            }
+        });
+
+        settingsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.goToSettings();
+            }
+        });
+
+        profileButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.goToProfile();
+            }
+        });
+
+        scoreBoardButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.goToScoreBoard();
+            }
+        });
+
+        talentMenuButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.goToTalent();
+            }
+        });
+
+        logoutButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                controller.logout();
+            }
+        });
     }
 
     @Override
@@ -54,8 +104,8 @@ public class MainMenuView implements Screen {
         float screenHeight = Gdx.graphics.getHeight();
 
         User currentUser = App.getCurrentUser();
-//        avatarImage = GameAssetManager.getGameAssetManager().getAvatarImage(currentUser.getAvatarAssignedID());
-//        avatarImage.setSize(64, 64);
+        avatarImage = GameAssetManager.getGameAssetManager().getAvatarImage(currentUser.getAvatarAssigned());
+        avatarImage.setSize(screenWidth * 0.05f, screenWidth * 0.05f);
 
         userInfoLabel = new Label("User: " + currentUser.getUsername(), skin);
 

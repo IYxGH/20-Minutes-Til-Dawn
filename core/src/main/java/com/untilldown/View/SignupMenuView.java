@@ -90,7 +90,9 @@ public class SignupMenuView implements Screen {
         this.skin = skin;
 
         usernameField = new TextField("", skin);
+        usernameField.setMessageText("Username");
         passwordField = new TextField("", skin);
+        passwordField.setMessageText("Password");
         signUpButton = new TextButton("Sign Up", skin);
         backButton = new TextButton("Back", skin);
         errorMessage = new Label("", skin);
