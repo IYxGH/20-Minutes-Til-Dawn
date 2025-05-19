@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.untilldown.Controller.MainMenuController;
 import com.untilldown.Controller.MenuControllersInMain.ProfileController;
 import com.untilldown.Main;
@@ -63,11 +65,17 @@ public class ProfileView implements Screen {
         });
 
         changeAvatarButton.addListener(new ClickListener() {
-
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                showChangeAvatar();
+            }
         });
 
         deleteAccountButton.addListener(new ClickListener() {
-
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                showDeleteAccount();
+            }
         });
 
         backButton.addListener(new ClickListener() {
@@ -86,25 +94,55 @@ public class ProfileView implements Screen {
 
     public void showChangePassword() {
         Dialog dialog = new Dialog("Change Password", skin);
+        dialog.getTitleLabel().setColor(Color.GREEN);
+        dialog.getContentTable().padBottom(5);
 
         Label passwordLabel = new Label(Message.ENTER_NEW_PASSWORD.getMessage(), skin);
         errorChangePasswordLabel = new Label(Message.PASSWORD_IS_WEAK.getMessage(), skin);
-        TextField passwordField = new TextField(Message.NEW_PASSWORD    .getMessage(), skin);
+        TextField passwordField = new TextField("", skin);
+        passwordField.setMessageText(Message.NEW_PASSWORD.getMessage());
         TextButton setButton = new TextButton(Message.ENTER_NEW_PASSWORD.getMessage(), skin);
+        TextButton backButton = new TextButton(Message.BACK.getMessage(), skin);
 
-        dialog.getContentTable().add(passwordLabel);
-        dialog.getContentTable().add(passwordField).width(width / 12).pad(width / 60).row();
+        dialog.getContentTable().add(passwordLabel).padBottom(5).row();
+        dialog.getContentTable().add(passwordField).pad(4).row();
         dialog.getContentTable().add(errorChangePasswordLabel).row();
         errorChangePasswordLabel.setColor(Color.RED);
         errorChangePasswordLabel.setVisible(false);
-        dialog.getContentTable().add(setButton).width(width / 12).pad(width / 60).row();
+        dialog.getContentTable().add(setButton).pad(2).row();
+        dialog.getContentTable().add(backButton).pad(2).row();
+        dialog.center();
+        dialog.getContentTable().center();
 
+        dialog.setMovable(false);
+        dialog.setResizable(false);
+        dialog.show(stage);
+        dialog.center();
+        dialog.getTitleTable().padTop(20).padBottom(20);
+        dialog.getButtonTable().center();
+        dialog.getTitleLabel().setFontScale(1.2f);
+        dialog.getTitleLabel().setAlignment(Align.center);
 
         setButton.addListener(new ClickListener() {
-
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.changePassword(passwordField.getText());
+            }
         });
 
+        backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                dialog.remove();
+            }
+        });
+
+
     }
+
+    public void showChangeAvatar() {}
+
+    public void showDeleteAccount() {}
 
     @Override
     public void show() {
@@ -114,7 +152,7 @@ public class ProfileView implements Screen {
 
         float buttonWidth = width * 0.2f;
         float buttonHeight = height * 0.15f;
-        float heightPad = height * 0.2f;
+        float heightPad = height * 0.02f;
 
         Table table = new Table(skin);
         table.setFillParent(true);
@@ -132,17 +170,23 @@ public class ProfileView implements Screen {
         table.add(backButton).width(buttonWidth).height(buttonHeight);
         table.row().pad(heightPad);
 
+        stage.addActor(table);
+
+
     }
 
     @Override
     public void render(float delta) {
-
+        ScreenUtils.clear(0, 0, 0, 1);
+        stage.act(delta);
+        stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height, true);
     }
+
 
     @Override
     public void pause() {

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class App {
     private static ArrayList<User> users = new ArrayList<>();
     private static User currentUser;
-    private static Language currentLanguage;
+    private static Language currentLanguage = Language.ENGLISH;
 
 
     public static ArrayList<User> getUsers() {
