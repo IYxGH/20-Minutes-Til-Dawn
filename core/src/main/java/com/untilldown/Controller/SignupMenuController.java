@@ -2,6 +2,7 @@ package com.untilldown.Controller;
 
 import com.untilldown.Main;
 import com.untilldown.Model.App;
+import com.untilldown.Model.Enums.Message;
 import com.untilldown.Model.GameAssetManager;
 import com.untilldown.Model.User;
 import com.untilldown.View.MainMenuView;
@@ -16,13 +17,13 @@ public class SignupMenuController {
     }
 
     public void handleRegisterInput(String username, String password) {
-        if (username.length() < 2) {
-            view.showErrorMessage("Username must be at least 2 characters");
+        if (username.length() < 3) {
+            view.showErrorMessage(Message.USERNAME_IS_SHORT.getMessage());
             return;
         }
 
         if (App.findUser(username) != null) {
-            view.showErrorMessage("Username is already in use!");
+            view.showErrorMessage(Message.USERNAME_IS_IN_USE.getMessage());
             return;
         }
 

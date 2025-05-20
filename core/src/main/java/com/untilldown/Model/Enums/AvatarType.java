@@ -1,6 +1,6 @@
 package com.untilldown.Model.Enums;
 
-public enum AvatarType {
+public enum  AvatarType {
     EL_PRIMO("Avatars/ElPrimo.png"),
     BATMANI("Avatars/Batmani.png"),
     BEN_10("Avatars/BenTen.png"),

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -29,7 +30,9 @@ public class ProfileView implements Screen {
     private TextButton deleteAccountButton;
     private TextButton backButton;
 
-    private Label errorChangePasswordLabel;
+    // Error labels
+    private Label errorDialogLabel;
+
 
 
 
@@ -49,6 +52,8 @@ public class ProfileView implements Screen {
         changeAvatarButton = new TextButton(Message.CHANGE_AVATAR.getMessage(), skin);
         deleteAccountButton = new TextButton(Message.DELETE_ACCOUNT.getMessage(), skin);
         backButton = new TextButton(Message.BACK.getMessage(), skin);
+        errorDialogLabel = new Label("", skin);
+        errorDialogLabel.setColor(Color.RED);
 
         changeUsernameButton.addListener(new ClickListener() {
             @Override
@@ -87,28 +92,21 @@ public class ProfileView implements Screen {
     }
 
     public void showChangeUsername() {
-        Dialog dialog = new Dialog("Change Username", skin);
-
-
-    }
-
-    public void showChangePassword() {
-        Dialog dialog = new Dialog("Change Password", skin);
+        Dialog dialog = new Dialog(Message.CHANGE_USERNAME.getMessage(), skin);
         dialog.getTitleLabel().setColor(Color.GREEN);
         dialog.getContentTable().padBottom(5);
 
-        Label passwordLabel = new Label(Message.ENTER_NEW_PASSWORD.getMessage(), skin);
-        errorChangePasswordLabel = new Label(Message.PASSWORD_IS_WEAK.getMessage(), skin);
-        TextField passwordField = new TextField("", skin);
-        passwordField.setMessageText(Message.NEW_PASSWORD.getMessage());
-        TextButton setButton = new TextButton(Message.ENTER_NEW_PASSWORD.getMessage(), skin);
+        Label usernameLabel = new Label(Message.ENTER_NEW_USERNAME.getMessage(), skin);
+        TextField usernameField = new TextField("", skin);
+        usernameField.setMessageText(Message.NEW_USERNAME.getMessage());
+        TextButton setButton = new TextButton(Message.ENTER_NEW_USERNAME.getMessage(), skin);
         TextButton backButton = new TextButton(Message.BACK.getMessage(), skin);
+        usernameField.setWidth(setButton.getWidth());
 
-        dialog.getContentTable().add(passwordLabel).padBottom(5).row();
-        dialog.getContentTable().add(passwordField).pad(4).row();
-        dialog.getContentTable().add(errorChangePasswordLabel).row();
-        errorChangePasswordLabel.setColor(Color.RED);
-        errorChangePasswordLabel.setVisible(false);
+        dialog.getContentTable().add(usernameLabel).padBottom(5).row();
+        dialog.getContentTable().add(usernameField).width(100).pad(4).row();
+        dialog.getContentTable().add(errorDialogLabel).row();
+        errorDialogLabel.setVisible(false);
         dialog.getContentTable().add(setButton).pad(2).row();
         dialog.getContentTable().add(backButton).pad(2).row();
         dialog.center();
@@ -126,7 +124,54 @@ public class ProfileView implements Screen {
         setButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                controller.changePassword(passwordField.getText());
+                controller.changeName(dialog, usernameField.getText());
+            }
+        });
+
+        backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                dialog.remove();
+            }
+        });
+
+
+    }
+
+    public void showChangePassword() {
+        Dialog dialog = new Dialog("Change Password", skin);
+        dialog.getTitleLabel().setColor(Color.GREEN);
+        dialog.getContentTable().padBottom(5);
+
+        Label passwordLabel = new Label(Message.ENTER_NEW_PASSWORD.getMessage(), skin);
+        errorDialogLabel = new Label(Message.PASSWORD_IS_WEAK.getMessage(), skin);
+        TextField passwordField = new TextField("", skin);
+        passwordField.setMessageText(Message.NEW_PASSWORD.getMessage());
+        TextButton setButton = new TextButton(Message.ENTER_NEW_PASSWORD.getMessage(), skin);
+        TextButton backButton = new TextButton(Message.BACK.getMessage(), skin);
+
+        dialog.getContentTable().add(passwordLabel).padBottom(5).row();
+        dialog.getContentTable().add(passwordField).width(100).pad(4).row();
+        dialog.getContentTable().add(errorDialogLabel).row();
+        errorDialogLabel.setVisible(false);
+        dialog.getContentTable().add(setButton).pad(2).row();
+        dialog.getContentTable().add(backButton).pad(2).row();
+        dialog.center();
+        dialog.getContentTable().center();
+
+        dialog.setMovable(false);
+        dialog.setResizable(false);
+        dialog.show(stage);
+        dialog.center();
+        dialog.getTitleTable().padTop(20).padBottom(20);
+        dialog.getButtonTable().center();
+        dialog.getTitleLabel().setFontScale(1.2f);
+        dialog.getTitleLabel().setAlignment(Align.center);
+
+        setButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.changePassword(dialog, passwordField.getText());
             }
         });
 
@@ -143,6 +188,21 @@ public class ProfileView implements Screen {
     public void showChangeAvatar() {}
 
     public void showDeleteAccount() {}
+
+    public void showTemporaryMessage(String message, Color color) {
+        Label tempLabel = new Label(message, skin);
+        tempLabel.setColor(color);
+        tempLabel.setPosition(width / 2 - tempLabel.getWidth() / 2, 10);
+        tempLabel.addAction(
+            Actions.sequence(
+                Actions.fadeIn(0.3f),
+                Actions.delay(2f),
+                Actions.fadeOut(0.3f),
+                Actions.removeActor()
+            )
+        );
+        stage.addActor(tempLabel);
+    }
 
     @Override
     public void show() {
@@ -280,11 +340,11 @@ public class ProfileView implements Screen {
         this.backButton = backButton;
     }
 
-    public Label getErrorChangePasswordLabel() {
-        return errorChangePasswordLabel;
+    public Label getErrorDialogLabel() {
+        return errorDialogLabel;
     }
 
-    public void setErrorChangePasswordLabel(Label errorChangePasswordLabel) {
-        this.errorChangePasswordLabel = errorChangePasswordLabel;
+    public void setErrorDialogLabel(Label errorDialogLabel) {
+        this.errorDialogLabel = errorDialogLabel;
     }
 }
