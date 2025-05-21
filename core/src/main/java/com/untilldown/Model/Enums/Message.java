@@ -19,6 +19,11 @@ public enum Message {
     SET("Set", ""),
     PASSWORD_CHANGED_SUCCESSFULLY("Password changed successfully!", ""),
     USERNAME_CHANGED_SUCCESSFULLY("Username changed successfully!", ""),
+    PLAY("Play", ""),
+    MINUTES(" Minutes", ""),
+    HERO("Hero", ""),
+    HP("HP", ""),
+    SPEED("Speed", ""),
 
     ;
 

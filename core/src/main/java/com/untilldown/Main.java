@@ -26,6 +26,7 @@ public class Main extends Game {
     public void create() {
         main = this;
         batch = new SpriteBatch();
+        GameAssetManager.getGameAssetManager().load();
         getMain().setScreen(new StartMenuView(new StartMenuController(),
             GameAssetManager.getGameAssetManager().getSkin()));
 
