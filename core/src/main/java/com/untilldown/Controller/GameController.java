@@ -2,6 +2,8 @@ package com.untilldown.Controller;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.untilldown.Controller.ModelControllers.PlayerController;
 import com.untilldown.Controller.ModelControllers.WeaponController;
 import com.untilldown.Controller.ModelControllers.WorldController;
@@ -15,6 +17,7 @@ public class GameController {
     private PlayerController playerController;
     private WorldController worldController;
     private WeaponController weaponController;
+    private boolean isPaused;
 
     private Stage stage;
 
@@ -43,6 +46,9 @@ public class GameController {
     }
 
     public void update(float delta) {
+        if (isPaused) return;
+
+        updateInfoLabel(view.getInfoLabel(), view.getProgressBar());
         playerController.update(delta);
         weaponController.update(delta);
         game.addTime(delta);
@@ -50,5 +56,24 @@ public class GameController {
 
     public Vector2 getHeroPosition() {
         return playerController.getPlayerPosition();
+    }
+
+    public void updateInfoLabel(Label label, ProgressBar progressBar) {
+        //update label
+        StringBuilder info = new StringBuilder();
+        Player player = playerController.getPlayer();
+        info.append("HP: ").append(player.getHp());
+        info.append("Time Left: ").append(game.getTimeLeft());
+        info.append("Kills: ").append(player.getKills());
+        info.append("Ammo: ").append(player.getAmmoLeft());
+
+        label.setText(info.toString());
+
+
+        //update progress bar
+        progressBar.setRange(0, player.getLevel() * 30);
+        progressBar.setValue(player.getXp());
+
+
     }
 }

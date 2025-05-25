@@ -33,4 +33,10 @@ public class Game {
     public void addTime(float time) {
         this.time += time;
     }
+
+    public String getTimeLeft() {
+        float timeLeft = (float) (duration - getTime());
+
+        return String.format("%.2f", timeLeft);
+    }
 }

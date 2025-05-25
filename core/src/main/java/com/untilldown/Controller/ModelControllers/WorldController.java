@@ -10,13 +10,22 @@ public class WorldController {
     private MapActor mapActor;
 
     public void initWorld(Stage stage) {
-        // Load your map texture (replace "map.png" with your actual file path)
+        // Load your map texture
         mapTexture = new Texture(Gdx.files.internal("Map/map2.png"));
 
         // Create an actor for the map
         mapActor = new MapActor(mapTexture);
 
-        // Add the map to the stage (at the bottom of the draw order)
+        // Add the map to the stage
         stage.addActor(mapActor);
+        mapActor.setPosition(0,0);
+    }
+
+    public Texture getMapTexture() {
+        return mapTexture;
+    }
+
+    public MapActor getMapActor() {
+        return mapActor;
     }
 }

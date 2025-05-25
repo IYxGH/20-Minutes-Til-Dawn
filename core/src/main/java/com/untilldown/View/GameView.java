@@ -1,6 +1,7 @@
 package com.untilldown.View;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -8,33 +9,67 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.untilldown.Controller.GameController;
-import com.untilldown.Model.App;
-import com.untilldown.Model.Player;
+
+import java.util.concurrent.Callable;
 
 public class GameView implements Screen, InputProcessor {
-    private Stage stage;
+    private Skin skin;
+    private Stage gameStage;
+    private Stage uiStage;
+    private Viewport gameViewport;
+    private Viewport uiViewport;
     private GameController controller;
     private OrthographicCamera camera;
-    private Viewport viewport;
+    private Label infoLabel;
+    private ProgressBar progressBar;
 
-    private final float WORLD_WIDTH = 3500;
-    private final float WORLD_HEIGHT = 1500;
+    private final float WORLD_WIDTH = 3040;
+    private final float WORLD_HEIGHT = 1856;
 
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;
         controller.setView(this);
+        this.skin = skin;
 
         camera = new OrthographicCamera();
-        viewport = new FitViewport(800, 600, camera);
-        stage = new Stage(viewport);
-        Gdx.input.setInputProcessor(stage);
+        gameViewport = new FitViewport(800, 600, camera);
+        uiViewport = new ScreenViewport();
+        gameStage = new Stage(gameViewport);
+        uiStage = new Stage(uiViewport);
 
-        controller.initGame(stage);
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(uiStage);
+        multiplexer.addProcessor(gameStage);
+        Gdx.input.setInputProcessor(multiplexer);
+
+        setupUiStage();
+
+        controller.initGame(gameStage);
+    }
+
+    private void setupUiStage() {
+        Table uiTable = new Table();
+        TextButton pauseButton = new TextButton("Pause", skin);
+        infoLabel = new Label("", skin);
+
+        progressBar = new ProgressBar(0, 100, 0.01f, false, skin);
+        progressBar.setValue(0);
+
+        uiTable.setFillParent(true);
+        uiTable.add(pauseButton);
+        uiTable.row().pad(10);
+        uiTable.add(progressBar);
+        uiTable.row().pad(10);
+        uiTable.add(infoLabel);
+        uiTable.row().pad(10);
+
+        uiTable.top().left();
+        uiStage.addActor(uiTable);
 
     }
 
@@ -50,8 +85,10 @@ public class GameView implements Screen, InputProcessor {
         camera.position.set(controller.getHeroPosition().x, controller.getHeroPosition().y, 0);
         camera.update();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act(delta);
-        stage.draw();
+        gameStage.act(delta);
+        gameStage.draw();
+        uiStage.act(delta);
+        uiStage.draw();
     }
 
     private void updateCamera() {
@@ -64,7 +101,8 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        gameViewport.update(width, height);
+        uiViewport.update(width, height);
     }
 
     @Override
@@ -132,4 +170,15 @@ public class GameView implements Screen, InputProcessor {
         return false;
     }
 
+    public Label getInfoLabel() {
+        return infoLabel;
+    }
+
+    public void setInfoLabel(Label infoLabel) {
+        this.infoLabel = infoLabel;
+    }
+
+    public ProgressBar getProgressBar() {
+        return progressBar;
+    }
 }
