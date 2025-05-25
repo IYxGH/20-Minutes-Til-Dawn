@@ -36,7 +36,7 @@ public class GameController {
         worldController.initWorld(stage);
 
         // Add player/hero to stage
-//        playerController.initPlayer(stage);
+        playerController.initPlayer(stage);
 
         // Add weapons (if needed)
         weaponController.initWeapons(stage, playerController.getPlayer());
@@ -45,6 +45,7 @@ public class GameController {
     public void update(float delta) {
         playerController.update(delta);
         weaponController.update(delta);
+        game.addTime(delta);
     }
 
     public Vector2 getHeroPosition() {

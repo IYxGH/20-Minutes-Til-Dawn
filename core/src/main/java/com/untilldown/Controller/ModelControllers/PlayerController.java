@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.untilldown.Main;
 import com.untilldown.Model.Player;
 
 public class PlayerController {
@@ -15,7 +16,7 @@ public class PlayerController {
 
     public void initPlayer(Stage stage) {
         // Set initial position (you can adjust these values)
-        player.setPosition(100, 100);
+        player.setPosition(1500, 1500);
         stage.addActor(player);
     }
 

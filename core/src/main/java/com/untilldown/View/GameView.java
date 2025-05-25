@@ -13,6 +13,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.untilldown.Controller.GameController;
+import com.untilldown.Model.App;
+import com.untilldown.Model.Player;
 
 public class GameView implements Screen, InputProcessor {
     private Stage stage;
@@ -45,7 +47,8 @@ public class GameView implements Screen, InputProcessor {
     @Override
     public void render(float delta) {
         controller.update(delta);
-        updateCamera();
+        camera.position.set(controller.getHeroPosition().x, controller.getHeroPosition().y, 0);
+        camera.update();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
