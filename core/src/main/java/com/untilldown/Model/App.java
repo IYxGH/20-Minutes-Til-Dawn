@@ -8,7 +8,21 @@ public class App {
     private static ArrayList<User> users = new ArrayList<>();
     private static User currentUser;
     private static Language currentLanguage = Language.ENGLISH;
+    private static ArrayList<Game> games = new ArrayList<>();
+    private static Game activeGame;
 
+    public static ArrayList<Game> getGames() {
+        return games;
+    }
+
+
+    public static Game getActiveGame() {
+        return activeGame;
+    }
+
+    public static void setActiveGame(Game activeGame) {
+        App.activeGame = activeGame;
+    }
 
     public static ArrayList<User> getUsers() {
         return users;

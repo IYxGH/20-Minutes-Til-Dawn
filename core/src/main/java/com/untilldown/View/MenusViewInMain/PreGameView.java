@@ -35,7 +35,7 @@ public class PreGameView implements Screen {
     private Stage stage;
     private Hero selectedHero = Hero.SHANA;
     private WeaponType selectedWeapon = WeaponType.REVOLVER;
-    public float selectedDuration = 5;
+    private float selectedDuration = 5;
 
     private Array<ImageButton> heroButtons = new Array<>();
     private Array<TextButton> weaponButtons = new Array<>();
@@ -153,7 +153,9 @@ public class PreGameView implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Game game = new Game(new Player(App.getCurrentUser(), selectedHero, selectedWeapon), selectedDuration);
-                Main.getMain().setScreen(new GameView(new GameController(), skin));
+                App.getGames().add(game);
+                App.setActiveGame(game);
+                Main.getMain().setScreen(new GameView(new GameController(game), skin));
             }
         });
 
@@ -207,4 +209,15 @@ public class PreGameView implements Screen {
 
     }
 
+    public WeaponType getSelectedWeapon() {
+        return selectedWeapon;
+    }
+
+    public Hero getSelectedHero() {
+        return selectedHero;
+    }
+
+    public float getSelectedDuration() {
+        return selectedDuration;
+    }
 }

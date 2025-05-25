@@ -8,4 +8,12 @@ public class Game {
         this.player = player;
         this.duration = duration;
     }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public double getDuration() {
+        return duration;
+    }
 }
