@@ -5,10 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.untilldown.Main;
-import com.untilldown.Model.App;
+import com.untilldown.Model.*;
 import com.untilldown.Model.Enums.Action;
-import com.untilldown.Model.GameControls;
-import com.untilldown.Model.Player;
 
 public class PlayerController {
     private Player player;
@@ -23,7 +21,7 @@ public class PlayerController {
         stage.addActor(player);
     }
 
-    public void update(float delta) {
+    public void update(float delta, Stage stage) {
         float dx = 0, dy = 0;
 
         GameControls gameControls = App.gameControls;
@@ -32,6 +30,8 @@ public class PlayerController {
         if (Gdx.input.isKeyPressed(gameControls.getKey(Action.MOVE_DOWN))) dy -= 1;
         if (Gdx.input.isKeyPressed(gameControls.getKey(Action.MOVE_LEFT))) dx -= 1;
         if (Gdx.input.isKeyPressed(gameControls.getKey(Action.MOVE_RIGHT))) dx += 1;
+        if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.TOGGLE_AIM))) player.toggleAutoAim();
+        if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.ATTACK))) attack(stage);
 
         // Normalize to avoid diagonal speed boost
         if (dx != 0 || dy != 0) {
@@ -45,6 +45,34 @@ public class PlayerController {
     }
 
 
+    public void attack(Stage stage) {
+        Game game = App.getActiveGame();
+        if (player.getAmmoLeft() <= 0) return;
+
+        if (getPlayer().isAutoAim()) {
+
+        } else {
+            float x = Gdx.input.getX();
+            float y = Gdx.input.getY();
+            Vector2 v = new Vector2(x, y);
+
+            Vector2 direction = v.sub(getPlayerPosition()).nor();
+
+            int projectile = player.getProjectile();
+            direction.rotateDeg((projectile / 2) * 5);
+
+            for (int i = 0; i < projectile; i++) {
+                Bullet bullet = new Bullet(player.getWeapon(), direction);
+                bullet.setPosition(player.getX(), player.getY());
+                game.getPlayerBullets().add(bullet);
+                direction.rotateDeg(-5);
+
+                stage.addActor(bullet);
+            }
+
+            player.reduceAmmo(1);
+        }
+    }
 
     public Player getPlayer() {
         return player;

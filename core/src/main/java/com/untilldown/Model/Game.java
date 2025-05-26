@@ -41,6 +41,22 @@ public class Game {
         return time;
     }
 
+    public ArrayList<Bullet> getPlayerBullets() {
+        return playerBullets;
+    }
+
+    public void setPlayerBullets(ArrayList<Bullet> playerBullets) {
+        this.playerBullets = playerBullets;
+    }
+
+    public ArrayList<Bullet> getEnemyBullets() {
+        return enemyBullets;
+    }
+
+    public void setEnemyBullets(ArrayList<Bullet> enemyBullets) {
+        this.enemyBullets = enemyBullets;
+    }
+
     public void setTime(float time) {
         this.time = time;
     }

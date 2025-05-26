@@ -14,14 +14,15 @@ public class Bullet extends Actor {
     WeaponType weaponType;
     Vector2 direction;
 
-    public Bullet(WeaponType weaponType) {
+    public Bullet(WeaponType weaponType, Vector2 direction) {
         this.weaponType = weaponType;
+        this.direction = direction;
 
         Array<TextureRegion> bulletTextureRegions = weaponType.getBulletTextureRegions();
         animation = new Animation<>(0.1f, bulletTextureRegions);
         animation.setPlayMode(Animation.PlayMode.LOOP);
-        this.setSize(bulletTextureRegions.get(0).getRegionWidth() * 0.5f,
-            bulletTextureRegions.get(0).getRegionHeight() * 0.5f);
+        this.setSize(bulletTextureRegions.get(0).getRegionWidth(),
+            bulletTextureRegions.get(0).getRegionHeight());
     }
 
     public Rectangle getBounds() {
@@ -39,6 +40,6 @@ public class Bullet extends Actor {
     }
 
     public void update(float delta) {
-
+        moveBy(direction.x * delta * 40, direction.y * delta * 40);
     }
 }

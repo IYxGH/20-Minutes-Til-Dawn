@@ -22,7 +22,7 @@ public class Tree extends Enemy{
         setSize(textureRegions.get(0).getRegionWidth(), textureRegions.get(0).getRegionHeight());
 
         animation = new Animation<>(0.8f, textureRegions);
-        animation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+        animation.setPlayMode(Animation.PlayMode.LOOP_RANDOM);
     }
 
     @Override

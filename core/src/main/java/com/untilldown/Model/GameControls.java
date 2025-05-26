@@ -16,8 +16,8 @@ public class GameControls {
         map.put(Action.MOVE_DOWN, Input.Keys.S);
         map.put(Action.MOVE_LEFT, Input.Keys.A);
         map.put(Action.MOVE_RIGHT, Input.Keys.D);
-        map.put(Action.JUMP, Input.Keys.SPACE);
-        map.put(Action.ATTACK, Input.Keys.J);
+        map.put(Action.TOGGLE_AIM, Input.Keys.SPACE);
+        map.put(Action.ATTACK, Input.Keys.ENTER);
         map.put(Action.PAUSE, Input.Keys.ESCAPE);
         DEFAULT_CONTROLS = Collections.unmodifiableMap(map);
     }

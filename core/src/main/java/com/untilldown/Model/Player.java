@@ -27,6 +27,7 @@ public class Player extends Actor {
     private int level = 0;
     private int xp = 0;
     private float timePastLastDamage = 0;
+    private boolean autoAim = false;
 
     private PlayerState playerState = PlayerState.STANDING;
     private Animation<TextureRegion> walkAnimation;
@@ -43,6 +44,7 @@ public class Player extends Actor {
     public Player(User user, Hero hero, WeaponType weapon) {
         this.hero = hero;
         this.weapon = weapon;
+        this.ammoLeft = weapon.getMaxAmmo();
 
         hp = hero.getHp();
 
@@ -152,12 +154,28 @@ public class Player extends Actor {
         this.kills = kills;
     }
 
+    public boolean isAutoAim() {
+        return autoAim;
+    }
+
+    public void setAutoAim(boolean autoAim) {
+        this.autoAim = autoAim;
+    }
+
+    public void toggleAutoAim() {
+        autoAim = !autoAim;
+    }
+
     public int getAmmoLeft() {
         return ammoLeft;
     }
 
     public void setAmmoLeft(int ammoLeft) {
         this.ammoLeft = ammoLeft;
+    }
+
+    public void reduceAmmo(int ammo) {
+        this.ammoLeft -= ammo;
     }
 
     public int getLevel() {
@@ -174,6 +192,40 @@ public class Player extends Actor {
 
     public void setXp(int xp) {
         this.xp = xp;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Hero getHero() {
+        return hero;
+    }
+
+    public WeaponType getWeapon() {
+        return weapon;
+    }
+
+    public PlayerState getPlayerState() {
+        return playerState;
+    }
+
+    public Animation<TextureRegion> getWalkAnimation() {
+        return walkAnimation;
+    }
+
+    public Animation<TextureRegion> getIdleAnimation() {
+        return idleAnimation;
+    }
+
+    public boolean isFacingLeft() {
+        return facingLeft;
+    }
+
+    public int getProjectile() {
+        int projectile = weapon.getProjectile();
+        //TODO: if there are any effects
+        return projectile;
     }
 
     public void reduceHp(float damage) {

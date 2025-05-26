@@ -5,7 +5,7 @@ public enum Action {
     MOVE_DOWN,
     MOVE_LEFT,
     MOVE_RIGHT,
-    JUMP,
+    TOGGLE_AIM,
     ATTACK,
     PAUSE
 

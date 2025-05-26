@@ -3,14 +3,11 @@ package com.untilldown.Controller.ModelControllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.untilldown.Model.App;
+import com.untilldown.Model.*;
 import com.untilldown.Model.EnemyClasses.Enemy;
 import com.untilldown.Model.EnemyClasses.EyeBat;
 import com.untilldown.Model.EnemyClasses.TentacleMonster;
 import com.untilldown.Model.EnemyClasses.Tree;
-import com.untilldown.Model.Game;
-import com.untilldown.Model.MapActor;
-import com.untilldown.Model.Player;
 
 public class WorldController {
     private Texture mapTexture;
@@ -57,6 +54,8 @@ public class WorldController {
         }
 
         spawnEnemies(stage);
+
+        updateBullets(delta, game);
     }
 
     public void spawnEnemies(Stage stage) {
@@ -112,6 +111,13 @@ public class WorldController {
 
 
 
+    }
+
+    public void updateBullets(float delta, Game game) {
+        for (Bullet bullet : game.getPlayerBullets()) {
+            bullet.update(delta);
+            //TODO: check collisions
+        }
     }
 
     public Texture getMapTexture() {

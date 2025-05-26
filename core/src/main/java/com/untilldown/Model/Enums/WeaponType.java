@@ -1,5 +1,6 @@
 package com.untilldown.Model.Enums;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -13,13 +14,13 @@ public enum WeaponType {
 
     private final String name;
     private final double damage;
-    private final double projectile;
+    private final int projectile;
     private final double reloadTime;
-    private final double maxAmmo;
+    private final int maxAmmo;
     private final String imagePath;
     private final int numOfBullets;
 
-    WeaponType(String name, double damage, double projectile, double reloadTime, double maxAmmo, String path, int numOfBullets) {
+    WeaponType(String name, double damage, int projectile, double reloadTime, int maxAmmo, String path, int numOfBullets) {
         this.name = name;
         this.damage = damage;
         this.projectile = projectile;
@@ -34,11 +35,31 @@ public enum WeaponType {
     }
 
     public Texture getTexture() {
-        return new Texture(imagePath);
+        return new Texture(Gdx.files.internal(imagePath));
     }
 
     public String getName() {
         return name;
+    }
+
+    public double getDamage() {
+        return damage;
+    }
+
+    public int getProjectile() {
+        return projectile;
+    }
+
+    public double getReloadTime() {
+        return reloadTime;
+    }
+
+    public int getMaxAmmo() {
+        return maxAmmo;
+    }
+
+    public int getNumOfBullets() {
+        return numOfBullets;
     }
 
     public Array<TextureRegion> getBulletTextureRegions() {

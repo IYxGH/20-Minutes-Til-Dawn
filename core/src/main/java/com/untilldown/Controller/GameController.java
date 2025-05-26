@@ -50,7 +50,7 @@ public class GameController {
         if (isPaused) return;
 
         updateInfoLabel(view.getInfoLabel(), view.getProgressBar());
-        playerController.update(delta);
+        playerController.update(delta, view.getGameStage());
         weaponController.update(delta);
         worldController.update(delta, view.getGameStage());
         game.addTime(delta);
@@ -68,6 +68,7 @@ public class GameController {
         info.append("Time Left: ").append(game.getTimeLeft()).append("\n");
         info.append("Kills: ").append(player.getKills()).append("\n");
         info.append("Ammo: ").append(player.getAmmoLeft()).append("\n");
+        info.append("Auto Aim: ").append(player.isAutoAim()).append("\n");
 
         label.setText(info.toString());
         label.setColor(Color.CYAN);
