@@ -1,9 +1,14 @@
 package com.untilldown.Model;
 
+import com.untilldown.Model.EnemyClasses.Enemy;
+
+import java.util.ArrayList;
+
 public class Game {
     private Player player;
     private final double duration;
     private float time = 0.0f;
+    private ArrayList<Enemy> enemies = new ArrayList<>();
 
     public Game(Player player, double duration) {
         this.player = player;
@@ -20,6 +25,14 @@ public class Game {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
+
+    public void setEnemies(ArrayList<Enemy> enemies) {
+        this.enemies = enemies;
     }
 
     public float getTime() {
@@ -39,4 +52,6 @@ public class Game {
 
         return String.format("%.2f", timeLeft);
     }
+
+
 }

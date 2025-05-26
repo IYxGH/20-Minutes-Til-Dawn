@@ -84,7 +84,7 @@ public class Player extends Actor {
 
         // Clamp new position so player stays inside the map
         newX = MathUtils.clamp(newX, 15, 3026 - getWidth());
-    newY = MathUtils.clamp(newY, 15, 1842 - getHeight());
+        newY = MathUtils.clamp(newY, 15, 1842 - getHeight());
 
         setPosition(newX, newY);
     }
