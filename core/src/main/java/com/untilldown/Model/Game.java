@@ -9,6 +9,8 @@ public class Game {
     private final float duration;
     private float time = 0.0f;
     private ArrayList<Enemy> enemies = new ArrayList<>();
+    private ArrayList<Bullet> playerBullets = new ArrayList<>();
+    private ArrayList<Bullet> enemyBullets = new ArrayList<>();
 
     public Game(Player player, float duration) {
         this.player = player;

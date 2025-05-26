@@ -1,5 +1,6 @@
 package com.untilldown.Model;
 
+import com.untilldown.Controller.GameController;
 import com.untilldown.Model.Enums.Language;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class App {
     private static Language currentLanguage = Language.ENGLISH;
     private static ArrayList<Game> games = new ArrayList<>();
     private static Game activeGame;
+    public static GameControls gameControls = new GameControls();
 
     public static ArrayList<Game> getGames() {
         return games;

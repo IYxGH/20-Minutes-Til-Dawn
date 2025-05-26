@@ -5,6 +5,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.untilldown.Main;
+import com.untilldown.Model.App;
+import com.untilldown.Model.Enums.Action;
+import com.untilldown.Model.GameControls;
 import com.untilldown.Model.Player;
 
 public class PlayerController {
@@ -23,10 +26,12 @@ public class PlayerController {
     public void update(float delta) {
         float dx = 0, dy = 0;
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) dy += 1;
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) dy -= 1;
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) dx -= 1;
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) dx += 1;
+        GameControls gameControls = App.gameControls;
+
+        if (Gdx.input.isKeyPressed(gameControls.getKey(Action.MOVE_UP))) dy += 1;
+        if (Gdx.input.isKeyPressed(gameControls.getKey(Action.MOVE_DOWN))) dy -= 1;
+        if (Gdx.input.isKeyPressed(gameControls.getKey(Action.MOVE_LEFT))) dx -= 1;
+        if (Gdx.input.isKeyPressed(gameControls.getKey(Action.MOVE_RIGHT))) dx += 1;
 
         // Normalize to avoid diagonal speed boost
         if (dx != 0 || dy != 0) {
