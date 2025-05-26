@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public class Game {
     private Player player;
-    private final double duration;
+    private final float duration;
     private float time = 0.0f;
     private ArrayList<Enemy> enemies = new ArrayList<>();
 
-    public Game(Player player, double duration) {
+    public Game(Player player, float duration) {
         this.player = player;
         this.duration = duration;
     }

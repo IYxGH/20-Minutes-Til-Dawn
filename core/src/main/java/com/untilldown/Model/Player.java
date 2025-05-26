@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -25,6 +26,7 @@ public class Player extends Actor {
     private int ammoLeft;
     private int level = 0;
     private int xp = 0;
+    private float timePastLastDamage = 0;
 
     private PlayerState playerState = PlayerState.STANDING;
     private Animation<TextureRegion> walkAnimation;
@@ -61,6 +63,10 @@ public class Player extends Actor {
 
     public double getSpeed() {
         return hero.getSpeed();
+    }
+
+    public Rectangle getBounds() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 
     public void move(float dx, float dy, float deltaTime) {
@@ -109,6 +115,12 @@ public class Player extends Actor {
             currentFrame.flip(true, false);
         }
 
+        if (timePastLastDamage != 0) {
+            this.setColor(1, 1, 1, 0.5f);
+        } else {
+            this.setColor(1, 1, 1, 1);
+        }
+
         batch.draw(currentFrame,getX(), getY(), getWidth(), getHeight());
     }
 
@@ -122,6 +134,14 @@ public class Player extends Actor {
 
     public void setHp(float hp) {
         this.hp = hp;
+    }
+
+    public float getTimePastLastDamage() {
+        return timePastLastDamage;
+    }
+
+    public void setTimePastLastDamage(float timePastLastDamage) {
+        this.timePastLastDamage = timePastLastDamage;
     }
 
     public int getKills() {
@@ -154,5 +174,16 @@ public class Player extends Actor {
 
     public void setXp(int xp) {
         this.xp = xp;
+    }
+
+    public void reduceHp(float damage) {
+        hp -= damage;
+    }
+
+    public void reduceLastDamage(float delta) {
+        timePastLastDamage = timePastLastDamage - delta;
+        if (timePastLastDamage < 0) {
+            timePastLastDamage = 0;
+        }
     }
 }

@@ -4,13 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.untilldown.Model.App;
+import com.untilldown.Model.EnemyClasses.Enemy;
+import com.untilldown.Model.EnemyClasses.TentacleMonster;
 import com.untilldown.Model.EnemyClasses.Tree;
 import com.untilldown.Model.Game;
 import com.untilldown.Model.MapActor;
+import com.untilldown.Model.Player;
 
 public class WorldController {
     private Texture mapTexture;
     private MapActor mapActor;
+
+    // spawning enemis
+    private float timerTentacle = 0.0f;
 
     public void initWorld(Stage stage) {
         // Load your map texture
@@ -21,14 +27,63 @@ public class WorldController {
 
         // Add the map to the stage
         stage.addActor(mapActor);
-        mapActor.setPosition(0,0);
+        mapActor.setPosition(0, 0);
 
         initEnemies(stage);
     }
 
-    public void initEnemies(Stage stage) {
-        //put trees
+    public void update(float delta, Stage stage) {
         Game game = App.getActiveGame();
+        Player player = game.getPlayer();
+
+        timerTentacle -= delta;
+
+
+        // check collisions & update enemies
+        for (Enemy enemy : game.getEnemies()) {
+            if (enemy.getBounds().overlaps(game.getPlayer().getBounds())) {
+                if (player.getTimePastLastDamage() <= 0) {
+                    player.reduceHp(enemy.getDamage());
+                    player.setTimePastLastDamage(1);
+                    enemy.reduceHp(1);
+                }
+
+            }
+
+            enemy.update(delta);
+        }
+
+        spawnEnemies(stage);
+    }
+
+    public void spawnEnemies(Stage stage) {
+        Game game = App.getActiveGame();
+        float time = game.getTime();
+
+        // Tentacle
+        if (timerTentacle <= 0.0f) {
+            for (int i = 0; i < (int) (time / 30); i++) {
+                TentacleMonster monster = new TentacleMonster();
+                game.getEnemies().add(monster);
+                monster.setRandomPosition();
+
+                stage.addActor(monster);
+            }
+            timerTentacle = 3.0f;
+        }
+
+        // EyeBat
+
+
+        // Elder
+
+    }
+
+    public void initEnemies(Stage stage) {
+        Game game = App.getActiveGame();
+        float time = game.getTime();
+
+        // Tree
         for (int i = 0; i < 30 + (Math.random() * 50); i++) {
             //TODO: make them less random if have time
             Tree tree = new Tree();
@@ -38,6 +93,12 @@ public class WorldController {
             stage.addActor(tree);
             game.getEnemies().add(tree);
         }
+
+
+
+
+
+
     }
 
     public Texture getMapTexture() {

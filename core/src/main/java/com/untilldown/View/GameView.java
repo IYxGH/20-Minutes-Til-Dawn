@@ -238,4 +238,20 @@ public class GameView implements Screen, InputProcessor {
     public Table getUiTable() {
         return uiTable;
     }
+
+    public Stage getGameStage() {
+        return gameStage;
+    }
+
+    public void setGameStage(Stage gameStage) {
+        this.gameStage = gameStage;
+    }
+
+    public Stage getUiStage() {
+        return uiStage;
+    }
+
+    public void setUiStage(Stage uiStage) {
+        this.uiStage = uiStage;
+    }
 }

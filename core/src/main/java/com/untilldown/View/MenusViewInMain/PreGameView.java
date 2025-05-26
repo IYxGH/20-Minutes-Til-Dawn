@@ -44,6 +44,7 @@ public class PreGameView implements Screen {
 
     public PreGameView(PreGameController controller, Skin skin) {
         this.controller = controller;
+        controller.setView(this);
         this.skin = skin;
     }
 
@@ -152,10 +153,11 @@ public class PreGameView implements Screen {
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Game game = new Game(new Player(App.getCurrentUser(), selectedHero, selectedWeapon), selectedDuration);
-                App.getGames().add(game);
-                App.setActiveGame(game);
-                Main.getMain().setScreen(new GameView(new GameController(game), skin));
+                controller.play();
+//                Game game = new Game(new Player(App.getCurrentUser(), selectedHero, selectedWeapon), selectedDuration);
+//                App.getGames().add(game);
+//                App.setActiveGame(game);
+//                Main.getMain().setScreen(new GameView(new GameController(game), skin));
             }
         });
 

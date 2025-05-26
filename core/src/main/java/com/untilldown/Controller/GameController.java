@@ -52,6 +52,7 @@ public class GameController {
         updateInfoLabel(view.getInfoLabel(), view.getProgressBar());
         playerController.update(delta);
         weaponController.update(delta);
+        worldController.update(delta, view.getGameStage());
         game.addTime(delta);
     }
 

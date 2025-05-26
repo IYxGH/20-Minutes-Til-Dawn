@@ -13,8 +13,10 @@ public class Tree extends Enemy{
 
 
     public Tree() {
+        hp = 0;
+        damage = 0.2f;
         Array<TextureRegion> textureRegions = new Array<>();
-        for (int i = 1; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             textureRegions.add(new TextureRegion(new Texture(Gdx.files.internal("Enemies/Tree/Tree (" + i + ").png"))));
         }
         setSize(textureRegions.get(0).getRegionWidth(), textureRegions.get(0).getRegionHeight());
@@ -24,7 +26,7 @@ public class Tree extends Enemy{
     }
 
     @Override
-    void update() {
+    public void update(float delta) {
 
     }
 

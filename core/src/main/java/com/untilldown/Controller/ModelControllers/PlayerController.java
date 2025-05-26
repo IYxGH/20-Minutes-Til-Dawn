@@ -36,6 +36,7 @@ public class PlayerController {
         }
 
         player.move(dx, dy, delta);
+        player.reduceLastDamage(delta);
     }
 
 
