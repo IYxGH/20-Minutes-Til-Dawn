@@ -24,6 +24,8 @@ public enum Message {
     HERO("Hero", ""),
     HP("HP", ""),
     SPEED("Speed", ""),
+    RESUME("Resume", ""),
+    GIVE_UP("Give Up", ""),
 
     ;
 

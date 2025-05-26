@@ -8,14 +8,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.untilldown.Controller.GameController;
-
-import java.util.concurrent.Callable;
+import com.untilldown.Model.Enums.Message;
 
 public class GameView implements Screen, InputProcessor {
     private Skin skin;
@@ -25,8 +26,12 @@ public class GameView implements Screen, InputProcessor {
     private Viewport uiViewport;
     private GameController controller;
     private OrthographicCamera camera;
+
+    private Table uiTable;
+    private TextButton pauseButton;
     private Label infoLabel;
     private ProgressBar progressBar;
+    private Table pauseMenu;
 
     private final float WORLD_WIDTH = 3040;
     private final float WORLD_HEIGHT = 1856;
@@ -48,13 +53,14 @@ public class GameView implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(multiplexer);
 
         setupUiStage();
+        setupPauseMenu();
 
         controller.initGame(gameStage);
     }
 
     private void setupUiStage() {
-        Table uiTable = new Table();
-        TextButton pauseButton = new TextButton("Pause", skin);
+        uiTable = new Table();
+        pauseButton = new TextButton("Pause", skin);
         infoLabel = new Label("", skin);
 
         progressBar = new ProgressBar(0, 100, 0.01f, false, skin);
@@ -63,7 +69,7 @@ public class GameView implements Screen, InputProcessor {
         uiTable.setFillParent(true);
         uiTable.add(pauseButton);
         uiTable.row().pad(10);
-        uiTable.add(progressBar);
+        uiTable.add(progressBar).width(Gdx.graphics.getWidth() * 0.15f);
         uiTable.row().pad(10);
         uiTable.add(infoLabel);
         uiTable.row().pad(10);
@@ -71,12 +77,51 @@ public class GameView implements Screen, InputProcessor {
         uiTable.top().left();
         uiStage.addActor(uiTable);
 
+        pauseButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.pause();
+            }
+        });
+
+    }
+
+    private void setupPauseMenu() {
+        pauseMenu = new Table();
+        pauseMenu.setFillParent(true);
+        pauseMenu.setVisible(false);
+
+
+        TextButton resumeButton = new TextButton(Message.RESUME.getMessage(), skin);
+        TextButton giveUpButton = new TextButton(Message.GIVE_UP.getMessage(), skin);
+
+        pauseMenu.center();
+        pauseMenu.add(resumeButton).pad(15);
+        pauseMenu.row();
+        pauseMenu.add(giveUpButton).pad(15);
+
+        uiStage.addActor(pauseMenu);
+
+        resumeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.resume();
+            }
+        });
+
+        giveUpButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.giveUp();
+            }
+        });
+
     }
 
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(this);
+
     }
 
     @Override
@@ -180,5 +225,17 @@ public class GameView implements Screen, InputProcessor {
 
     public ProgressBar getProgressBar() {
         return progressBar;
+    }
+
+    public Table getPauseMenu() {
+        return pauseMenu;
+    }
+
+    public void setPauseMenu(Table pauseMenu) {
+        this.pauseMenu = pauseMenu;
+    }
+
+    public Table getUiTable() {
+        return uiTable;
     }
 }

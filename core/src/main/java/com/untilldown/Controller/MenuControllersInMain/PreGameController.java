@@ -18,7 +18,7 @@ public class PreGameController {
 
     public void play() {
         Game game = new Game(new Player(App.getCurrentUser(), view.getSelectedHero(),
-            view.getSelectedWeapon()), view.getSelectedDuration());
+            view.getSelectedWeapon()), view.getSelectedDuration() * 60);
         Main.getMain().setScreen(new GameView(new GameController(game), GameAssetManager.getGameAssetManager().getSkin()));
     }
 }
