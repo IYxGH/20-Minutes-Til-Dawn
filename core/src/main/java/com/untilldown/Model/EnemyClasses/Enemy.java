@@ -2,7 +2,9 @@ package com.untilldown.Model.EnemyClasses;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.untilldown.Model.Player;
 
 public abstract class Enemy extends Actor {
     protected float hp;
@@ -50,5 +52,16 @@ public abstract class Enemy extends Actor {
 
     public void setSpeed(float speed) {
         this.speed = speed;
+    }
+
+    public void moveEnemy(float delta, Player player) {
+
+        Vector2 direction = new Vector2(
+            player.getX() - this.getX(),
+            player.getY() - this.getY()
+        ).nor();
+
+        float speed = this.getSpeed() * delta;
+        this.moveBy(direction.x * speed, direction.y * speed);
     }
 }

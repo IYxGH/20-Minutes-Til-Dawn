@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.untilldown.Model.App;
 import com.untilldown.Model.EnemyClasses.Enemy;
+import com.untilldown.Model.EnemyClasses.EyeBat;
 import com.untilldown.Model.EnemyClasses.TentacleMonster;
 import com.untilldown.Model.EnemyClasses.Tree;
 import com.untilldown.Model.Game;
@@ -17,6 +18,7 @@ public class WorldController {
 
     // spawning enemis
     private float timerTentacle = 0.0f;
+    private float timerEyeBat = 0.0f;
 
     public void initWorld(Stage stage) {
         // Load your map texture
@@ -37,6 +39,7 @@ public class WorldController {
         Player player = game.getPlayer();
 
         timerTentacle -= delta;
+        timerEyeBat -= delta;
 
 
         // check collisions & update enemies
@@ -73,6 +76,16 @@ public class WorldController {
         }
 
         // EyeBat
+        if (timerEyeBat <= 0.0f && time > (game.getDuration() / 4)) {
+            for (int i = 0; i < (4 * time - game.getDuration() + 30) / 30; i++) {
+                EyeBat eyebat = new EyeBat();
+                game.getEnemies().add(eyebat);
+                eyebat.setRandomPosition();
+
+                stage.addActor(eyebat);
+            }
+            timerEyeBat = 10.0f;
+        }
 
 
         // Elder

@@ -42,15 +42,7 @@ public class TentacleMonster extends Enemy{
             return;
         }
 
-        Vector2 direction = new Vector2(
-            player.getX() - this.getX(),
-            player.getY() - this.getY()
-        ).nor();
-
-        float speed = this.getSpeed() * delta;
-        this.moveBy(direction.x * speed, direction.y * speed);
-
-
+        moveEnemy(delta, player);
     }
 
     @Override
