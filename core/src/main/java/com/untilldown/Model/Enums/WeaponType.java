@@ -15,12 +15,12 @@ public enum WeaponType {
     private final String name;
     private final float damage;
     private final int projectile;
-    private final double reloadTime;
+    private final float reloadTime;
     private final int maxAmmo;
     private final String imagePath;
     private final int numOfBullets;
 
-    WeaponType(String name, float damage, int projectile, double reloadTime, int maxAmmo, String path, int numOfBullets) {
+    WeaponType(String name, float damage, int projectile, float reloadTime, int maxAmmo, String path, int numOfBullets) {
         this.name = name;
         this.damage = damage;
         this.projectile = projectile;
@@ -50,7 +50,7 @@ public enum WeaponType {
         return projectile;
     }
 
-    public double getReloadTime() {
+    public float getReloadTime() {
         return reloadTime;
     }
 

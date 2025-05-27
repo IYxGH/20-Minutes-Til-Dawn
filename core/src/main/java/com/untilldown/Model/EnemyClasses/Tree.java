@@ -13,7 +13,7 @@ public class Tree extends Enemy{
 
 
     public Tree() {
-        hp = 0;
+        hp = 80000000;
         damage = 0.2f;
         Array<TextureRegion> textureRegions = new Array<>();
         for (int i = 0; i < 3; i++) {

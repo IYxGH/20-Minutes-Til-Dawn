@@ -33,6 +33,7 @@ public class PlayerController {
         if (Gdx.input.isKeyPressed(gameControls.getKey(Action.MOVE_RIGHT))) dx += 1;
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.TOGGLE_AIM))) player.toggleAutoAim();
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.ATTACK))) attack(stage);
+        if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.RELOAD))) reload();
 
         // Normalize to avoid diagonal speed boost
         if (dx != 0 || dy != 0) {
@@ -43,12 +44,16 @@ public class PlayerController {
 
         player.move(dx, dy, delta);
         player.reduceLastDamage(delta);
+
+        updateReloading(delta);
     }
 
 
     public void attack(Stage stage) {
         Game game = App.getActiveGame();
         if (player.getAmmoLeft() <= 0) return;
+
+        if (player.isReloading()) return;
 
         if (getPlayer().isAutoAim()) {
 
@@ -83,6 +88,24 @@ public class PlayerController {
 
     public Vector2 getPlayerPosition() {
         return player.getPosition();
+    }
+
+    public void reload() {
+        if (player.isReloading()) return;
+
+        player.setReloading(true);
+        player.setTimerReloading(player.getWeapon().getReloadTime());
+    }
+
+    public void updateReloading(float delta) {
+        if (!player.isReloading()) return;
+
+        player.reduceTimerReloading(delta);
+        if (player.getTimerReloading() <= 0) {
+            player.setAmmoLeft(player.getWeapon().getMaxAmmo());
+            player.setReloading(false);
+            player.setTimerReloading(0);
+        }
     }
 
 

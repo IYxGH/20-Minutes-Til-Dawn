@@ -7,6 +7,7 @@ public enum Action {
     MOVE_RIGHT,
     TOGGLE_AIM,
     ATTACK,
-    PAUSE
+    PAUSE,
+    RELOAD,
 
 }

@@ -29,6 +29,11 @@ public class Player extends Actor {
     private float timePastLastDamage = 0;
     private boolean autoAim = false;
 
+    //reloading variables
+    private boolean reloading = false;
+    private float timerReloading = 0f;
+
+
     private PlayerState playerState = PlayerState.STANDING;
     private Animation<TextureRegion> walkAnimation;
     private Animation<TextureRegion> idleAnimation;
@@ -174,6 +179,26 @@ public class Player extends Actor {
 
     public void setAmmoLeft(int ammoLeft) {
         this.ammoLeft = ammoLeft;
+    }
+
+    public boolean isReloading() {
+        return reloading;
+    }
+
+    public void setReloading(boolean reloading) {
+        this.reloading = reloading;
+    }
+
+    public float getTimerReloading() {
+        return timerReloading;
+    }
+
+    public void setTimerReloading(float timerReloading) {
+        this.timerReloading = timerReloading;
+    }
+
+    public void reduceTimerReloading(float delta) {
+        timerReloading -= delta;
     }
 
     public void reduceAmmo(int ammo) {
