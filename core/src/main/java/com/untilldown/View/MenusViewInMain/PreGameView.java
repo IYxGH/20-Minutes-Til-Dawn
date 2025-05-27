@@ -154,10 +154,6 @@ public class PreGameView implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 controller.play();
-//                Game game = new Game(new Player(App.getCurrentUser(), selectedHero, selectedWeapon), selectedDuration);
-//                App.getGames().add(game);
-//                App.setActiveGame(game);
-//                Main.getMain().setScreen(new GameView(new GameController(game), skin));
             }
         });
 
@@ -188,7 +184,7 @@ public class PreGameView implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height, true);
     }
 
     @Override

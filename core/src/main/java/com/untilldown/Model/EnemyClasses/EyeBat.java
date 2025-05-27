@@ -34,8 +34,6 @@ public class EyeBat extends Enemy {
         Player player = game.getPlayer();
 
         if (this.hp <= 0) {
-            this.remove();
-            game.getEnemies().remove(this);
             return;
         }
 

@@ -2,6 +2,7 @@ package com.untilldown.Controller.ModelControllers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.untilldown.Model.*;
 import com.untilldown.Model.EnemyClasses.Enemy;
@@ -9,11 +10,13 @@ import com.untilldown.Model.EnemyClasses.EyeBat;
 import com.untilldown.Model.EnemyClasses.TentacleMonster;
 import com.untilldown.Model.EnemyClasses.Tree;
 
+import java.util.ArrayList;
+
 public class WorldController {
     private Texture mapTexture;
     private MapActor mapActor;
 
-    // spawning enemis
+    // spawning enemies
     private float timerTentacle = 0.0f;
     private float timerEyeBat = 0.0f;
 
@@ -40,18 +43,29 @@ public class WorldController {
 
 
         // check collisions & update enemies
+        ArrayList<Enemy> enemiesToRemove = new ArrayList<>();
         for (Enemy enemy : game.getEnemies()) {
             if (enemy.getBounds().overlaps(game.getPlayer().getBounds())) {
                 if (player.getTimePastLastDamage() <= 0) {
                     player.reduceHp(enemy.getDamage());
-                    player.setTimePastLastDamage(1);
+                    player.setTimePastLastDamage(2);
                     enemy.reduceHp(1);
                 }
 
             }
 
             enemy.update(delta);
+            if (enemy.getHp() <= 0) {
+                enemiesToRemove.add(enemy);
+            }
         }
+
+        for (Enemy enemy : enemiesToRemove) {
+            enemy.remove();
+        }
+        game.getEnemies().removeAll(enemiesToRemove);
+
+
 
         spawnEnemies(stage);
 
@@ -114,10 +128,35 @@ public class WorldController {
     }
 
     public void updateBullets(float delta, Game game) {
+        ArrayList<Bullet> bulletsToRemove = new ArrayList<>();
         for (Bullet bullet : game.getPlayerBullets()) {
             bullet.update(delta);
-            //TODO: check collisions
+            for (Enemy enemy : game.getEnemies()) {
+                if (enemy.getBounds().overlaps(bullet.getBounds())) {
+                    enemy.reduceHp(bullet.getWeaponType().getDamage());
+                    bullet.remove();
+                    bulletsToRemove.add(bullet);
+                    break;
+                }
+            }
+
+            if (isOutOfBounds(bullet)) {
+                bullet.remove();
+                bulletsToRemove.add(bullet);
+            }
+
         }
+
+        game.getPlayerBullets().removeAll(bulletsToRemove);
+    }
+
+    public boolean isOutOfBounds(Actor actor) {
+        if (actor.getX() < Game.MAP_MIN_X || actor.getX() > Game.MAP_MAX_X ||
+            actor.getY() < Game.MAP_MIN_Y || actor.getY() > Game.MAP_MAX_Y) {
+            return true;
+        }
+
+        return false;
     }
 
     public Texture getMapTexture() {

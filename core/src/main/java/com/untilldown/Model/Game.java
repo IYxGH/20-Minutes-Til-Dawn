@@ -5,6 +5,12 @@ import com.untilldown.Model.EnemyClasses.Enemy;
 import java.util.ArrayList;
 
 public class Game {
+    public static final int MAP_MIN_X = 15;
+    public static final int MAP_MIN_Y = 15;
+    public static final int MAP_MAX_X = 3026;
+    public static final int MAP_MAX_Y = 1842;
+
+
     private Player player;
     private final float duration;
     private float time = 0.0f;

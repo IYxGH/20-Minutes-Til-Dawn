@@ -3,6 +3,7 @@ package com.untilldown.Controller.ModelControllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.untilldown.Main;
 import com.untilldown.Model.*;
@@ -52,12 +53,14 @@ public class PlayerController {
         if (getPlayer().isAutoAim()) {
 
         } else {
-            float x = Gdx.input.getX();
-            float y = Gdx.input.getY();
-            Vector2 v = new Vector2(x, y);
+            float mouseX = Gdx.input.getX();
+            float mouseY = Gdx.input.getY();
 
-            Vector2 direction = v.sub(getPlayerPosition()).nor();
+            Vector3 worldCoords = stage.getCamera().unproject(new Vector3(mouseX, mouseY, 0));
+            Vector2 mouseWorldPos = new Vector2(worldCoords.x, worldCoords.y);
 
+            Vector2 playerPos = getPlayerPosition();
+            Vector2 direction = mouseWorldPos.sub(playerPos).nor();
             int projectile = player.getProjectile();
             direction.rotateDeg((projectile / 2) * 5);
 

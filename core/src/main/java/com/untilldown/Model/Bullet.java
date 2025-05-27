@@ -10,9 +10,11 @@ import com.badlogic.gdx.utils.Array;
 import com.untilldown.Model.Enums.WeaponType;
 
 public class Bullet extends Actor {
-    Animation<TextureRegion> animation;
-    WeaponType weaponType;
-    Vector2 direction;
+    private Animation<TextureRegion> animation;
+    private WeaponType weaponType;
+    private Vector2 direction;
+    private final float speed = 150;
+
 
     public Bullet(WeaponType weaponType, Vector2 direction) {
         this.weaponType = weaponType;
@@ -40,6 +42,10 @@ public class Bullet extends Actor {
     }
 
     public void update(float delta) {
-        moveBy(direction.x * delta * 40, direction.y * delta * 40);
+        moveBy(direction.x * delta * speed, direction.y * delta * speed);
+    }
+
+    public WeaponType getWeaponType() {
+        return weaponType;
     }
 }

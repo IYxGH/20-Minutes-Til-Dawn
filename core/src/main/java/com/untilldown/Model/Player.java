@@ -91,8 +91,8 @@ public class Player extends Actor {
         float newY = getY() + distanceY;
 
         // Clamp new position so player stays inside the map
-        newX = MathUtils.clamp(newX, 15, 3026 - getWidth());
-        newY = MathUtils.clamp(newY, 15, 1842 - getHeight());
+        newX = MathUtils.clamp(newX, Game.MAP_MIN_X, Game.MAP_MAX_X - getWidth());
+        newY = MathUtils.clamp(newY, Game.MAP_MIN_Y, Game.MAP_MAX_Y - getHeight());
 
         setPosition(newX, newY);
     }
@@ -100,6 +100,8 @@ public class Player extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         TextureRegion currentFrame = null;
+        batch.enableBlending();
+
         float currentTime = App.getActiveGame().getTime();
         switch (playerState) {
             case STANDING:
@@ -118,7 +120,7 @@ public class Player extends Actor {
         }
 
         if (timePastLastDamage != 0) {
-            this.setColor(1, 1, 1, 0.5f);
+            this.setColor(0.5f, 0.5f, 1, 0.5f);
         } else {
             this.setColor(1, 1, 1, 1);
         }
