@@ -10,31 +10,31 @@ import java.util.List;
 public enum Abilities {
     VITALITY("", Message.VITALITY){
         @Override
-        void useAbility(Game game, Player player) {
+        public void useAbility(Game game, Player player) {
 
         }
     },
     DAMAGER("", Message.DAMAGER){
         @Override
-        void useAbility(Game game, Player player) {
+        public void useAbility(Game game, Player player) {
 
         }
     },
     PROCREASE("", Message.PROCREASE){
         @Override
-        void useAbility(Game game, Player player) {
+        public void useAbility(Game game, Player player) {
 
         }
     },
     AMOCREASE("", Message.AMOCREASE){
         @Override
-        void useAbility(Game game, Player player) {
+        public void useAbility(Game game, Player player) {
 
         }
     },
     SPEEDY("", Message.SPEEDY){
         @Override
-        void useAbility(Game game, Player player) {
+        public void useAbility(Game game, Player player) {
 
         }
     }

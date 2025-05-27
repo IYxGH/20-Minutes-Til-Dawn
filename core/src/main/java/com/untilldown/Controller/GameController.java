@@ -86,22 +86,18 @@ public class GameController {
 
     public void pause() {
         view.getPauseMenu().setVisible(true);
-        isPaused = true;
-        view.getUiTable().setColor(1, 1, 1, 0.2f);
+        setPaused(true);
     }
 
     public void setPaused(boolean paused) {
-        view.getPauseMenu().setVisible(paused);
+        view.getUiTable().setColor(1, 1, 1, 0.2f);
+        this.isPaused = paused;
     }
 
     public void resume() {
         view.getPauseMenu().setVisible(false);
         isPaused = false;
         view.getUiTable().setColor(1, 1, 1, 1);
-    }
-
-    public void showAbilities() {
-
     }
 
     public void giveUp() {}

@@ -33,6 +33,8 @@ public enum Message {
     AMOCREASE("Amorecase", ""),
     SPEEDY("Speedy", ""),
 
+    CHOOSE_ABILITY("Choose Ability:", ""),
+
     ;
 
     private final String english;

@@ -40,6 +40,7 @@ public class PlayerController {
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.TOGGLE_AIM))) player.toggleAutoAim();
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.ATTACK))) attack(stage);
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.RELOAD))) reload();
+        if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_ADD_XP))) cheatAddXp();
 
         // Normalize to avoid diagonal speed boost
         if (dx != 0 || dy != 0) {
@@ -110,6 +111,10 @@ public class PlayerController {
             player.setLevel(player.getLevel() + 1);
             gameView.showAbilities();
         }
+    }
+
+    public void cheatAddXp() {
+        player.addXp(10);
     }
 
     public void updateReloading(float delta) {

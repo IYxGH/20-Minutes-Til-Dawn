@@ -9,5 +9,6 @@ public enum Action {
     ATTACK,
     PAUSE,
     RELOAD,
+    CHEAT_ADD_XP,
 
 }

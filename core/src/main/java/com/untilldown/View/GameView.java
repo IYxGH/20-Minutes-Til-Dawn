@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
@@ -62,6 +63,7 @@ public class GameView implements Screen, InputProcessor {
 
         setupUiStage();
         setupPauseMenu();
+        setupAbilitiesTable();
 
         controller.initGame(gameStage);
     }
@@ -133,14 +135,24 @@ public class GameView implements Screen, InputProcessor {
         abilitiesTable.setFillParent(true);
         abilitiesTable.setVisible(false);
 
+        Label label = new Label(Message.CHOOSE_ABILITY.getMessage(), skin);
+        label.setColor(Color.RED);
+        label.setScale(1.5f);
+        abilitiesTable.add(label);
+        abilitiesTable.row();
+
         Abilities[] abilitiesList =  Abilities.get3Random();
         TextButton[] abilityButtons = new TextButton[abilitiesList.length];
         HashMap<TextButton, Abilities> abilitiesMap = new HashMap<>();
 
         for (int i = 0; i < abilitiesList.length; i++) {
-            TextButton clickedButton = abilityButtons[i];
             abilityButtons[i] = new TextButton(abilitiesList[i].getMessage(), skin);
+            TextButton clickedButton = abilityButtons[i];
             abilitiesMap.put(abilityButtons[i], abilitiesList[i]);
+
+            clickedButton.setScale(1);
+            clickedButton.setColor(1,1,1,0.5f);
+
 
 
             abilityButtons[i].addListener(new ClickListener() {
@@ -165,13 +177,21 @@ public class GameView implements Screen, InputProcessor {
                     clickedButton.setColor(1,1,1,0.5f);
                 }
             });
+
+            abilitiesTable.add(clickedButton);
+            abilitiesTable.row().pad(10);
         }
+
+        abilitiesTable.center();
+
+        uiStage.addActor(abilitiesTable);
 
 
     }
 
     public void showAbilities() {
-
+        controller.setPaused(true);
+        abilitiesTable.setVisible(true);
     }
 
 
