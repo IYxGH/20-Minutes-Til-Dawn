@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -16,7 +17,13 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.untilldown.Controller.GameController;
+import com.untilldown.Model.App;
+import com.untilldown.Model.Enums.Abilities;
 import com.untilldown.Model.Enums.Message;
+import com.untilldown.Model.Game;
+import com.untilldown.Model.Player;
+
+import java.util.HashMap;
 
 public class GameView implements Screen, InputProcessor {
     private Skin skin;
@@ -116,6 +123,50 @@ public class GameView implements Screen, InputProcessor {
                 controller.giveUp();
             }
         });
+
+    }
+
+    private void setupAbilitiesTable() {
+        Game game = App.getActiveGame();
+        Player player = game.getPlayer();
+        abilitiesTable = new Table();
+        abilitiesTable.setFillParent(true);
+        abilitiesTable.setVisible(false);
+
+        Abilities[] abilitiesList =  Abilities.get3Random();
+        TextButton[] abilityButtons = new TextButton[abilitiesList.length];
+        HashMap<TextButton, Abilities> abilitiesMap = new HashMap<>();
+
+        for (int i = 0; i < abilitiesList.length; i++) {
+            TextButton clickedButton = abilityButtons[i];
+            abilityButtons[i] = new TextButton(abilitiesList[i].getMessage(), skin);
+            abilitiesMap.put(abilityButtons[i], abilitiesList[i]);
+
+
+            abilityButtons[i].addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    abilitiesMap.get(clickedButton).useAbility(game, player);
+                    abilitiesTable.setVisible(false);
+                    controller.setPaused(false);
+
+
+                }
+
+                @Override
+                public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                    clickedButton.setScale(1.2f);
+                    clickedButton.setColor(1,1,1,1);
+                }
+
+                @Override
+                public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                    clickedButton.setScale(1);
+                    clickedButton.setColor(1,1,1,0.5f);
+                }
+            });
+        }
+
 
     }
 

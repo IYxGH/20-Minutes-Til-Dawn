@@ -3,6 +3,10 @@ package com.untilldown.Model.Enums;
 import com.untilldown.Model.Game;
 import com.untilldown.Model.Player;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public enum Abilities {
     VITALITY("", Message.VITALITY){
         @Override
@@ -38,7 +42,7 @@ public enum Abilities {
 
     private final String info;
     private final Message message;
-    abstract void useAbility(Game game, Player player);
+    public abstract void useAbility(Game game, Player player);
 
     Abilities(String info, Message message) {
         this.info = info;
@@ -47,5 +51,20 @@ public enum Abilities {
 
     public String getMessage() {
         return message.getMessage();
+    }
+
+    public static Abilities[] get3Random() {
+        Abilities[] allAbilities = values();
+        List<Abilities> abilitiesList = Arrays.asList(allAbilities);
+
+        // Shuffle the list
+        Collections.shuffle(abilitiesList);
+
+        // Return first 3 unique abilities
+        return new Abilities[] {
+            abilitiesList.get(0),
+            abilitiesList.get(1),
+            abilitiesList.get(2)
+        };
     }
 }

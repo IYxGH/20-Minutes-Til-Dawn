@@ -90,6 +90,10 @@ public class GameController {
         view.getUiTable().setColor(1, 1, 1, 0.2f);
     }
 
+    public void setPaused(boolean paused) {
+        view.getPauseMenu().setVisible(paused);
+    }
+
     public void resume() {
         view.getPauseMenu().setVisible(false);
         isPaused = false;
