@@ -8,12 +8,18 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.untilldown.Main;
 import com.untilldown.Model.*;
 import com.untilldown.Model.Enums.Action;
+import com.untilldown.View.GameView;
 
 public class PlayerController {
     private Player player;
+    private GameView gameView;
 
     public PlayerController(Player player) {
         this.player = player;
+    }
+
+    public void setGameView(GameView gameView) {
+        this.gameView = gameView;
     }
 
     public void initPlayer(Stage stage) {
@@ -44,6 +50,7 @@ public class PlayerController {
 
         player.move(dx, dy, delta);
         player.reduceLastDamage(delta);
+        checkXp();
 
         updateReloading(delta);
     }
@@ -95,6 +102,14 @@ public class PlayerController {
 
         player.setReloading(true);
         player.setTimerReloading(player.getWeapon().getReloadTime());
+    }
+
+    public void checkXp() {
+        if(player.getXp() > player.getLevel() * 20) {
+            player.setXp(player.getXp() -player.getLevel() * 20);
+            player.setLevel(player.getLevel() + 1);
+            gameView.showAbilities();
+        }
     }
 
     public void updateReloading(float delta) {

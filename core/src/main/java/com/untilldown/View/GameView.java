@@ -28,6 +28,7 @@ public class GameView implements Screen, InputProcessor {
     private OrthographicCamera camera;
 
     private Table uiTable;
+    private Table abilitiesTable;
     private TextButton pauseButton;
     private Label infoLabel;
     private ProgressBar progressBar;
@@ -115,6 +116,10 @@ public class GameView implements Screen, InputProcessor {
                 controller.giveUp();
             }
         });
+
+    }
+
+    public void showAbilities() {
 
     }
 

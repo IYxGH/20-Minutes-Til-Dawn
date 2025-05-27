@@ -24,7 +24,7 @@ public class Player extends Actor {
     private float hp;
     private int kills = 0;
     private int ammoLeft;
-    private int level = 0;
+    private int level = 1;
     private int xp = 0;
     private float timePastLastDamage = 0;
     private boolean autoAim = false;
@@ -219,6 +219,10 @@ public class Player extends Actor {
 
     public void setXp(int xp) {
         this.xp = xp;
+    }
+
+    public void addXp(int xp) {
+        this.xp += xp;
     }
 
     public User getUser() {

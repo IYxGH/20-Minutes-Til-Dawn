@@ -9,10 +9,12 @@ import com.untilldown.Model.EnemyClasses.Enemy;
 import com.untilldown.Model.EnemyClasses.EyeBat;
 import com.untilldown.Model.EnemyClasses.TentacleMonster;
 import com.untilldown.Model.EnemyClasses.Tree;
+import com.untilldown.View.GameView;
 
 import java.util.ArrayList;
 
 public class WorldController {
+    private GameView gameView;
     private Texture mapTexture;
     private MapActor mapActor;
 
@@ -32,6 +34,10 @@ public class WorldController {
         mapActor.setPosition(0, 0);
 
         initEnemies(stage);
+    }
+
+    public void setGameView(GameView gameView) {
+        this.gameView = gameView;
     }
 
     public void update(float delta, Stage stage) {
@@ -61,15 +67,19 @@ public class WorldController {
         }
 
         for (Enemy enemy : enemiesToRemove) {
+            spawnSeeds(stage, game, enemy);
             enemy.remove();
         }
         game.getEnemies().removeAll(enemiesToRemove);
+        /*---------------------------------------------------------------*/
 
-
+        checkSeeds(stage, game);
 
         spawnEnemies(stage);
 
         updateBullets(delta, game);
+
+
     }
 
     public void spawnEnemies(Stage stage) {
@@ -148,6 +158,27 @@ public class WorldController {
         }
 
         game.getPlayerBullets().removeAll(bulletsToRemove);
+    }
+
+    public void checkSeeds(Stage stage, Game game) {
+        ArrayList<Seed> seedsToRemove = new ArrayList<>();
+        Player player = game.getPlayer();
+
+        for (Seed seed : game.getSeeds()) {
+            if (seed.getBounds().overlaps(player.getBounds())) {
+                seedsToRemove.add(seed);
+                seed.remove();
+                player.addXp(3);
+            }
+        }
+        game.getSeeds().removeAll(seedsToRemove);
+    }
+
+    public void spawnSeeds(Stage stage, Game game, Enemy enemy) {
+        Seed seed = new Seed();
+        seed.setPosition(enemy.getX(), enemy.getY());
+        game.getSeeds().add(seed);
+        stage.addActor(seed);
     }
 
     public boolean isOutOfBounds(Actor actor) {

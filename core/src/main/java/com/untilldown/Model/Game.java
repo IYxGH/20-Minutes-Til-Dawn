@@ -17,6 +17,7 @@ public class Game {
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private ArrayList<Bullet> playerBullets = new ArrayList<>();
     private ArrayList<Bullet> enemyBullets = new ArrayList<>();
+    private ArrayList<Seed> seeds = new ArrayList<>();
 
     public Game(Player player, float duration) {
         this.player = player;
@@ -49,6 +50,14 @@ public class Game {
 
     public ArrayList<Bullet> getPlayerBullets() {
         return playerBullets;
+    }
+
+    public ArrayList<Seed> getSeeds() {
+        return seeds;
+    }
+
+    public void setSeeds(ArrayList<Seed> seeds) {
+        this.seeds = seeds;
     }
 
     public void setPlayerBullets(ArrayList<Bullet> playerBullets) {

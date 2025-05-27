@@ -29,7 +29,9 @@ public class GameController {
     public void setView(GameView view) {
         this.view = view;
         playerController = new PlayerController(game.getPlayer());
+        playerController.setGameView(view);
         worldController = new WorldController();
+        worldController.setGameView(view);
         weaponController = new WeaponController();
     }
 
@@ -69,13 +71,15 @@ public class GameController {
         info.append("Kills: ").append(player.getKills()).append("\n");
         info.append("Ammo: ").append(player.getAmmoLeft()).append("\n");
         info.append("Auto Aim: ").append(player.isAutoAim()).append("\n");
+        //TODO: remove
+        info.append("XP: ").append(player.getXp()).append("\n");
 
         label.setText(info.toString());
         label.setColor(Color.CYAN);
 
 
         //update progress bar
-        progressBar.setRange(0, player.getLevel() * 30);
+        progressBar.setRange(0, player.getLevel() * 20);
         progressBar.setValue(player.getXp());
 
     }
@@ -90,6 +94,10 @@ public class GameController {
         view.getPauseMenu().setVisible(false);
         isPaused = false;
         view.getUiTable().setColor(1, 1, 1, 1);
+    }
+
+    public void showAbilities() {
+
     }
 
     public void giveUp() {}

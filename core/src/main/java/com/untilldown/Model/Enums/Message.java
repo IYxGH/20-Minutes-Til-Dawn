@@ -27,6 +27,12 @@ public enum Message {
     RESUME("Resume", ""),
     GIVE_UP("Give Up", ""),
 
+    VITALITY("Vitality", ""),
+    DAMAGER("Damager", ""),
+    PROCREASE("Procrease", ""),
+    AMOCREASE("Amorecase", ""),
+    SPEEDY("Speedy", ""),
+
     ;
 
     private final String english;
