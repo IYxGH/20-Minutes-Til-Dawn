@@ -41,6 +41,7 @@ public class PlayerController {
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.ATTACK))) attack(stage);
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.RELOAD))) reload();
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_ADD_XP))) cheatAddXp();
+        if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_ADD_LEVEL))) cheatAddLevel();
 
         // Normalize to avoid diagonal speed boost
         if (dx != 0 || dy != 0) {
@@ -88,7 +89,7 @@ public class PlayerController {
             direction.rotateDeg((projectile / 2) * 5);
 
             for (int i = 0; i < projectile; i++) {
-                Bullet bullet = new Bullet(player.getWeapon(), direction, damageEffect);
+                Bullet bullet = new Bullet(player.getWeapon(), new Vector2(direction), damageEffect);
                 bullet.setPosition(player.getX(), player.getY());
                 game.getPlayerBullets().add(bullet);
                 direction.rotateDeg(-5);
@@ -125,6 +126,10 @@ public class PlayerController {
 
     public void cheatAddXp() {
         player.addXp(10);
+    }
+
+    public void cheatAddLevel() {
+        player.setXp(player.getLevel() * 20);
     }
 
     public void updateReloading(float delta) {

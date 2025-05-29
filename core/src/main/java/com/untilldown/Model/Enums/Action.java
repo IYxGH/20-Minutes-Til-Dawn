@@ -10,5 +10,6 @@ public enum Action {
     PAUSE,
     RELOAD,
     CHEAT_ADD_XP,
+    CHEAT_ADD_LEVEL
 
 }

@@ -20,6 +20,7 @@ public class GameControls {
         map.put(Action.ATTACK, Input.Keys.ENTER);
         map.put(Action.RELOAD, Input.Keys.R);
         map.put(Action.CHEAT_ADD_XP, Input.Keys.X);
+        map.put(Action.CHEAT_ADD_LEVEL, Input.Keys.Z);
         DEFAULT_CONTROLS = Collections.unmodifiableMap(map);
     }
 
