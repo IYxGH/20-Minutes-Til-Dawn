@@ -8,8 +8,8 @@ import com.badlogic.gdx.utils.Array;
 public enum WeaponType {
     REVOLVER("Revolver", 20, 1, 1, 6,
         "Weapon/T_Revolver_SS.png", 4),
-    SHOTGUN("Shotgun", 10, 4, 1, 2, "", 3),
-    SMGS_DUAL("SMGs Dual", 24, 2, 1, 8, "", 4),
+    SHOTGUN("Shotgun", 10, 4, 1, 2, "Weapon/T_Shotgun_SS.png", 3),
+    SMGS_DUAL("SMGs Dual", 24, 2, 1, 8, "Weapon/T_DualSMGs_SS.png", 4),
     ;
 
     private final String name;

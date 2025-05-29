@@ -32,6 +32,7 @@ public class Player extends Actor {
     private float timerSpeedEffect = 0;
 
     //reloading variables
+    private boolean autoReload = true;
     private boolean reloading = false;
     private float timerReloading = 0f;
 
@@ -234,6 +235,18 @@ public class Player extends Actor {
     public void reduceTimerReloading(float delta) {
         if (timerReloading <= 0) return;
         timerReloading -= delta;
+    }
+
+    public boolean isAutoReload() {
+        return autoReload;
+    }
+
+    public void setAutoReload(boolean autoReload) {
+        this.autoReload = autoReload;
+    }
+
+    public void toggleAutoReload() {
+        autoReload = !autoReload;
     }
 
     public void reduceAmmo(int ammo) {

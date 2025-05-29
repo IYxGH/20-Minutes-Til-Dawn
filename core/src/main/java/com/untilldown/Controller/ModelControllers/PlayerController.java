@@ -138,6 +138,10 @@ public class PlayerController {
     }
 
     public void updateReloading(float delta) {
+        if (player.isAutoReload() && player.getAmmoLeft() <= 0 && !player.isReloading()) {
+            reload();
+            return;
+        }
         if (!player.isReloading()) return;
 
         player.reduceTimerReloading(delta);
