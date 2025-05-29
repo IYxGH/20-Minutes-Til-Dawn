@@ -35,6 +35,17 @@ public enum Message {
 
     CHOOSE_ABILITY("Choose Ability:", ""),
 
+    SCOREBOARD_TITLE("Scoreboard" , ""),
+    SORT_BY_POINTS("Sort by Points", ""),
+    SORT_BY_USERNAME("Sort by Username", ""),
+    SORT_BY_KILLS("Sort by Kills", ""),
+    SORT_BY_LIFETIME("Sort by Lifetime", ""),
+    RANK_HEADER("Rank", ""),
+    USERNAME_HEADER("Username", ""),
+    SCORE_HEADER("Score", ""),
+    KILLS_HEADER("Kills", ""),
+    LIFETIME_HEADER("Lifetime", ""),
+
     ;
 
     private final String english;

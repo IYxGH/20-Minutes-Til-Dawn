@@ -13,7 +13,11 @@ public class User {
     private boolean isGuest = false;
     private AvatarType avatarAssigned;
     private Image avatarImage;
-    private int TotalPoints;
+
+    //Game records
+    private int totalPoints;
+    private int totalKills;
+    private float maxLifeTime;
 
     public User(String username, String password) {
         this.username = username;
@@ -37,11 +41,11 @@ public class User {
     }
 
     public int getTotalPoints() {
-        return TotalPoints;
+        return totalPoints;
     }
 
     public void setTotalPoints(int totalPoints) {
-        TotalPoints = totalPoints;
+        this.totalPoints = totalPoints;
     }
 
     public String getPassword() {
@@ -62,6 +66,34 @@ public class User {
 
     public AvatarType getAvatarAssigned() {
         return avatarAssigned;
+    }
+
+    public boolean isGuest() {
+        return isGuest;
+    }
+
+    public void setGuest(boolean guest) {
+        isGuest = guest;
+    }
+
+    public void setAvatarImage(Image avatarImage) {
+        this.avatarImage = avatarImage;
+    }
+
+    public int getTotalKills() {
+        return totalKills;
+    }
+
+    public void setTotalKills(int totalKills) {
+        this.totalKills = totalKills;
+    }
+
+    public float getMaxLifeTime() {
+        return maxLifeTime;
+    }
+
+    public void setMaxLifeTime(float maxLifeTime) {
+        this.maxLifeTime = maxLifeTime;
     }
 
     public void setAvatarAssigned(AvatarType avatarAssigned) {
