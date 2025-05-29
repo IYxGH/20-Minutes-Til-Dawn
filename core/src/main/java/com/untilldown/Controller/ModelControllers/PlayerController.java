@@ -42,6 +42,7 @@ public class PlayerController {
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.RELOAD))) reload();
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_ADD_XP))) cheatAddXp();
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_ADD_LEVEL))) cheatAddLevel();
+        if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_REDUCE_TIME))) cheatReduceTime(60);
 
         // Normalize to avoid diagonal speed boost
         if (dx != 0 || dy != 0) {
@@ -130,6 +131,10 @@ public class PlayerController {
 
     public void cheatAddLevel() {
         player.setXp(player.getLevel() * 20);
+    }
+
+    public void cheatReduceTime(float time) {
+        App.getActiveGame().addTime(time);
     }
 
     public void updateReloading(float delta) {

@@ -44,6 +44,8 @@ public class WorldController {
         Game game = App.getActiveGame();
         Player player = game.getPlayer();
 
+
+
         timerTentacle -= delta;
         timerEyeBat -= delta;
 
