@@ -27,7 +27,9 @@ public enum Hero {
             "Heros/Shana/walk/Walk_3.png",
             "Heros/Shana/walk/Walk_5.png",
             "Heros/Shana/walk/Walk_6.png",
-            "Heros/Shana/walk/Walk_7.png"))),
+            "Heros/Shana/walk/Walk_7.png")),
+        Message.SHANA_INFO
+        ),
     DIAMOND("Heros/Diamond/Portrait.png",
         7,
         1,
@@ -48,8 +50,9 @@ public enum Hero {
             "Heros/Diamond/walk/Walk (6).png",
             "Heros/Diamond/walk/Walk (7).png",
             "Heros/Diamond/walk/Walk (8).png"
-        ))
-        ),
+        )),
+        Message.DIAMOND_INFO
+    ),
     SCARLET("Heros/Scarlet/Portrait.png",
         3,
         5,
@@ -66,7 +69,8 @@ public enum Hero {
             "Heros/Scarlet/run/Run (2).png",
             "Heros/Scarlet/run/Run (3).png",
             "Heros/Scarlet/run/Run (4).png"
-        ))
+        )),
+        Message.SCARLET_INFO
     ),
     LILITH("Heros/Lilith/Portrait.png",
         5,
@@ -88,7 +92,8 @@ public enum Hero {
             "Heros/Lilith/walk/Walk (6).png",
             "Heros/Lilith/walk/Walk (7).png",
             "Heros/Lilith/walk/Walk (8).png"
-        ))
+        )),
+        Message.LILITH_INFO
     ),
     DASHER("Heros/Diamond/Portrait.png",
         2,
@@ -106,7 +111,8 @@ public enum Hero {
             "Heros/Dasher/run/Run (2).png",
             "Heros/Dasher/run/Run (3).png",
             "Heros/Dasher/run/Run (4).png"
-        ))
+        )),
+        Message.DASHER_INFO
     ),
     ;
 
@@ -116,13 +122,15 @@ public enum Hero {
     private final float speed;
     private final ArrayList<String> idlePaths;
     private final ArrayList<String> walkingPaths;
+    private final Message aboutMessage;
 
-    Hero(String portraitFilePath, float hp, float speed, ArrayList<String> idlePaths, ArrayList<String> walkingPaths) {
+    Hero(String portraitFilePath, float hp, float speed, ArrayList<String> idlePaths, ArrayList<String> walkingPaths, Message aboutMessage) {
         this.portraitFilePath = portraitFilePath;
         this.hp = hp;
         this.speed = speed;
         this.idlePaths = idlePaths;
         this.walkingPaths = walkingPaths;
+        this.aboutMessage = aboutMessage;
     }
 
     public Texture getPortrairTexture() {
@@ -155,5 +163,9 @@ public enum Hero {
 
     public float getSpeed() {
         return speed;
+    }
+
+    public String getInfo() {
+        return aboutMessage.getMessage();
     }
 }
