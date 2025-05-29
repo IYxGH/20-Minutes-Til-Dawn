@@ -13,18 +13,21 @@ public class Bullet extends Actor {
     private Animation<TextureRegion> animation;
     private WeaponType weaponType;
     private Vector2 direction;
-    private final float speed = 150;
+    private final float speed = 250;
+    private final float damageEffect;
 
 
-    public Bullet(WeaponType weaponType, Vector2 direction) {
+    public Bullet(WeaponType weaponType, Vector2 direction, float damageEffect) {
         this.weaponType = weaponType;
         this.direction = direction;
+        this.damageEffect = damageEffect;
+
 
         Array<TextureRegion> bulletTextureRegions = weaponType.getBulletTextureRegions();
         animation = new Animation<>(0.1f, bulletTextureRegions);
         animation.setPlayMode(Animation.PlayMode.LOOP);
-        this.setSize(bulletTextureRegions.get(0).getRegionWidth(),
-            bulletTextureRegions.get(0).getRegionHeight());
+        this.setSize(bulletTextureRegions.get(0).getRegionWidth() * damageEffect,
+            bulletTextureRegions.get(0).getRegionHeight() * damageEffect);
     }
 
     public Rectangle getBounds() {
@@ -47,5 +50,12 @@ public class Bullet extends Actor {
 
     public WeaponType getWeaponType() {
         return weaponType;
+    }
+
+    public float getDamage() {
+        float damage = weaponType.getDamage();
+        damage *= damageEffect;
+
+        return damage;
     }
 }

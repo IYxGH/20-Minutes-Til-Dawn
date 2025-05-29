@@ -50,7 +50,12 @@ public class PlayerController {
         }
 
         player.move(dx, dy, delta);
+
+        //timers
         player.reduceLastDamage(delta);
+        player.reduceTimerBuffWeapon(delta);
+        player.reduceTimerSpeedEffect(delta);
+
         checkXp();
 
         updateReloading(delta);
@@ -62,6 +67,11 @@ public class PlayerController {
         if (player.getAmmoLeft() <= 0) return;
 
         if (player.isReloading()) return;
+
+        float damageEffect = 1;
+        if (player.getTimerBuffWeapon() > 0) {
+            damageEffect = 1.25f;
+        }
 
         if (getPlayer().isAutoAim()) {
 
@@ -78,7 +88,7 @@ public class PlayerController {
             direction.rotateDeg((projectile / 2) * 5);
 
             for (int i = 0; i < projectile; i++) {
-                Bullet bullet = new Bullet(player.getWeapon(), direction);
+                Bullet bullet = new Bullet(player.getWeapon(), direction, damageEffect);
                 bullet.setPosition(player.getX(), player.getY());
                 game.getPlayerBullets().add(bullet);
                 direction.rotateDeg(-5);
@@ -106,7 +116,7 @@ public class PlayerController {
     }
 
     public void checkXp() {
-        if(player.getXp() > player.getLevel() * 20) {
+        if(player.getXp() >= player.getLevel() * 20) {
             player.setXp(player.getXp() -player.getLevel() * 20);
             player.setLevel(player.getLevel() + 1);
             gameView.showAbilities();
@@ -122,7 +132,7 @@ public class PlayerController {
 
         player.reduceTimerReloading(delta);
         if (player.getTimerReloading() <= 0) {
-            player.setAmmoLeft(player.getWeapon().getMaxAmmo());
+            player.setAmmoLeft(player.getMaxAmmo());
             player.setReloading(false);
             player.setTimerReloading(0);
         }

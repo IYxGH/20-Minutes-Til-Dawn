@@ -143,7 +143,7 @@ public class WorldController {
             bullet.update(delta);
             for (Enemy enemy : game.getEnemies()) {
                 if (enemy.getBounds().overlaps(bullet.getBounds())) {
-                    enemy.reduceHp(bullet.getWeaponType().getDamage());
+                    enemy.reduceHp(bullet.getDamage());
                     bullet.remove();
                     bulletsToRemove.add(bullet);
                     break;

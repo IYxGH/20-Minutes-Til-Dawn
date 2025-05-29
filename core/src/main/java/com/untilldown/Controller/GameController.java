@@ -90,7 +90,12 @@ public class GameController {
     }
 
     public void setPaused(boolean paused) {
-        view.getUiTable().setColor(1, 1, 1, 0.2f);
+        if (paused)
+            view.getUiTable().setColor(1, 1, 1, 0.2f);
+        else
+            view.getUiTable().setColor(1, 1, 1, 1);
+
+
         this.isPaused = paused;
     }
 

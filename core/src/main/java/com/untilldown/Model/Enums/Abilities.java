@@ -3,39 +3,38 @@ package com.untilldown.Model.Enums;
 import com.untilldown.Model.Game;
 import com.untilldown.Model.Player;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public enum Abilities {
     VITALITY("", Message.VITALITY){
         @Override
         public void useAbility(Game game, Player player) {
-
+            player.addHp(1);
+            player.addMaxHp(1);
         }
     },
     DAMAGER("", Message.DAMAGER){
         @Override
         public void useAbility(Game game, Player player) {
-
+            player.setTimerBuffWeapon(10);
         }
     },
     PROCREASE("", Message.PROCREASE){
         @Override
         public void useAbility(Game game, Player player) {
-
+            player.addProjectileEffect(1);
         }
     },
     AMOCREASE("", Message.AMOCREASE){
         @Override
         public void useAbility(Game game, Player player) {
-
+            player.addMaxAmmo(5);
         }
     },
     SPEEDY("", Message.SPEEDY){
         @Override
         public void useAbility(Game game, Player player) {
-
+            player.setTimerSpeedEffect(10);
         }
     }
     ;
@@ -54,17 +53,32 @@ public enum Abilities {
     }
 
     public static Abilities[] get3Random() {
-        Abilities[] allAbilities = values();
-        List<Abilities> abilitiesList = Arrays.asList(allAbilities);
+        ArrayList<Abilities> allAbilities = new ArrayList<>();
+        for (Abilities ability : Abilities.values()) {
+            allAbilities.add(ability);
+        }
 
-        // Shuffle the list
-        Collections.shuffle(abilitiesList);
+        Random rand = new Random();
+        Set<Integer> result = new HashSet<>();
+
+        while (result.size() < 3) {
+            result.add(rand.nextInt(5)); // 0 to 4
+        }
+
+        List<Integer> resultList = new ArrayList<>(result);
+
+        // Access elements
+        int a = resultList.get(0);
+        int b = resultList.get(1);
+        int c = resultList.get(2);
+
 
         // Return first 3 unique abilities
         return new Abilities[] {
-            abilitiesList.get(0),
-            abilitiesList.get(1),
-            abilitiesList.get(2)
+            allAbilities.get(a),
+            allAbilities.get(b),
+            allAbilities.get(c),
         };
     }
+
 }

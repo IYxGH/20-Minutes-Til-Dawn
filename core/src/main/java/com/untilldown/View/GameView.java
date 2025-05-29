@@ -138,7 +138,7 @@ public class GameView implements Screen, InputProcessor {
         Label label = new Label(Message.CHOOSE_ABILITY.getMessage(), skin);
         label.setColor(Color.RED);
         label.setScale(1.5f);
-        abilitiesTable.add(label);
+        abilitiesTable.add(label).pad(10);
         abilitiesTable.row();
 
         Abilities[] abilitiesList =  Abilities.get3Random();
@@ -190,6 +190,7 @@ public class GameView implements Screen, InputProcessor {
     }
 
     public void showAbilities() {
+        setupAbilitiesTable();
         controller.setPaused(true);
         abilitiesTable.setVisible(true);
     }

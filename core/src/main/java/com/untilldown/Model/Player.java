@@ -1,17 +1,12 @@
 package com.untilldown.Model;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.untilldown.Main;
 import com.untilldown.Model.Enums.Hero;
 import com.untilldown.Model.Enums.WeaponType;
 
@@ -28,6 +23,13 @@ public class Player extends Actor {
     private int xp = 0;
     private float timePastLastDamage = 0;
     private boolean autoAim = false;
+
+    //effects
+    private float maxHp;
+    private float timerBuffWeapon;
+    private int projectileEffect = 0;
+    private int maxAmmo = 0;
+    private float timerSpeedEffect = 0;
 
     //reloading variables
     private boolean reloading = false;
@@ -49,9 +51,11 @@ public class Player extends Actor {
     public Player(User user, Hero hero, WeaponType weapon) {
         this.hero = hero;
         this.weapon = weapon;
-        this.ammoLeft = weapon.getMaxAmmo();
+        this.maxAmmo = weapon.getMaxAmmo();
+        this.ammoLeft = maxAmmo;
 
         hp = hero.getHp();
+        maxHp = hp;
 
 
         //walking animation
@@ -69,7 +73,9 @@ public class Player extends Actor {
     }
 
     public double getSpeed() {
-        return hero.getSpeed();
+        int effect = 1;
+        if (timerSpeedEffect > 0) effect++;
+        return hero.getSpeed() * effect;
     }
 
     public Rectangle getBounds() {
@@ -145,6 +151,34 @@ public class Player extends Actor {
         this.hp = hp;
     }
 
+    public void reduceHp(float damage) {
+        hp -= damage;
+    }
+
+    public void addHp(float hp) {
+        this.hp += hp;
+    }
+
+    public void addMaxHp(float maxHp) {
+        this.maxHp += maxHp;
+    }
+
+    public float getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(float maxHp) {
+        this.maxHp = maxHp;
+    }
+
+    public void addMaxAmmo(int maxAmmo) {
+        this.maxAmmo += maxAmmo;
+    }
+
+    public int getMaxAmmo() {
+        return maxAmmo;
+    }
+
     public float getTimePastLastDamage() {
         return timePastLastDamage;
     }
@@ -198,6 +232,7 @@ public class Player extends Actor {
     }
 
     public void reduceTimerReloading(float delta) {
+        if (timerReloading <= 0) return;
         timerReloading -= delta;
     }
 
@@ -237,6 +272,43 @@ public class Player extends Actor {
         return weapon;
     }
 
+    public float getTimerBuffWeapon() {
+        return timerBuffWeapon;
+    }
+
+    public void setTimerBuffWeapon(float timerBuffWeapon) {
+        this.timerBuffWeapon = timerBuffWeapon;
+    }
+
+    public void reduceTimerBuffWeapon(float delta) {
+        this.timerBuffWeapon -= delta;
+    }
+
+    public float getTimerSpeedEffect() {
+        return timerSpeedEffect;
+    }
+
+    public void setTimerSpeedEffect(float timerSpeedEffect) {
+        this.timerSpeedEffect = timerSpeedEffect;
+    }
+
+    public void reduceTimerSpeedEffect(float delta) {
+        if (timerSpeedEffect <= 0) return;
+        timerSpeedEffect -= delta;
+    }
+
+    public int getProjectileEffect() {
+        return projectileEffect;
+    }
+
+    public void setProjectileEffect(int projectileEffect) {
+        this.projectileEffect = projectileEffect;
+    }
+
+    public void addProjectileEffect(int amount) {
+        this.projectileEffect += amount;
+    }
+
     public PlayerState getPlayerState() {
         return playerState;
     }
@@ -255,12 +327,8 @@ public class Player extends Actor {
 
     public int getProjectile() {
         int projectile = weapon.getProjectile();
-        //TODO: if there are any effects
+        projectile += projectileEffect;
         return projectile;
-    }
-
-    public void reduceHp(float damage) {
-        hp -= damage;
     }
 
     public void reduceLastDamage(float delta) {
