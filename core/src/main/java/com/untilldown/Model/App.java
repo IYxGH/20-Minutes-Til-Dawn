@@ -1,8 +1,11 @@
 package com.untilldown.Model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.untilldown.Controller.GameController;
 import com.untilldown.DataBase.UserDataManager;
 import com.untilldown.Model.Enums.Language;
+import com.untilldown.Model.Enums.MusicName;
 
 import java.util.ArrayList;
 
@@ -13,6 +16,16 @@ public class App {
     private static ArrayList<Game> games = new ArrayList<>();
     private static Game activeGame;
     public static GameControls gameControls = new GameControls();
+
+    // Music and sounds
+    private static MusicName currentMusicName = MusicName.MUSIC1;
+    private static Music currentMusic = Gdx.audio.newMusic(Gdx.files.internal(MusicName.MUSIC1.getPath()));
+    private static boolean SFXon = true;
+
+    static {
+        currentMusic.setLooping(true);
+        currentMusic.play();
+    }
 
     public static ArrayList<Game> getGames() {
         return games;
@@ -39,6 +52,26 @@ public class App {
         App.currentUser = currentUser;
     }
 
+    public static MusicName getCurrentMusicName() {
+        return currentMusicName;
+    }
+
+    public static void setCurrentMusicName(MusicName currentMusicName) {
+        App.currentMusicName = currentMusicName;
+    }
+
+    public static boolean isSFXon() {
+        return SFXon;
+    }
+
+    public static void setSFXon(boolean SFXon) {
+        App.SFXon = SFXon;
+    }
+
+    public static void toggleSFXon() {
+        SFXon = !SFXon;
+    }
+
     public static User findUser(String username) {
         return userDataManager.findUser(username);
     }
@@ -61,5 +94,37 @@ public class App {
 
     public static Language getCurrentLanguage() {
         return currentLanguage;
+    }
+
+    public static void setCurrentLanguage(Language currentLanguage) {
+        App.currentLanguage = currentLanguage;
+    }
+
+    public static void setGames(ArrayList<Game> games) {
+        App.games = games;
+    }
+
+    public static Music getCurrentMusic() {
+        return currentMusic;
+    }
+
+    public static void setCurrentMusic(Music currentMusic) {
+        App.currentMusic = currentMusic;
+    }
+
+    public static void setCurrentMusic(String path) {
+        currentMusic = Gdx.audio.newMusic(Gdx.files.internal(path));
+    }
+
+    public static void toggleMusic() {
+        if (currentMusic.isPlaying()) {
+            currentMusic.stop();
+        } else {
+            currentMusic.play();
+        }
+    }
+
+    public static void setVolume(float volume) {
+        currentMusic.setVolume(volume);
     }
 }

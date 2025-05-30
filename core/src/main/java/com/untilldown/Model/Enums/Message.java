@@ -109,7 +109,16 @@ public enum Message {
     INVALID_IMAGE_FORMAT("Only PNG and JPG images are supported.", "Solo se admiten imágenes PNG y JPG."),
     SELECT_PREDEFINED_OR_CUSTOM("Select a predefined avatar or upload your own:", "Selecciona un avatar predefinido o sube el tuyo:"),
     AVATAR_CHANGED_SUCCESSFULLY("Avatar changed successfully!", "¡Avatar cambiado con éxito!"),
-    
+    //------------
+
+    //---------------Setting
+    VOLUME("Volume", "Volumar"),
+    MUSIC("Music", "Musica"),
+    SFX("SFX", "SFX"),
+    CHANGE_ACTION_BUTTON("Chnage action button", ""),
+    PRESS_ANY_KEY_TO_BIND("Press any key to bind…", ""),
+    PRESS_NEW_KEY("Press new key...", ""),
+    CONTROLLER_CHANGED_SUCCESSFULLY("Controller changed successfully", ""),
 
 
     ;

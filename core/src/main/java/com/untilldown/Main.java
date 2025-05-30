@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.untilldown.Controller.MainMenuController;
 import com.untilldown.Controller.SignupMenuController;
 import com.untilldown.Controller.StartMenuController;
+import com.untilldown.Model.App;
 import com.untilldown.Model.GameAssetManager;
 import com.untilldown.View.MainMenuView;
 import com.untilldown.View.SignupMenuView;
@@ -27,6 +28,7 @@ public class Main extends Game {
         main = this;
         batch = new SpriteBatch();
         GameAssetManager.getGameAssetManager().load();
+        App.getCurrentUser();
         getMain().setScreen(new StartMenuView(new StartMenuController(),
             GameAssetManager.getGameAssetManager().getSkin()));
 
