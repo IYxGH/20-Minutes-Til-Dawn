@@ -95,6 +95,23 @@ public enum Message {
         "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer."),
     //-----------------------------
 
+    //----------Profile menu
+    CHOOSE_AVATAR_FILE("Choose Custom Avatar", "Elegir Avatar Personalizado"),
+    USE_DEFAULT_AVATAR("Use Default Avatar", "Usar Avatar Predeterminado"),
+    AVATAR_UPLOAD_SUCCESS("Avatar uploaded successfully!", "¡Avatar subido con éxito!"),
+    AVATAR_UPLOAD_FAILED("Failed to upload avatar.", "Error al subir el avatar."),
+    FILE_NOT_FOUND_ERROR("File not found. Please check path.", "Archivo no encontrado. Por favor, verifica la ruta."),
+    CUSTOM_AVATAR_NOT_FOUND("Custom avatar file not found on disk. Setting default.", "Archivo de avatar personalizado no encontrado en disco. Estableciendo predeterminado."),
+    ERROR_LOADING_AVATAR("Error loading avatar image. Setting default.", "Error al cargar la imagen del avatar. Estableciendo predeterminado."),
+    DEFAULT_AVATAR_SET("Default avatar set.", "Avatar predeterminado establecido."),
+    LOGIN_REQUIRED_AVATAR("Login required to set avatar.", "Se requiere iniciar sesión para establecer el avatar."),
+    MUST_BE_IMAGE_FILE("Please select an image file (PNG/JPG).", "Por favor, selecciona un archivo de imagen (PNG/JPG)."),
+    INVALID_IMAGE_FORMAT("Only PNG and JPG images are supported.", "Solo se admiten imágenes PNG y JPG."),
+    SELECT_PREDEFINED_OR_CUSTOM("Select a predefined avatar or upload your own:", "Selecciona un avatar predefinido o sube el tuyo:"),
+    AVATAR_CHANGED_SUCCESSFULLY("Avatar changed successfully!", "¡Avatar cambiado con éxito!"),
+    
+
+
     ;
 
     private final String english;

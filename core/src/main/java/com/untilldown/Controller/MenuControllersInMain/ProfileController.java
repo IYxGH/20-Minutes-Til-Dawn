@@ -68,4 +68,19 @@ public class ProfileController {
             GameAssetManager.getGameAssetManager().getSkin()));
 
     }
+
+    public void updateAvatar(User user, Dialog dialog, String successMessage) {
+        if (user == null) {
+            // Handle case where user is not logged in (shouldn't happen if UI is correct)
+            view.showTemporaryMessage(Message.LOGIN_REQUIRED_AVATAR.getMessage(), Color.RED);
+            dialog.remove();
+            return;
+        }
+
+        App.updateUserInDatabase(user);
+        dialog.remove();
+        view.showTemporaryMessage(successMessage, Color.GREEN);
+        // Important: Update the avatar display in the ProfileView's main screen
+        view.updateCurrentAvatarDisplay();
+    }
 }

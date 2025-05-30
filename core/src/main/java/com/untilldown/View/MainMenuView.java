@@ -2,7 +2,6 @@ package com.untilldown.View;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -105,7 +104,7 @@ public class MainMenuView implements Screen {
         float screenHeight = Gdx.graphics.getHeight();
 
         User currentUser = App.getCurrentUser();
-        avatarImage = GameAssetManager.getGameAssetManager().getAvatarImage(currentUser.getAvatarAssigned());
+        avatarImage = GameAssetManager.getGameAssetManager().getAvatarImage(currentUser.getAvatarImagePath());
 
         userInfoLabel = new Label("User: " + currentUser.getUsername(), skin);
         userPointsLabel = new Label("Points" + currentUser.getTotalPoints(), skin);

@@ -1,6 +1,5 @@
 package com.untilldown.Model;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.untilldown.Model.Enums.AvatarType;
 
 import java.util.regex.Matcher;
@@ -12,7 +11,7 @@ public class User {
     private String securityAnswer = null;
     private boolean isGuest = false;
     private AvatarType avatarAssigned;
-    private Image avatarImage;
+    private String customAvatarImagePath;
 
     //Game records
     private int totalPoints;
@@ -76,8 +75,12 @@ public class User {
         isGuest = guest;
     }
 
-    public void setAvatarImage(Image avatarImage) {
-        this.avatarImage = avatarImage;
+    public String getCustomAvatarImagePath() {
+        return customAvatarImagePath;
+    }
+
+    public void setCustomAvatarImagePath(String customAvatarImagePath) {
+        this.customAvatarImagePath = customAvatarImagePath;
     }
 
     public int getTotalKills() {
@@ -100,9 +103,9 @@ public class User {
         this.avatarAssigned = avatarAssigned;
     }
 
-    public Image getAvatarImage() {
-        if (avatarAssigned  == null) return avatarImage;
-        return null; //TODO
+    public String getAvatarImagePath() {
+        if (avatarAssigned  == null) return customAvatarImagePath;
+        return avatarAssigned.getPath();
     }
 
     public static boolean isPasswordValid(String password) {

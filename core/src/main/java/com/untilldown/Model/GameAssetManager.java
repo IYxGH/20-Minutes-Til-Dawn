@@ -54,8 +54,8 @@ public class GameAssetManager extends AssetManager {
     }
 
 
-    public Image getAvatarImage(AvatarType avatarType) {
-        Texture texture = new Texture(Gdx.files.internal(avatarType.getPath()));
+    public Image getAvatarImage(String path) {
+        Texture texture = new Texture(Gdx.files.internal(path));
         return new Image(texture);
     }
 }
