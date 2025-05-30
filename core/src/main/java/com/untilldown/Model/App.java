@@ -1,12 +1,13 @@
 package com.untilldown.Model;
 
 import com.untilldown.Controller.GameController;
+import com.untilldown.DataBase.UserDataManager;
 import com.untilldown.Model.Enums.Language;
 
 import java.util.ArrayList;
 
 public class App {
-    private static ArrayList<User> users = new ArrayList<>();
+    private static final UserDataManager userDataManager = new UserDataManager();
     private static User currentUser;
     private static Language currentLanguage = Language.ENGLISH;
     private static ArrayList<Game> games = new ArrayList<>();
@@ -27,11 +28,7 @@ public class App {
     }
 
     public static ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public static void setUsers(ArrayList<User> users) {
-        App.users = users;
+        return userDataManager.getAllUsers();
     }
 
     public static User getCurrentUser() {
@@ -43,12 +40,19 @@ public class App {
     }
 
     public static User findUser(String username) {
-        for (User user : users) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        return null;
+        return userDataManager.findUser(username);
+    }
+
+    public static boolean updateUserInDatabase(User user) {
+        return userDataManager.updateUser(user);
+    }
+
+    public static boolean removeUserFromDatabase(String username) {
+        return userDataManager.removeUser(username);
+    }
+
+    public static boolean registerUser(User user) {
+        return userDataManager.addUser(user);
     }
 
     public static Language getCurrentLanguage() {

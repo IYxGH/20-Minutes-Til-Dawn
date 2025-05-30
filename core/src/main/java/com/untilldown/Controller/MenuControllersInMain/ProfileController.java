@@ -28,6 +28,7 @@ public class ProfileController {
         }
 
         currentUser.setPassword(password);
+        App.updateUserInDatabase(currentUser);
         dialog.remove();
         view.showTemporaryMessage(Message.PASSWORD_CHANGED_SUCCESSFULLY.getMessage(), Color.GREEN);
     }
@@ -50,6 +51,7 @@ public class ProfileController {
         }
 
         currentUser.setUsername(name);
+        App.updateUserInDatabase(currentUser);
         dialog.remove();
         view.showTemporaryMessage(Message.USERNAME_CHANGED_SUCCESSFULLY.getMessage(), Color.GREEN);
     }

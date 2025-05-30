@@ -43,6 +43,7 @@ public class MainMenuController {
     }
 
     public void logout() {
+        App.updateUserInDatabase(App.getCurrentUser());
         App.setCurrentUser(null);
         Main.getMain().setScreen(new StartMenuView(new StartMenuController(),
             GameAssetManager.getGameAssetManager().getSkin()));

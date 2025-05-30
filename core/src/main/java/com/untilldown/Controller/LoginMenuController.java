@@ -6,6 +6,7 @@ import com.untilldown.Model.GameAssetManager;
 import com.untilldown.Model.User;
 import com.untilldown.View.ForgetPasswordMenuView;
 import com.untilldown.View.LoginMenuView;
+import com.untilldown.View.MainMenuView;
 import com.untilldown.View.StartMenuView;
 
 public class LoginMenuController{
@@ -18,17 +19,17 @@ public class LoginMenuController{
     public void login(String username, String password){
         User user = App.findUser(username);
         if(user == null){
-            view.showErrorMessage("there is no user with this username");
+            view.showErrorMessage("There is no user with this username");
             return;
         }
 
         if (!password.equals(user.getPassword())){
-            view.showErrorMessage("wrong password");
+            view.showErrorMessage("Wrong password");
             return;
         }
 
         App.setCurrentUser(user);
-//        Main.getMain().setScreen();
+        Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
     }
 
     public void back() {

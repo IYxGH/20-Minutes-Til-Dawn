@@ -34,6 +34,7 @@ public class ForgetPasswordMenuController {
         }
 
         user.setPassword(password);
+        App.updateUserInDatabase(user);
         back();
     }
 

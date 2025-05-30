@@ -33,7 +33,7 @@ public class SignupMenuController {
         }
 
         User user = new User(username, password);
-        App.getUsers().add(user);
+        App.registerUser(user);
         App.setCurrentUser(user);
 
         view.getSecurityQuestion().setVisible(true);
@@ -49,6 +49,7 @@ public class SignupMenuController {
         }
 
         App.getCurrentUser().setSecurityAnswer(answer);
+        App.updateUserInDatabase(App.getCurrentUser());
         goToMainMenu();
 
     }
