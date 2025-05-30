@@ -9,6 +9,7 @@ import com.untilldown.Model.EnemyClasses.Enemy;
 import com.untilldown.Model.EnemyClasses.EyeBat;
 import com.untilldown.Model.EnemyClasses.TentacleMonster;
 import com.untilldown.Model.EnemyClasses.Tree;
+import com.untilldown.Model.Enums.AnimationEffect;
 import com.untilldown.View.GameView;
 
 import java.util.ArrayList;
@@ -58,19 +59,22 @@ public class WorldController {
                     player.reduceHp(enemy.getDamage());
                     player.setTimePastLastDamage(2);
                     enemy.reduceHp(1);
+                    stage.addActor(new AnimationActor(AnimationEffect.HOLYSHIELD_EFFECTS, player, true));
                 }
 
             }
 
             enemy.update(delta);
-            if (enemy.getHp() <= 0) {
+            if (enemy.getHp() <= 0)
                 enemiesToRemove.add(enemy);
-            }
         }
+
+
 
         for (Enemy enemy : enemiesToRemove) {
             spawnSeeds(stage, game, enemy);
             enemy.remove();
+            stage.addActor(new AnimationActor(AnimationEffect.EXPLOSION_EFFECTS, enemy, false));
         }
         game.getEnemies().removeAll(enemiesToRemove);
         /*---------------------------------------------------------------*/
@@ -79,7 +83,7 @@ public class WorldController {
 
         spawnEnemies(stage);
 
-        updateBullets(delta, game);
+        updateBullets(delta, game, stage);
 
 
     }
@@ -139,13 +143,15 @@ public class WorldController {
 
     }
 
-    public void updateBullets(float delta, Game game) {
+    public void updateBullets(float delta, Game game, Stage stage) {
         ArrayList<Bullet> bulletsToRemove = new ArrayList<>();
         for (Bullet bullet : game.getPlayerBullets()) {
             bullet.update(delta);
             for (Enemy enemy : game.getEnemies()) {
                 if (enemy.getBounds().overlaps(bullet.getBounds())) {
                     enemy.reduceHp(bullet.getDamage());
+                    if (enemy.getHp() > 0)
+                        stage.addActor(new AnimationActor(AnimationEffect.DEATH_EFFECT, enemy, true));
                     bullet.remove();
                     bulletsToRemove.add(bullet);
                     break;

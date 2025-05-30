@@ -56,6 +56,8 @@ public class GameController {
         weaponController.update(delta);
         worldController.update(delta, view.getGameStage());
         game.addTime(delta);
+
+
     }
 
     public Vector2 getHeroPosition() {
@@ -66,7 +68,7 @@ public class GameController {
         //update label
         StringBuilder info = new StringBuilder();
         Player player = playerController.getPlayer();
-        info.append("HP: ").append(player.getHp()).append("\n");
+        info.append("HP: ").append(String.format("%.2f", player.getHp())).append("\n");
         info.append("Time Left: ").append(game.getTimeLeft()).append("\n");
         info.append("Kills: ").append(player.getKills()).append("\n");
         info.append("Ammo: ").append(player.getAmmoLeft()).append("\n");
@@ -106,4 +108,12 @@ public class GameController {
     }
 
     public void giveUp() {}
+
+    public boolean checkEndGame() {
+        if (game.getTime() >= game.getDuration()) return true;
+
+        if (game.getPlayer().getHp() <= 0) return true;
+
+        return false;
+    }
 }
