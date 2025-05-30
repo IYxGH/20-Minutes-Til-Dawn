@@ -187,7 +187,58 @@ public class ProfileView implements Screen {
 
     public void showChangeAvatar() {}
 
-    public void showDeleteAccount() {}
+    public void showDeleteAccount() {
+        Dialog dialog = new Dialog(Message.DELETE_ACCOUNT.getMessage(), skin);
+        dialog.getTitleLabel().setColor(Color.RED); // Typically red for delete actions
+        dialog.getContentTable().padBottom(10).padTop(10); // Add some padding
+
+        // The main message asking for confirmation
+        Label confirmationLabel = new Label(Message.ARE_YOU_SURE_DELETE_ACCOUNT.getMessage(), skin);
+        confirmationLabel.setAlignment(Align.center); // Center the text in the label
+
+        // Yes button
+        TextButton yesButton = new TextButton(Message.YES_BUTTON.getMessage(), skin);
+        yesButton.setColor(Color.RED); // Make "Yes" button red to emphasize danger
+
+        // No button
+        TextButton noButton = new TextButton(Message.NO_BUTTON.getMessage(), skin);
+        noButton.setColor(Color.LIGHT_GRAY); // Make "No" button less prominent or grey
+
+        // Add the confirmation label to the content table
+        dialog.getContentTable().add(confirmationLabel).growX().pad(10).row(); // Make label expand horizontally
+
+        // Add buttons to the button table (they will be at the bottom of the dialog)
+        dialog.button(yesButton).pad(5); // Dialog's button() method automatically adds to button table
+        dialog.button(noButton).pad(5);
+
+        // Styling and positioning
+        dialog.center(); // Center the entire dialog on the stage
+        dialog.getContentTable().center(); // Center content within the content table
+
+        dialog.setMovable(false); // Prevent dialog from being dragged
+        dialog.setResizable(false); // Prevent dialog from being resized
+
+        dialog.show(stage); // Show the dialog on the stage
+        dialog.getTitleTable().padTop(20).padBottom(20); // Padding for the title bar
+        dialog.getButtonTable().center(); // Center buttons in their table
+        dialog.getTitleLabel().setFontScale(1.2f); // Scale title font
+        dialog.getTitleLabel().setAlignment(Align.center); // Center title text
+
+        // Listeners for the buttons
+        yesButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.deleteCurrentUserAccount(dialog);
+            }
+        });
+
+        noButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                dialog.remove();
+            }
+        });
+    }
 
     public void showTemporaryMessage(String message, Color color) {
         Label tempLabel = new Label(message, skin);

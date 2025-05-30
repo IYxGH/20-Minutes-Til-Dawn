@@ -195,6 +195,22 @@ public class UserDataManager {
         return user;
     }
 
+    public boolean removeAllUsers() {
+        // DELETE FROM users; will remove all rows
+        String sql = "DELETE FROM users";
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) { // Using Statement as there are no placeholders
+
+            int rowsAffected = stmt.executeUpdate(sql);
+            System.out.println(rowsAffected + " users removed from the database.");
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Error removing all users: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     /**
      * Updates an existing user's data in the database.
      * This is an "Update" operation (U in CRUD).

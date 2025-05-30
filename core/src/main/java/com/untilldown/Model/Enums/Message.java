@@ -10,7 +10,8 @@ public enum Message {
     CHANGE_USERNAME("Change Username", ""),
     CHANGE_PASSWORD("Change Password", ""),
     CHANGE_AVATAR("Change Avatar", ""),
-    DELETE_ACCOUNT("Delete Account", ""),
+    YES_BUTTON("Yes", "Sí"),
+    NO_BUTTON("No", "No"),
     BACK("Back", ""),
     ENTER_NEW_PASSWORD("Enter New Password", ""),
     ENTER_NEW_USERNAME("Enter New Username", ""),
@@ -85,7 +86,14 @@ public enum Message {
     RELOAD_INFO("Reload Weapon", "Recargar Arma"),
     CHEAT_ADD_XP_INFO("Add XP Cheat", "Truco: Añadir XP"),
     CHEAT_ADD_LEVEL_INFO("Add Level Cheat", "Truco: Añadir Nivel"),
-    CHEAT_REDUCE_TIME_INFO("Reduce Time Cheat", "Truco: Reducir Tiempo");
+    CHEAT_REDUCE_TIME_INFO("Reduce Time Cheat", "Truco: Reducir Tiempo"),
+    //----------------------------------
+
+    //-----------Delete account
+    DELETE_ACCOUNT("Delete Account", "Eliminar Cuenta"),
+    ARE_YOU_SURE_DELETE_ACCOUNT("Are you sure you want to delete your account? This action cannot be undone.",
+        "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer."),
+    //-----------------------------
 
     ;
 

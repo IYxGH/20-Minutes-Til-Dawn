@@ -3,12 +3,14 @@ package com.untilldown.Controller.MenuControllersInMain;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.untilldown.Controller.StartMenuController;
 import com.untilldown.Main;
 import com.untilldown.Model.App;
 import com.untilldown.Model.Enums.Message;
 import com.untilldown.Model.GameAssetManager;
 import com.untilldown.Model.User;
 import com.untilldown.View.MenusViewInMain.ProfileView;
+import com.untilldown.View.StartMenuView;
 
 import java.awt.*;
 
@@ -54,5 +56,16 @@ public class ProfileController {
         App.updateUserInDatabase(currentUser);
         dialog.remove();
         view.showTemporaryMessage(Message.USERNAME_CHANGED_SUCCESSFULLY.getMessage(), Color.GREEN);
+    }
+
+    public void deleteCurrentUserAccount(Dialog dialog) {
+        User currentUser = App.getCurrentUser();
+        App.removeUserFromDatabase(currentUser.getUsername());
+        App.setCurrentUser(null);
+        dialog.remove();
+
+        Main.getMain().setScreen(new StartMenuView(new StartMenuController(),
+            GameAssetManager.getGameAssetManager().getSkin()));
+
     }
 }
