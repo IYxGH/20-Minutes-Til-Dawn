@@ -47,6 +47,10 @@ public class App {
         return userDataManager.updateUser(user);
     }
 
+    public static boolean updateUserInDatabase(String oldUsername, User user) {
+        return userDataManager.updateUser(oldUsername, user);
+    }
+
     public static boolean removeUserFromDatabase(String username) {
         return userDataManager.removeUser(username);
     }

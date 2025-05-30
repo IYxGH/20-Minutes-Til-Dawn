@@ -247,6 +247,55 @@ public class UserDataManager {
         }
     }
 
+    // Inside UserDataManager.java
+
+    /**
+     * Updates an existing user's data in the database, including the possibility of changing their username.
+     * This is an "Update" operation (U in CRUD).
+     * @param oldUsername The current username of the user to be updated.
+     * @param updatedUser The User object with the new data, including the new username if it's being changed.
+     * @return True if the user was updated successfully, false otherwise (e.g., user not found or new username already exists).
+     */
+    public boolean updateUser(String oldUsername, User updatedUser) {
+        // The SQL query now includes the 'username' field in the SET clause,
+        // and uses 'oldUsername' in the WHERE clause to find the record.
+        String sql = "UPDATE users SET username = ?, password = ?, securityAnswer = ?, isGuest = ?, avatarAssigned = ?, totalPoints = ?, totalKills = ?, maxLifeTime = ? WHERE username = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // Set the new values
+            pstmt.setString(1, updatedUser.getUsername()); // New username
+            pstmt.setString(2, updatedUser.getPassword());
+            pstmt.setString(3, updatedUser.getSecurityAnswer());
+            pstmt.setInt(4, updatedUser.isGuest() ? 1 : 0);
+            pstmt.setString(5, updatedUser.getAvatarAssigned() != null ? updatedUser.getAvatarAssigned().name() : null);
+            pstmt.setInt(6, updatedUser.getTotalPoints());
+            pstmt.setInt(7, updatedUser.getTotalKills());
+            pstmt.setFloat(8, updatedUser.getMaxLifeTime());
+
+            // Use the old username to identify the row to update
+            pstmt.setString(9, oldUsername); // Old username in WHERE clause
+
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("User '" + oldUsername + "' updated to '" + updatedUser.getUsername() + "' successfully.");
+                return true;
+            } else {
+                System.out.println("User '" + oldUsername + "' not found for update.");
+                return false;
+            }
+        } catch (SQLException e) {
+            if (e.getMessage().contains("UNIQUE constraint failed: users.username")) {
+                System.err.println("Error: New username '" + updatedUser.getUsername() + "' already exists.");
+            } else {
+                System.err.println("Error updating user: " + e.getMessage());
+            }
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     /**
      * Removes a user from the database by their username.
      * This is a "Delete" operation (D in CRUD).

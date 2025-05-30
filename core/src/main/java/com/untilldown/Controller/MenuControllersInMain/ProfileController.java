@@ -52,8 +52,9 @@ public class ProfileController {
             return;
         }
 
+        String oldName = currentUser.getUsername();
         currentUser.setUsername(name);
-        App.updateUserInDatabase(currentUser);
+        App.updateUserInDatabase(oldName,currentUser);
         dialog.remove();
         view.showTemporaryMessage(Message.USERNAME_CHANGED_SUCCESSFULLY.getMessage(), Color.GREEN);
     }
