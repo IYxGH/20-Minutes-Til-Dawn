@@ -18,6 +18,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.untilldown.Controller.GameController;
+import com.untilldown.Controller.MainMenuController;
+import com.untilldown.Main;
 import com.untilldown.Model.App;
 import com.untilldown.Model.Enums.Abilities;
 import com.untilldown.Model.Enums.Message;
@@ -193,6 +195,62 @@ public class GameView implements Screen, InputProcessor {
         setupAbilitiesTable();
         controller.setPaused(true);
         abilitiesTable.setVisible(true);
+    }
+
+    public void showEndGame() {
+        pauseMenu.setVisible(false);
+        Player player = App.getActiveGame().getPlayer();
+        Game game = App.getActiveGame();
+        Dialog dialog = new Dialog("End Game", skin);
+
+        Label result = new Label("", skin);
+        result.setFontScale(2);
+
+        if (game.getDuration() == game.getTime()) {
+            result.setColor(Color.GREEN);
+            result.setText(Message.WON.getMessage());
+        } else {
+            result.setColor(Color.RED);
+            result.setText(Message.DEAD.getMessage());
+        }
+
+        Label usernameLabel = new Label(player.getUser().getUsername(), skin);
+        Label timeLeft = new Label(Message.TIME_LEFT.getMessage() + " " + game.getTimeLeft() , skin);
+        Label kills = new Label(Message.KILLS.getMessage() + player.getKills(), skin);
+
+        TextButton continueButton = new TextButton(Message.CONTINUE.getMessage(), skin);
+        TextButton cheatButton = new TextButton("Hmmm...", skin);
+
+        dialog.getContentTable().add(result).pad(30).row();
+        dialog.getContentTable().add(usernameLabel).pad(10).row();
+        dialog.getContentTable().add(timeLeft).pad(10).row();
+        dialog.getContentTable().add(kills).pad(10).row();
+        dialog.getContentTable().add(continueButton).pad(10).row();
+        if (game.getDuration() > game.getTime()) {
+            dialog.getContentTable().add(cheatButton).pad(10).row();
+        }
+
+        continueButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.finishGame();
+                Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
+            }
+        });
+
+        cheatButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                player.setTimePastLastDamage(2);
+                player.setHp(2);
+                dialog.remove();
+                controller.setPaused(false);
+            }
+        });
+
+        dialog.setMovable(false);
+        dialog.setResizable(false);
+        dialog.show(uiStage);
     }
 
 

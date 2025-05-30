@@ -27,6 +27,11 @@ public enum Message {
     SPEED("Speed", ""),
     RESUME("Resume", ""),
     GIVE_UP("Give Up", ""),
+    TIME_LEFT("Time Left:", ""),
+    KILLS("Kills: ", ""),
+    WON("Won!", ""),
+    DEAD("Dead...", ""),
+    CONTINUE("Continue", ""),
 
     //-------------Talents--------------
     VITALITY("Vitality", ""),

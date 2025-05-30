@@ -11,9 +11,9 @@ import com.untilldown.Model.Enums.Hero;
 import com.untilldown.Model.Enums.WeaponType;
 
 public class Player extends Actor {
-    private User user;
-    private Hero hero;
-    private WeaponType weapon;
+    private final User user;
+    private final Hero hero;
+    private final WeaponType weapon;
 
     //game statues
     private float hp;
@@ -50,6 +50,7 @@ public class Player extends Actor {
 
 
     public Player(User user, Hero hero, WeaponType weapon) {
+        this.user = user;
         this.hero = hero;
         this.weapon = weapon;
         this.maxAmmo = weapon.getMaxAmmo();

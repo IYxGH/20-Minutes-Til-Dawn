@@ -78,6 +78,9 @@ public class Game {
 
     public void addTime(float time) {
         this.time += time;
+        if (this.time > duration) {
+            this.time = duration;
+        }
     }
 
     public String getTimeLeft() {

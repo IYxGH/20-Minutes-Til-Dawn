@@ -56,6 +56,7 @@ public class GameController {
         weaponController.update(delta);
         worldController.update(delta, view.getGameStage());
         game.addTime(delta);
+        checkEndGame();
 
 
     }
@@ -107,13 +108,19 @@ public class GameController {
         view.getUiTable().setColor(1, 1, 1, 1);
     }
 
-    public void giveUp() {}
-
-    public boolean checkEndGame() {
-        if (game.getTime() >= game.getDuration()) return true;
-
-        if (game.getPlayer().getHp() <= 0) return true;
-
-        return false;
+    public void giveUp() {
+        view.showEndGame();
     }
+
+    public void checkEndGame() {
+        if (game.getTime() >= game.getDuration() || game.getPlayer().getHp() <= 0) {
+            setPaused(true);
+            view.showEndGame();
+        }
+    }
+
+    public void finishGame() {
+
+    }
+
 }
