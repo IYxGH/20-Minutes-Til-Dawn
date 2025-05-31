@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.untilldown.Model.*;
-import com.untilldown.Model.EnemyClasses.Enemy;
-import com.untilldown.Model.EnemyClasses.EyeBat;
-import com.untilldown.Model.EnemyClasses.TentacleMonster;
-import com.untilldown.Model.EnemyClasses.Tree;
+import com.untilldown.Model.EnemyClasses.*;
 import com.untilldown.Model.Enums.AnimationEffect;
 import com.untilldown.View.GameView;
 
@@ -18,6 +15,7 @@ public class WorldController {
     private GameView gameView;
     private Texture mapTexture;
     private MapActor mapActor;
+    private boolean isBossReleased = false;
 
     // spawning enemies
     private float timerTentacle = 0.0f;
@@ -115,32 +113,39 @@ public class WorldController {
         Game game = App.getActiveGame();
         float time = game.getTime();
 
-        // Tentacle
-        if (timerTentacle <= 0.0f) {
-            for (int i = 0; i < (int) (time / 30); i++) {
-                TentacleMonster monster = new TentacleMonster();
-                game.getEnemies().add(monster);
-                monster.setRandomPosition();
-
-                stage.addActor(monster);
-            }
-            timerTentacle = 3.0f;
-        }
-
-        // EyeBat
-        if (timerEyeBat <= 0.0f && time > (game.getDuration() / 4)) {
-            for (int i = 0; i < (4 * time - game.getDuration() + 30) / 30; i++) {
-                EyeBat eyebat = new EyeBat();
-                game.getEnemies().add(eyebat);
-                eyebat.setRandomPosition();
-
-                stage.addActor(eyebat);
-            }
-            timerEyeBat = 10.0f;
-        }
+//        // Tentacle
+//        if (timerTentacle <= 0.0f) {
+//            for (int i = 0; i < (int) (time / 30); i++) {
+//                TentacleMonster monster = new TentacleMonster();
+//                game.getEnemies().add(monster);
+//                monster.setRandomPosition();
+//
+//                stage.addActor(monster);
+//            }
+//            timerTentacle = 3.0f;
+//        }
+//
+//        // EyeBat
+//        if (timerEyeBat <= 0.0f && time > (game.getDuration() / 4)) {
+//            for (int i = 0; i < (4 * time - game.getDuration() + 30) / 30; i++) {
+//                EyeBat eyebat = new EyeBat();
+//                game.getEnemies().add(eyebat);
+//                eyebat.setRandomPosition();
+//
+//                stage.addActor(eyebat);
+//            }
+//            timerEyeBat = 10.0f;
+//        }
 
 
         // Elder
+        if (game.getDuration() < 2 * time && !isBossReleased) {
+            Elder elder = new Elder();
+            game.getEnemies().add(elder);
+            elder.setRandomPosition();
+            stage.addActor(elder);
+            isBossReleased = true;
+        }
 
     }
 
