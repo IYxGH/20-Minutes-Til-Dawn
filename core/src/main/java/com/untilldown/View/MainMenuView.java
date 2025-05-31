@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.untilldown.Controller.MainMenuController;
+import com.untilldown.Controller.ModelControllers.SFXController;
 import com.untilldown.Model.App;
 import com.untilldown.Model.GameAssetManager;
 import com.untilldown.Model.User;
@@ -49,6 +50,7 @@ public class MainMenuView implements Screen {
         continueGameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if(App.isSFXon()) SFXController.clickSound();
                 controller.continueGame();
             }
         });
@@ -56,6 +58,7 @@ public class MainMenuView implements Screen {
         preGameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if(App.isSFXon()) SFXController.clickSound();
                 controller.goToPreGame();
             }
         });
@@ -63,6 +66,7 @@ public class MainMenuView implements Screen {
         settingsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if(App.isSFXon()) SFXController.clickSound();
                 controller.goToSettings();
             }
         });
@@ -70,6 +74,7 @@ public class MainMenuView implements Screen {
         profileButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if(App.isSFXon()) SFXController.clickSound();
                 controller.goToProfile();
             }
         });
@@ -77,6 +82,7 @@ public class MainMenuView implements Screen {
         scoreBoardButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if(App.isSFXon()) SFXController.clickSound();
                 controller.goToScoreBoard();
             }
         });
@@ -84,12 +90,14 @@ public class MainMenuView implements Screen {
         talentMenuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if(App.isSFXon()) SFXController.clickSound();
                 controller.goToTalent();
             }
         });
 
         logoutButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                if(App.isSFXon()) SFXController.clickSound();
                 controller.logout();
             }
         });

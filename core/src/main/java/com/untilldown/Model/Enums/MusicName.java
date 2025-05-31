@@ -3,7 +3,8 @@ package com.untilldown.Model.Enums;
 public enum MusicName {
     MUSIC1("Az Hend", "Music/Vaghti Az Hend Omadam.mp3"),
     MUSIC2("Santur", "Music/santur.mp3"),
-    MUSIC3("FIFA WC", "Music/FootBall_1990.mp3")
+    MUSIC3("FIFA WC", "Music/FootBall_1990.mp3"),
+    MUSIC4("Brawl", "Music/cny_brawl_menu_01.ogg"),
 
     ;
 

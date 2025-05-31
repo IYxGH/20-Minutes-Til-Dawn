@@ -60,6 +60,7 @@ public class WorldController {
                     player.setTimePastLastDamage(2);
                     enemy.reduceHp(1);
                     stage.addActor(new AnimationActor(AnimationEffect.HOLYSHIELD_EFFECTS, player, true));
+                    if (App.isSFXon()) SFXController.HurtSound();
                 }
 
             }

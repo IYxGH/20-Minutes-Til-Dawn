@@ -81,6 +81,7 @@ public class PlayerController {
             float mouseX = Gdx.input.getX();
             float mouseY = Gdx.input.getY();
 
+            SFXController.ShotSound();
             Vector3 worldCoords = stage.getCamera().unproject(new Vector3(mouseX, mouseY, 0));
             Vector2 mouseWorldPos = new Vector2(worldCoords.x, worldCoords.y);
 

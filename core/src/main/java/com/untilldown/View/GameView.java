@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.untilldown.Controller.GameController;
 import com.untilldown.Controller.MainMenuController;
+import com.untilldown.Controller.ModelControllers.SFXController;
 import com.untilldown.Main;
 import com.untilldown.Model.App;
 import com.untilldown.Model.Enums.Ability;
@@ -165,6 +166,7 @@ public class GameView implements Screen, InputProcessor {
             abilityButtons[i].addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    SFXController.LevelUpSound();
                     Ability ability = abilitiesMap.get(clickedButton);
                     ability.useAbility(game, player);
                     abilitiesTable.setVisible(false);

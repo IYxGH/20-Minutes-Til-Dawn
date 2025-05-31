@@ -18,8 +18,8 @@ public class App {
     public static GameControls gameControls = new GameControls();
 
     // Music and sounds
-    private static MusicName currentMusicName = MusicName.MUSIC1;
-    private static Music currentMusic = Gdx.audio.newMusic(Gdx.files.internal(MusicName.MUSIC1.getPath()));
+    private static MusicName currentMusicName = MusicName.MUSIC4;
+    private static Music currentMusic = Gdx.audio.newMusic(Gdx.files.internal(MusicName.MUSIC4.getPath()));
     private static boolean SFXon = true;
 
     static {
