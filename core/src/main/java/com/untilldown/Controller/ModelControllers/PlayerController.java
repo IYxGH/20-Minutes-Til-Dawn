@@ -7,8 +7,13 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.untilldown.Main;
 import com.untilldown.Model.*;
+import com.untilldown.Model.EnemyClasses.Elder;
+import com.untilldown.Model.EnemyClasses.Enemy;
+import com.untilldown.Model.EnemyClasses.Tree;
 import com.untilldown.Model.Enums.Action;
 import com.untilldown.View.GameView;
+
+import java.util.ArrayList;
 
 public class PlayerController {
     private Player player;
@@ -43,6 +48,7 @@ public class PlayerController {
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_ADD_XP))) cheatAddXp();
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_ADD_LEVEL))) cheatAddLevel();
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_REDUCE_TIME))) cheatReduceTime(60);
+        if (Gdx.input.isKeyPressed(gameControls.getKey(Action.CHEAT_KILL_ALL_ENEMIES))) cheatKillAllEnemies();
 
         // Normalize to avoid diagonal speed boost
         if (dx != 0 || dy != 0) {
@@ -132,6 +138,23 @@ public class PlayerController {
 
     public void cheatAddLevel() {
         player.setXp(player.getLevel() * 20);
+    }
+
+    public void cheatKillAllEnemies() {
+        Game game = App.getActiveGame();
+
+        ArrayList<Enemy> enemies = new ArrayList<>();
+        for (Enemy enemy: game.getEnemies()) {
+            if (enemy instanceof Tree) continue;
+            if (enemy instanceof Elder) continue;
+
+            enemies.add(enemy);
+        }
+
+        for (Enemy enemy : enemies) {
+            enemy.remove();
+        game.getEnemies().removeAll(enemies);
+        }
     }
 
     public void cheatReduceTime(float time) {

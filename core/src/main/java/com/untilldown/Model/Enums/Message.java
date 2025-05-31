@@ -92,6 +92,7 @@ public enum Message {
     CHEAT_ADD_XP_INFO("Add XP Cheat", "Truco: Añadir XP"),
     CHEAT_ADD_LEVEL_INFO("Add Level Cheat", "Truco: Añadir Nivel"),
     CHEAT_REDUCE_TIME_INFO("Reduce Time Cheat", "Truco: Reducir Tiempo"),
+    CHEAT_KILL_ALL_ENEMIES("Kill All Enemies", ""),
     //----------------------------------
 
     //-----------Delete account

@@ -22,6 +22,7 @@ public class GameControls {
         map.put(Action.CHEAT_ADD_XP, Input.Keys.X);
         map.put(Action.CHEAT_ADD_LEVEL, Input.Keys.Z);
         map.put(Action.CHEAT_REDUCE_TIME, Input.Keys.T);
+        map.put(Action.CHEAT_KILL_ALL_ENEMIES, Input.Keys.F);
         DEFAULT_CONTROLS = Collections.unmodifiableMap(map);
     }
 

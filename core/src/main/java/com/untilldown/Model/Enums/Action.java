@@ -12,6 +12,7 @@ public enum Action {
     CHEAT_ADD_XP(true, Message.CHEAT_ADD_XP_INFO),
     CHEAT_ADD_LEVEL(true, Message.CHEAT_ADD_LEVEL_INFO),
     CHEAT_REDUCE_TIME(true, Message.CHEAT_REDUCE_TIME_INFO),
+    CHEAT_KILL_ALL_ENEMIES(true, Message.CHEAT_KILL_ALL_ENEMIES)
 
     ;
 
