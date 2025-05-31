@@ -26,7 +26,7 @@ public class App {
 
     static {
         Pixmap pixmap = new Pixmap(Gdx.files.internal("T_Cursor.png"));
-        Cursor cursor = Gdx.graphics.newCursor(pixmap, 0, 0); // hotspot at top-left (0, 0)
+        Cursor cursor = Gdx.graphics.newCursor(pixmap, 0, 0);
         Gdx.graphics.setCursor(cursor);
         pixmap.dispose();
         currentMusic.setLooping(true);

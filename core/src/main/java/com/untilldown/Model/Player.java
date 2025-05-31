@@ -7,7 +7,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.untilldown.Controller.ModelControllers.SFXController;
+import com.untilldown.Model.EnemyClasses.Enemy;
 import com.untilldown.Model.Enums.Ability;
+import com.untilldown.Model.Enums.AnimationEffect;
 import com.untilldown.Model.Enums.Hero;
 import com.untilldown.Model.Enums.WeaponType;
 
@@ -387,5 +391,13 @@ public class Player extends Actor {
         if (timePastLastDamage < 0) {
             timePastLastDamage = 0;
         }
+    }
+
+    public void damagePlayer(Enemy enemy, Stage stage   ) {
+        this.reduceHp(enemy.getDamage());
+        this.setTimePastLastDamage(2);
+        enemy.reduceHp(1);
+        stage.addActor(new AnimationActor(AnimationEffect.HOLYSHIELD_EFFECTS, player, true));
+        if (App.isSFXon()) SFXController.HurtSound();
     }
 }

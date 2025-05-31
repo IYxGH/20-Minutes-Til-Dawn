@@ -56,11 +56,7 @@ public class WorldController {
         for (Enemy enemy : game.getEnemies()) {
             if (enemy.getBounds().overlaps(game.getPlayer().getBounds())) {
                 if (player.getTimePastLastDamage() <= 0) {
-                    player.reduceHp(enemy.getDamage());
-                    player.setTimePastLastDamage(2);
-                    enemy.reduceHp(1);
-                    stage.addActor(new AnimationActor(AnimationEffect.HOLYSHIELD_EFFECTS, player, true));
-                    if (App.isSFXon()) SFXController.HurtSound();
+                    player.damagePlayer(enemy, stage);
                 }
 
             }
@@ -79,6 +75,11 @@ public class WorldController {
         }
         game.getEnemies().removeAll(enemiesToRemove);
         /*---------------------------------------------------------------*/
+
+        // check Enemy bullets
+        for (Bullet bullet : game.getEnemyBullets()) {
+
+        }
 
         checkSeeds(stage, game);
 
@@ -151,6 +152,9 @@ public class WorldController {
             for (Enemy enemy : game.getEnemies()) {
                 if (enemy.getBounds().overlaps(bullet.getBounds())) {
                     enemy.reduceHp(bullet.getDamage());
+                    if (!(enemy instanceof Tree)) {
+                        enemy.moveBy(bullet.getDirection().x * 10, bullet.getDirection().y * 10);
+                    }
                     if (enemy.getHp() > 0)
                         stage.addActor(new AnimationActor(AnimationEffect.DEATH_EFFECT, enemy, true));
                     bullet.remove();

@@ -58,4 +58,8 @@ public class Bullet extends Actor {
 
         return damage;
     }
+
+    public Vector2 getDirection() {
+        return direction;
+    }
 }
