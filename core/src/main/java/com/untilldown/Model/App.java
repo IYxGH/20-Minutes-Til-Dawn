@@ -2,6 +2,8 @@ package com.untilldown.Model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.untilldown.Controller.GameController;
 import com.untilldown.DataBase.UserDataManager;
 import com.untilldown.Model.Enums.Language;
@@ -23,6 +25,10 @@ public class App {
     private static boolean SFXon = true;
 
     static {
+        Pixmap pixmap = new Pixmap(Gdx.files.internal("T_Cursor.png"));
+        Cursor cursor = Gdx.graphics.newCursor(pixmap, 0, 0); // hotspot at top-left (0, 0)
+        Gdx.graphics.setCursor(cursor);
+        pixmap.dispose();
         currentMusic.setLooping(true);
         currentMusic.play();
     }
