@@ -5,7 +5,7 @@ import com.untilldown.Model.Player;
 
 import java.util.*;
 
-public enum Abilities {
+public enum Ability {
     VITALITY("", Message.VITALITY){
         @Override
         public void useAbility(Game game, Player player) {
@@ -43,7 +43,7 @@ public enum Abilities {
     private final Message message;
     public abstract void useAbility(Game game, Player player);
 
-    Abilities(String info, Message message) {
+    Ability(String info, Message message) {
         this.info = info;
         this.message = message;
     }
@@ -52,9 +52,9 @@ public enum Abilities {
         return message.getMessage();
     }
 
-    public static Abilities[] get3Random() {
-        ArrayList<Abilities> allAbilities = new ArrayList<>();
-        for (Abilities ability : Abilities.values()) {
+    public static Ability[] get3Random() {
+        ArrayList<Ability> allAbilities = new ArrayList<>();
+        for (Ability ability : Ability.values()) {
             allAbilities.add(ability);
         }
 
@@ -74,7 +74,7 @@ public enum Abilities {
 
 
         // Return first 3 unique abilities
-        return new Abilities[] {
+        return new Ability[] {
             allAbilities.get(a),
             allAbilities.get(b),
             allAbilities.get(c),

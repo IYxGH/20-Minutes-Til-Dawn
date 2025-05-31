@@ -61,7 +61,7 @@ public enum Message {
     SECTION_HEROES("Heroes", ""),
     SECTION_KEYS("Keys", ""),
     SECTION_CHEATS("Cheats", ""),
-    SECTION_ABILITIES("Abilities", ""),
+    SECTION_ABILITIES("Ability", ""),
     HERO_NAME_HEADER("Hero Name", ""),
     HERO_DESCRIPTION_HEADER("Description", ""),
     ACTION_HEADER("Action", ""),

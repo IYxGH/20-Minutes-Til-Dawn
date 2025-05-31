@@ -39,6 +39,10 @@ public class GameControls {
         currentControls.put(action, newKeyCode);
     }
 
+    public Map<Action, Integer> getCurrentControls() {
+        return currentControls;
+    }
+
     public Map<String, String> getKeyBindings() {
         Map<String, String> map = new HashMap<>();
         for (Map.Entry<Action, Integer> entry : currentControls.entrySet()) {

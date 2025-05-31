@@ -7,8 +7,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.untilldown.Model.Enums.Ability;
 import com.untilldown.Model.Enums.Hero;
 import com.untilldown.Model.Enums.WeaponType;
+
+import java.util.HashMap;
 
 public class Player extends Actor {
     private final User user;
@@ -23,6 +26,7 @@ public class Player extends Actor {
     private int xp = 0;
     private float timePastLastDamage = 0;
     private boolean autoAim = false;
+    private HashMap<Ability, Integer> collectedAbilities = new HashMap<>();
 
     //effects
     private float maxHp;
@@ -71,6 +75,11 @@ public class Player extends Actor {
 
         TextureRegion sampleFrame = hero.getTextureIdle().get(0);
         setSize(sampleFrame.getRegionWidth(), sampleFrame.getRegionHeight());
+
+        // Abilities
+        for (Ability ability : Ability.values()) {
+            collectedAbilities.put(ability, 0);
+        }
 
     }
 
@@ -321,6 +330,34 @@ public class Player extends Actor {
 
     public void addProjectileEffect(int amount) {
         this.projectileEffect += amount;
+    }
+
+    public HashMap<Ability, Integer> getCollectedAbilities() {
+        return collectedAbilities;
+    }
+
+    public void setCollectedAbilities(HashMap<Ability, Integer> collectedAbilities) {
+        this.collectedAbilities = collectedAbilities;
+    }
+
+    public void setMaxAmmo(int maxAmmo) {
+        this.maxAmmo = maxAmmo;
+    }
+
+    public void setPlayerState(PlayerState playerState) {
+        this.playerState = playerState;
+    }
+
+    public void setWalkAnimation(Animation<TextureRegion> walkAnimation) {
+        this.walkAnimation = walkAnimation;
+    }
+
+    public void setIdleAnimation(Animation<TextureRegion> idleAnimation) {
+        this.idleAnimation = idleAnimation;
+    }
+
+    public void setFacingLeft(boolean facingLeft) {
+        this.facingLeft = facingLeft;
     }
 
     public PlayerState getPlayerState() {

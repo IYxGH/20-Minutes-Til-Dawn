@@ -1,5 +1,6 @@
 package com.untilldown.Controller;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -8,9 +9,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.untilldown.Controller.ModelControllers.PlayerController;
 import com.untilldown.Controller.ModelControllers.WeaponController;
 import com.untilldown.Controller.ModelControllers.WorldController;
+import com.untilldown.Model.App;
+import com.untilldown.Model.Enums.Ability;
+import com.untilldown.Model.Enums.Action;
 import com.untilldown.Model.Game;
+import com.untilldown.Model.GameControls;
 import com.untilldown.Model.Player;
 import com.untilldown.View.GameView;
+
+import java.util.Map;
 
 public class GameController {
     private Game game;
@@ -90,6 +97,26 @@ public class GameController {
     public void pause() {
         view.getPauseMenu().setVisible(true);
         setPaused(true);
+
+        //update label
+        Label label = view.getInfoInPauseMenu();
+        StringBuilder info = new StringBuilder();
+        Player player = playerController.getPlayer();
+        info.append("Abilities: \n");
+        for (Map.Entry<Ability, Integer> entry : player.getCollectedAbilities().entrySet()) {
+            info.append("   ").append(entry.getKey().getMessage()).append(": ").append(entry.getValue()).append("\n");
+        }
+
+        GameControls gameControls = App.gameControls;
+        info.append("\nCheats: \n");
+        for (Map.Entry<Action, Integer> entry: gameControls.getCurrentControls().entrySet()) {
+            Action action = entry.getKey();
+            if (!action.isCheat()) continue;
+            int num = entry.getValue();
+            info.append("   ").append(action.getInfo()).append(": ").append(Input.Keys.toString(entry.getValue())).append("\n");
+        }
+
+        label.setText(info.toString());
     }
 
     public void setPaused(boolean paused) {

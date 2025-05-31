@@ -21,7 +21,7 @@ import com.untilldown.Controller.GameController;
 import com.untilldown.Controller.MainMenuController;
 import com.untilldown.Main;
 import com.untilldown.Model.App;
-import com.untilldown.Model.Enums.Abilities;
+import com.untilldown.Model.Enums.Ability;
 import com.untilldown.Model.Enums.Message;
 import com.untilldown.Model.Game;
 import com.untilldown.Model.Player;
@@ -36,6 +36,7 @@ public class GameView implements Screen, InputProcessor {
     private Viewport uiViewport;
     private GameController controller;
     private OrthographicCamera camera;
+    private Label infoInPauseMenu;
 
     private Table uiTable;
     private Table abilitiesTable;
@@ -106,11 +107,15 @@ public class GameView implements Screen, InputProcessor {
 
         TextButton resumeButton = new TextButton(Message.RESUME.getMessage(), skin);
         TextButton giveUpButton = new TextButton(Message.GIVE_UP.getMessage(), skin);
+        infoInPauseMenu = new Label("", skin);
 
         pauseMenu.center();
         pauseMenu.add(resumeButton).pad(15);
         pauseMenu.row();
         pauseMenu.add(giveUpButton).pad(15);
+        pauseMenu.row();
+        pauseMenu.add(infoInPauseMenu).pad(25);
+        pauseMenu.row();
 
         uiStage.addActor(pauseMenu);
 
@@ -143,14 +148,14 @@ public class GameView implements Screen, InputProcessor {
         abilitiesTable.add(label).pad(10);
         abilitiesTable.row();
 
-        Abilities[] abilitiesList =  Abilities.get3Random();
-        TextButton[] abilityButtons = new TextButton[abilitiesList.length];
-        HashMap<TextButton, Abilities> abilitiesMap = new HashMap<>();
+        Ability[] abilityList =  Ability.get3Random();
+        TextButton[] abilityButtons = new TextButton[abilityList.length];
+        HashMap<TextButton, Ability> abilitiesMap = new HashMap<>();
 
-        for (int i = 0; i < abilitiesList.length; i++) {
-            abilityButtons[i] = new TextButton(abilitiesList[i].getMessage(), skin);
+        for (int i = 0; i < abilityList.length; i++) {
+            abilityButtons[i] = new TextButton(abilityList[i].getMessage(), skin);
             TextButton clickedButton = abilityButtons[i];
-            abilitiesMap.put(abilityButtons[i], abilitiesList[i]);
+            abilitiesMap.put(abilityButtons[i], abilityList[i]);
 
             clickedButton.setScale(1);
             clickedButton.setColor(1,1,1,0.5f);
@@ -160,11 +165,12 @@ public class GameView implements Screen, InputProcessor {
             abilityButtons[i].addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    abilitiesMap.get(clickedButton).useAbility(game, player);
+                    Ability ability = abilitiesMap.get(clickedButton);
+                    ability.useAbility(game, player);
                     abilitiesTable.setVisible(false);
+                    player.getCollectedAbilities().put(ability,
+                        player.getCollectedAbilities().get(ability) + 1);
                     controller.setPaused(false);
-
-
                 }
 
                 @Override
@@ -388,5 +394,45 @@ public class GameView implements Screen, InputProcessor {
 
     public void setUiStage(Stage uiStage) {
         this.uiStage = uiStage;
+    }
+
+    public Label getInfoInPauseMenu() {
+        return infoInPauseMenu;
+    }
+
+    public void setInfoInPauseMenu(Label infoInPauseMenu) {
+        this.infoInPauseMenu = infoInPauseMenu;
+    }
+
+    public void setUiTable(Table uiTable) {
+        this.uiTable = uiTable;
+    }
+
+    public Table getAbilitiesTable() {
+        return abilitiesTable;
+    }
+
+    public void setAbilitiesTable(Table abilitiesTable) {
+        this.abilitiesTable = abilitiesTable;
+    }
+
+    public TextButton getPauseButton() {
+        return pauseButton;
+    }
+
+    public void setPauseButton(TextButton pauseButton) {
+        this.pauseButton = pauseButton;
+    }
+
+    public void setProgressBar(ProgressBar progressBar) {
+        this.progressBar = progressBar;
+    }
+
+    public float getWORLD_WIDTH() {
+        return WORLD_WIDTH;
+    }
+
+    public float getWORLD_HEIGHT() {
+        return WORLD_HEIGHT;
     }
 }

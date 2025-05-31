@@ -26,4 +26,8 @@ public enum Action {
     public String getInfo() {
         return info.getMessage();
     }
+
+    public boolean isCheat() {
+        return isCheat;
+    }
 }
