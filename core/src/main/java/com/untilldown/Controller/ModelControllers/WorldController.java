@@ -61,9 +61,10 @@ public class WorldController {
 
             }
 
-            enemy.update(delta);
+            enemy.update(delta, stage);
             if (enemy.getHp() <= 0)
                 enemiesToRemove.add(enemy);
+
         }
 
 
@@ -77,9 +78,29 @@ public class WorldController {
         /*---------------------------------------------------------------*/
 
         // check Enemy bullets
+        ArrayList<Bullet> bulletsToRemove = new ArrayList<>();
         for (Bullet bullet : game.getEnemyBullets()) {
+            if (bullet.getBounds().overlaps(game.getPlayer().getBounds())) {
+                if (player.getTimePastLastDamage() <= 0) {
+                    player.damagePlayer(bullet, stage);
+                    bulletsToRemove.add(bullet);
+                }
+            }
 
+            bullet.update(delta);
+
+            if (isOutOfBounds(bullet)) {
+                bullet.remove();
+                bulletsToRemove.add(bullet);
+            }
         }
+
+        for (Bullet bullet : bulletsToRemove) {
+            bullet.remove();
+            game.getEnemyBullets().remove(bullet);
+        }
+
+        //------------------------------------------------------
 
         checkSeeds(stage, game);
 

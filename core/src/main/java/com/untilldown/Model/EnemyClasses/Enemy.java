@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.untilldown.Model.Player;
 
 public abstract class Enemy extends Actor {
@@ -11,7 +12,9 @@ public abstract class Enemy extends Actor {
     protected float damage;
     protected float speed;
 
-    public abstract void update(float delta);
+    public abstract void update(float delta, Stage stage);
+
+    public void shot(Stage stage) {}
 
     public Rectangle getBounds() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());

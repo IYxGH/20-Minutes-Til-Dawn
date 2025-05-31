@@ -393,11 +393,18 @@ public class Player extends Actor {
         }
     }
 
-    public void damagePlayer(Enemy enemy, Stage stage   ) {
+    public void damagePlayer(Enemy enemy, Stage stage) {
         this.reduceHp(enemy.getDamage());
         this.setTimePastLastDamage(2);
         enemy.reduceHp(1);
-        stage.addActor(new AnimationActor(AnimationEffect.HOLYSHIELD_EFFECTS, player, true));
+        stage.addActor(new AnimationActor(AnimationEffect.HOLYSHIELD_EFFECTS, this, true));
+        if (App.isSFXon()) SFXController.HurtSound();
+    }
+
+    public void damagePlayer(Bullet bullet, Stage stage   ) {
+        this.reduceHp(bullet.getDamage());
+        this.setTimePastLastDamage(2);
+        stage.addActor(new AnimationActor(AnimationEffect.HOLYSHIELD_EFFECTS, this, true));
         if (App.isSFXon()) SFXController.HurtSound();
     }
 }

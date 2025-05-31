@@ -1,5 +1,6 @@
 package com.untilldown.Model;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,7 +14,7 @@ public class Bullet extends Actor {
     private Animation<TextureRegion> animation;
     private WeaponType weaponType;
     private Vector2 direction;
-    private final float speed = 250;
+    private float speed = 250;
     private final float damageEffect;
 
 
@@ -23,11 +24,18 @@ public class Bullet extends Actor {
         this.damageEffect = damageEffect;
 
 
-        Array<TextureRegion> bulletTextureRegions = weaponType.getBulletTextureRegions();
-        animation = new Animation<>(0.1f, bulletTextureRegions);
-        animation.setPlayMode(Animation.PlayMode.LOOP);
-        this.setSize(bulletTextureRegions.get(0).getRegionWidth() * damageEffect,
-            bulletTextureRegions.get(0).getRegionHeight() * damageEffect);
+        if (weaponType != null) {
+            Array<TextureRegion> bulletTextureRegions = weaponType.getBulletTextureRegions();
+            animation = new Animation<>(0.1f, bulletTextureRegions);
+            animation.setPlayMode(Animation.PlayMode.LOOP);
+            this.setSize(bulletTextureRegions.get(0).getRegionWidth() * damageEffect,
+                bulletTextureRegions.get(0).getRegionHeight() * damageEffect);
+        } else {
+            animation = new Animation<>(1, new TextureRegion(new Texture("EyeMonsterProjecitle.png")));
+            animation.setPlayMode(Animation.PlayMode.LOOP);
+            this.setSize(12, 12);
+            this.speed = 500;
+        }
     }
 
     public Rectangle getBounds() {
@@ -53,7 +61,10 @@ public class Bullet extends Actor {
     }
 
     public float getDamage() {
-        float damage = weaponType.getDamage();
+        float damage = 1;
+        if (weaponType != null) {
+            damage = weaponType.getDamage();
+        }
         damage *= damageEffect;
 
         return damage;
