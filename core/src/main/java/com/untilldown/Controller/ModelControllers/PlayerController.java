@@ -49,6 +49,7 @@ public class PlayerController {
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_ADD_LEVEL))) cheatAddLevel();
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_REDUCE_TIME))) cheatReduceTime(60);
         if (Gdx.input.isKeyPressed(gameControls.getKey(Action.CHEAT_KILL_ALL_ENEMIES))) cheatKillAllEnemies();
+        if (Gdx.input.isKeyPressed(gameControls.getKey(Action.CHEAT_GO_TO_BOSS))) cheatGoToBoss();
 
         // Normalize to avoid diagonal speed boost
         if (dx != 0 || dy != 0) {
@@ -138,6 +139,12 @@ public class PlayerController {
 
     public void cheatAddLevel() {
         player.setXp(player.getLevel() * 20);
+    }
+
+    public void cheatGoToBoss() {
+        Game game = App.getActiveGame();
+        if (game.getDuration() < game.getTime() * 2) return;
+        game.setTime((float) (game.getDuration() / 2 - 0.1f));
     }
 
     public void cheatKillAllEnemies() {

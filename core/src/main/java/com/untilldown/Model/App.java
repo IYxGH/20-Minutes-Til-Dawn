@@ -133,4 +133,12 @@ public class App {
     public static void setVolume(float volume) {
         currentMusic.setVolume(volume);
     }
+
+    public static void toggleLanguage() {
+        if (currentLanguage == Language.ENGLISH) {
+            currentLanguage = Language.SPANISH;
+        } else {
+            currentLanguage = Language.ENGLISH;
+        }
+    }
 }

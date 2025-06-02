@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.untilldown.Controller.MainMenuController;
 import com.untilldown.Controller.ModelControllers.SFXController;
 import com.untilldown.Model.App;
+import com.untilldown.Model.Enums.Message;
 import com.untilldown.Model.GameAssetManager;
 import com.untilldown.Model.User;
 
@@ -35,15 +36,15 @@ public class MainMenuView implements Screen {
     public MainMenuView(MainMenuController controller, Skin skin) {
         this.skin = skin;
         this.controller = controller;
-        this.gameTitle = new Label("MAIN MENU", skin, "title");
+        this.gameTitle = new Label(Message.MAIN_MENU_TITLE.getMessage(), skin, "title");
         this.table = new Table();
-        this.continueGameButton = new TextButton("Continue Saved Game", skin);
-        this.preGameButton = new TextButton("Pre-Game", skin);
-        this.settingsButton = new TextButton("Settings", skin);
-        this.profileButton = new TextButton("Profile", skin);
-        this.scoreBoardButton = new TextButton("Scoreboard", skin);
-        this.talentMenuButton = new TextButton("Talents", skin);
-        this.logoutButton = new TextButton("Logout", skin);
+        this.continueGameButton = new TextButton(Message.CONTINUE_SAVED_GAME_BUTTON.getMessage(), skin);
+        this.preGameButton = new TextButton(Message.PRE_GAME_BUTTON.getMessage(), skin);
+        this.settingsButton = new TextButton(Message.SETTINGS_BUTTON.getMessage(), skin);
+        this.profileButton = new TextButton(Message.PROFILE_MENU_BUTTON.getMessage(), skin);
+        this.scoreBoardButton = new TextButton(Message.SCOREBOARD_BUTTON.getMessage(), skin);
+        this.talentMenuButton = new TextButton(Message.TALENTS_MENU_BUTTON.getMessage(), skin);
+        this.logoutButton = new TextButton(Message.LOGOUT_BUTTON.getMessage(), skin);
 
         controller.setView(this);
 

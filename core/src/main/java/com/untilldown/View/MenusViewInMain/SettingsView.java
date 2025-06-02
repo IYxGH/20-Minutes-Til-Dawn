@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.untilldown.Controller.MainMenuController;
@@ -38,6 +37,7 @@ public class SettingsView implements Screen {
     private CheckBox autoReloadCheckBox;
     private ArrayList<TextButton> musicButtons;
     private ArrayList<TextButton> actionButtons;
+    private TextButton languageButton;
     private TextButton backButton;
 
     public SettingsView(SettingsController controller, Skin skin) {
@@ -51,6 +51,7 @@ public class SettingsView implements Screen {
         musicCheckBox.setChecked(App.getCurrentMusic().isPlaying());
         SFXCheckBox = new CheckBox(Message.SFX.getMessage(), skin);
         SFXCheckBox.setChecked(App.isSFXon());
+        languageButton = new TextButton(App.getCurrentLanguage().name(), skin);
 
         actionButtons = new ArrayList<>();
 
@@ -106,6 +107,14 @@ public class SettingsView implements Screen {
             }
         });
 
+        languageButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                App.toggleLanguage();
+                languageButton.setText(App.getCurrentLanguage().name());
+            }
+        });
+
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -155,6 +164,8 @@ public class SettingsView implements Screen {
         table.add(SFXCheckBox).pad(20);
         table.row();
 
+        table.add(languageButton).center().pad(20);
+        table.row();
 
         table.add(backButton).pad(30);
         table.row();
