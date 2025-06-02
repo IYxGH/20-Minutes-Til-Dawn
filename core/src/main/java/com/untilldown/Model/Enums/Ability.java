@@ -6,32 +6,32 @@ import com.untilldown.Model.Player;
 import java.util.*;
 
 public enum Ability {
-    VITALITY("", Message.VITALITY){
+    VITALITY(Message.VITALITY_INFO, Message.VITALITY){
         @Override
         public void useAbility(Game game, Player player) {
             player.addHp(1);
             player.addMaxHp(1);
         }
     },
-    DAMAGER("", Message.DAMAGER){
+    DAMAGER(Message.DAMAGER_INFO, Message.DAMAGER){
         @Override
         public void useAbility(Game game, Player player) {
             player.setTimerBuffWeapon(10);
         }
     },
-    PROCREASE("", Message.PROCREASE){
+    PROCREASE(Message.PROCREASE_INFO, Message.PROCREASE){
         @Override
         public void useAbility(Game game, Player player) {
             player.addProjectileEffect(1);
         }
     },
-    AMOCREASE("", Message.AMOCREASE){
+    AMOCREASE(Message.AMOCREASE_INFO, Message.AMOCREASE){
         @Override
         public void useAbility(Game game, Player player) {
             player.addMaxAmmo(5);
         }
     },
-    SPEEDY("", Message.SPEEDY){
+    SPEEDY(Message.SCARLET_INFO, Message.SPEEDY){
         @Override
         public void useAbility(Game game, Player player) {
             player.setTimerSpeedEffect(10);
@@ -39,17 +39,21 @@ public enum Ability {
     }
     ;
 
-    private final String info;
+    private final Message info;
     private final Message message;
     public abstract void useAbility(Game game, Player player);
 
-    Ability(String info, Message message) {
+    Ability(Message info, Message message) {
         this.info = info;
         this.message = message;
     }
 
     public String getMessage() {
         return message.getMessage();
+    }
+
+    public String getInfo() {
+        return info.getMessage();
     }
 
     public static Ability[] get3Random() {

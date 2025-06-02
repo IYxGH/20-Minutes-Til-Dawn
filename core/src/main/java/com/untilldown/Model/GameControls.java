@@ -47,11 +47,10 @@ public class GameControls {
     public Map<String, String> getKeyBindings() {
         Map<String, String> map = new HashMap<>();
         for (Map.Entry<Action, Integer> entry : currentControls.entrySet()) {
-            char a = Character.highSurrogate(entry.getValue());
-            map.put(entry.getKey().getInfo(), String.valueOf(a));
+            map.put(entry.getKey().getInfo(), Input.Keys.toString(entry.getValue()));
         }
 
-        return new HashMap<>();
+        return map;
     }
 
 

@@ -1,9 +1,12 @@
 package com.untilldown.Controller.MenuControllersInMain;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.untilldown.Controller.MainMenuController;
 import com.untilldown.Main;
 import com.untilldown.Model.App;
+import com.untilldown.Model.Enums.Ability;
+import com.untilldown.Model.Enums.Action;
 import com.untilldown.Model.Enums.Hero;
 import com.untilldown.Model.GameAssetManager;
 import com.untilldown.Model.GameControls;
@@ -55,10 +58,7 @@ public class TalentController {
     public Map<String, String> getGameKeyBindings() {
         // Assuming App.gameControls holds the user's current key bindings
         GameControls controls = App.gameControls;
-        if (controls != null) {
-            return controls.getKeyBindings();
-        }
-        return new HashMap<>();
+        return controls.getKeyBindings();
     }
 
     /**
@@ -72,20 +72,16 @@ public class TalentController {
 
         // TODO: Populate with your actual cheat codes and their effects
         // Example structure:
-        Map<String, String> cheat1 = new LinkedHashMap<>();
-        cheat1.put("code", "GODMODE");
-        cheat1.put("effect", "Grants invincibility.");
-        cheats.add(cheat1);
+        GameControls controls = App.gameControls;
+        for (Action action : Action.values()) {
+            if (action.isCheat()) {
+                Map<String, String> cheat = new LinkedHashMap<>();
+                cheat.put("code", Input.Keys.toString(controls.getKey(action)));
+                cheat.put("effect", action.getInfo());
+                cheats.add(cheat);
 
-        Map<String, String> cheat2 = new LinkedHashMap<>();
-        cheat2.put("code", "MAXAMMO");
-        cheat2.put("effect", "Gives maximum ammunition for all weapons.");
-        cheats.add(cheat2);
-
-        Map<String, String> cheat3 = new LinkedHashMap<>();
-        cheat3.put("code", "INFINITEMONEY");
-        cheat3.put("effect", "Adds a large amount of in-game currency.");
-        cheats.add(cheat3);
+            }
+        }
 
         return cheats;
     }
@@ -101,20 +97,13 @@ public class TalentController {
 
         // TODO: Populate with your actual game ability data
         // Example structure:
-        Map<String, String> ability1 = new LinkedHashMap<>();
-        ability1.put("name", "Fireball");
-        ability1.put("description", "Launches a fiery projectile dealing burn damage.");
-        abilities.add(ability1);
+        for (Ability ability : Ability.values()) {
+            Map<String, String> ability1 = new LinkedHashMap<>();
+            ability1.put("name", ability.getMessage());
+            ability1.put("description", ability.getInfo());
+            abilities.add(ability1);
+        }
 
-        Map<String, String> ability2 = new LinkedHashMap<>();
-        ability2.put("name", "Dash");
-        ability2.put("description", "Quickly dash a short distance, useful for evasion.");
-        abilities.add(ability2);
-
-        Map<String, String> ability3 = new LinkedHashMap<>();
-        ability3.put("name", "Healing Aura");
-        ability3.put("description", "Heals all nearby allies over time.");
-        abilities.add(ability3);
 
         return abilities;
     }

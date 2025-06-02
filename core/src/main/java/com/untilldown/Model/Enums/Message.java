@@ -39,6 +39,11 @@ public enum Message {
     PROCREASE("Procrease", ""),
     AMOCREASE("Amorecase", ""),
     SPEEDY("Speedy", ""),
+    VITALITY_INFO("add one health", ""),
+    DAMAGER_INFO("more damage for 10 seconds", ""),
+    PROCREASE_INFO("add one projectile", ""),
+    AMOCREASE_INFO("add 5 ammo to MaxAmmo", ""),
+    SPEEDY_INFO("2X speed for 10 seconds", ""),
     //-----------------------------------
 
     CHOOSE_ABILITY("Choose Ability:", ""),

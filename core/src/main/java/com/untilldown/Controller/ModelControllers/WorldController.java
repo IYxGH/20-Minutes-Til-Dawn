@@ -113,29 +113,29 @@ public class WorldController {
         Game game = App.getActiveGame();
         float time = game.getTime();
 
-//        // Tentacle
-//        if (timerTentacle <= 0.0f) {
-//            for (int i = 0; i < (int) (time / 30); i++) {
-//                TentacleMonster monster = new TentacleMonster();
-//                game.getEnemies().add(monster);
-//                monster.setRandomPosition();
-//
-//                stage.addActor(monster);
-//            }
-//            timerTentacle = 3.0f;
-//        }
-//
-//        // EyeBat
-//        if (timerEyeBat <= 0.0f && time > (game.getDuration() / 4)) {
-//            for (int i = 0; i < (4 * time - game.getDuration() + 30) / 30; i++) {
-//                EyeBat eyebat = new EyeBat();
-//                game.getEnemies().add(eyebat);
-//                eyebat.setRandomPosition();
-//
-//                stage.addActor(eyebat);
-//            }
-//            timerEyeBat = 10.0f;
-//        }
+        // Tentacle
+        if (timerTentacle <= 0.0f) {
+            for (int i = 0; i < (int) (time / 30); i++) {
+                TentacleMonster monster = new TentacleMonster();
+                game.getEnemies().add(monster);
+                monster.setRandomPosition();
+
+                stage.addActor(monster);
+            }
+            timerTentacle = 3.0f;
+        }
+
+        // EyeBat
+        if (timerEyeBat <= 0.0f && time > (game.getDuration() / 4)) {
+            for (int i = 0; i < (4 * time - game.getDuration() + 30) / 30; i++) {
+                EyeBat eyebat = new EyeBat();
+                game.getEnemies().add(eyebat);
+                eyebat.setRandomPosition();
+
+                stage.addActor(eyebat);
+            }
+            timerEyeBat = 10.0f;
+        }
 
 
         // Elder
