@@ -210,6 +210,10 @@ public class Player extends Actor {
         this.kills = kills;
     }
 
+    public void addKills(int kills) {
+        this.kills += kills;
+    }
+
     public boolean isAutoAim() {
         return autoAim;
     }
@@ -406,5 +410,9 @@ public class Player extends Actor {
         this.setTimePastLastDamage(2);
         stage.addActor(new AnimationActor(AnimationEffect.HOLYSHIELD_EFFECTS, this, true));
         if (App.isSFXon()) SFXController.HurtSound();
+    }
+
+    public int getPoints() {
+        return getKills() * (int) App.getActiveGame().getTime();
     }
 }

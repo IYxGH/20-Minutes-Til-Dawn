@@ -225,6 +225,7 @@ public class GameView implements Screen, InputProcessor {
         Label usernameLabel = new Label(player.getUser().getUsername(), skin);
         Label timeLeft = new Label(Message.TIME_LEFT.getMessage() + " " + game.getTimeLeft() , skin);
         Label kills = new Label(Message.KILLS.getMessage() + player.getKills(), skin);
+        Label points = new Label(Message.POINTS.getMessage() + player.getPoints(), skin);
 
         TextButton continueButton = new TextButton(Message.CONTINUE.getMessage(), skin);
         TextButton cheatButton = new TextButton("Hmmm...", skin);
@@ -233,6 +234,7 @@ public class GameView implements Screen, InputProcessor {
         dialog.getContentTable().add(usernameLabel).pad(10).row();
         dialog.getContentTable().add(timeLeft).pad(10).row();
         dialog.getContentTable().add(kills).pad(10).row();
+        dialog.getContentTable().add(points).pad(10).row();
         dialog.getContentTable().add(continueButton).pad(10).row();
         if (game.getDuration() > game.getTime()) {
             dialog.getContentTable().add(cheatButton).pad(10).row();

@@ -9,12 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.untilldown.Controller.ModelControllers.PlayerController;
 import com.untilldown.Controller.ModelControllers.WeaponController;
 import com.untilldown.Controller.ModelControllers.WorldController;
-import com.untilldown.Model.App;
+import com.untilldown.DataBase.UserDataManager;
+import com.untilldown.Model.*;
 import com.untilldown.Model.Enums.Ability;
 import com.untilldown.Model.Enums.Action;
-import com.untilldown.Model.Game;
-import com.untilldown.Model.GameControls;
-import com.untilldown.Model.Player;
 import com.untilldown.View.GameView;
 
 import java.util.Map;
@@ -147,6 +145,20 @@ public class GameController {
     }
 
     public void finishGame() {
+        User user = App.getCurrentUser();
+        Player player = playerController.getPlayer();
+
+        if (game.getTime() > user.getMaxLifeTime()) {
+            user.setMaxLifeTime(game.getTime());
+            App.updateUserInDatabase(user);
+        }
+
+        user.setTotalPoints(user.getTotalPoints() + player.getPoints());
+        App.updateUserInDatabase(user);
+
+        user.setTotalKills(user.getTotalKills() + player.getKills());
+        App.updateUserInDatabase(user);
+
 
     }
 

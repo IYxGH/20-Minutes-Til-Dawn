@@ -32,6 +32,7 @@ public enum Message {
     WON("Won!", "¡Ganaste!"),
     DEAD("Dead...", "Muerto..."),
     CONTINUE("Continue", "Continuar"),
+    POINTS("Points", "Muertos"),
 
     //-------------Talents--------------
     VITALITY("Vitality", "Vitalidad"),

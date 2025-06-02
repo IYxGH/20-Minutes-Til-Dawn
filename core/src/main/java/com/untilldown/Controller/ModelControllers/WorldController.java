@@ -70,6 +70,7 @@ public class WorldController {
         for (Enemy enemy : enemiesToRemove) {
             spawnSeeds(stage, game, enemy);
             enemy.remove();
+            player.addKills(1);
             stage.addActor(new AnimationActor(AnimationEffect.EXPLOSION_EFFECTS, enemy, false));
         }
         game.getEnemies().removeAll(enemiesToRemove);
