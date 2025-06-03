@@ -95,7 +95,7 @@ public enum Hero {
         )),
         Message.LILITH_INFO
     ),
-    DASHER("Heros/Diamond/Portrait.png",
+    DASHER("Heros/Dasher/Portrait.png",
         2,
         10,
         new ArrayList<>(Arrays.asList(

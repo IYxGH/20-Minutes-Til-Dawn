@@ -43,7 +43,8 @@ public class PlayerController {
         if (Gdx.input.isKeyPressed(gameControls.getKey(Action.MOVE_LEFT))) dx -= 1;
         if (Gdx.input.isKeyPressed(gameControls.getKey(Action.MOVE_RIGHT))) dx += 1;
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.TOGGLE_AIM))) player.toggleAutoAim();
-        if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.ATTACK))) attack(stage);
+        if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.ATTACK)) ||
+        Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) attack(stage);
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.RELOAD))) reload();
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_ADD_XP))) cheatAddXp();
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_ADD_LEVEL))) cheatAddLevel();
@@ -82,32 +83,30 @@ public class PlayerController {
             damageEffect = 1.25f;
         }
 
-        if (getPlayer().isAutoAim()) {
 
-        } else {
-            float mouseX = Gdx.input.getX();
-            float mouseY = Gdx.input.getY();
+        float mouseX = Gdx.input.getX();
+        float mouseY = Gdx.input.getY();
 
-            SFXController.ShotSound();
-            Vector3 worldCoords = stage.getCamera().unproject(new Vector3(mouseX, mouseY, 0));
-            Vector2 mouseWorldPos = new Vector2(worldCoords.x, worldCoords.y);
+        SFXController.ShotSound();
+        Vector3 worldCoords = stage.getCamera().unproject(new Vector3(mouseX, mouseY, 0));
+        Vector2 mouseWorldPos = new Vector2(worldCoords.x, worldCoords.y);
 
-            Vector2 playerPos = getPlayerPosition();
-            Vector2 direction = mouseWorldPos.sub(playerPos).nor();
-            int projectile = player.getProjectile();
-            direction.rotateDeg((projectile / 2) * 5);
+        Vector2 playerPos = getPlayerPosition();
+        Vector2 direction = mouseWorldPos.sub(playerPos).nor();
+        int projectile = player.getProjectile();
+        direction.rotateDeg((projectile / 2) * 5);
 
-            for (int i = 0; i < projectile; i++) {
-                Bullet bullet = new Bullet(player.getWeapon(), new Vector2(direction), damageEffect);
-                bullet.setPosition(player.getX(), player.getY());
-                game.getPlayerBullets().add(bullet);
-                direction.rotateDeg(-5);
+        for (int i = 0; i < projectile; i++) {
+            Bullet bullet = new Bullet(player.getWeapon(), new Vector2(direction), damageEffect);
+            bullet.setPosition(player.getX(), player.getY());
+            game.getPlayerBullets().add(bullet);
+            direction.rotateDeg(-5);
 
-                stage.addActor(bullet);
-            }
-
-            player.reduceAmmo(1);
+            stage.addActor(bullet);
         }
+
+        player.reduceAmmo(1);
+
     }
 
     public Player getPlayer() {

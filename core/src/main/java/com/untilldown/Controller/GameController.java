@@ -1,20 +1,26 @@
 package com.untilldown.Controller;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.untilldown.Controller.ModelControllers.PlayerController;
 import com.untilldown.Controller.ModelControllers.WeaponController;
 import com.untilldown.Controller.ModelControllers.WorldController;
-import com.untilldown.DataBase.UserDataManager;
 import com.untilldown.Model.*;
+import com.untilldown.Model.EnemyClasses.Enemy;
+import com.untilldown.Model.EnemyClasses.Tree;
 import com.untilldown.Model.Enums.Ability;
 import com.untilldown.Model.Enums.Action;
 import com.untilldown.View.GameView;
 
+import javax.swing.text.Position;
 import java.util.Map;
 
 public class GameController {
@@ -62,6 +68,8 @@ public class GameController {
         worldController.update(delta, view.getGameStage());
         game.addTime(delta);
         checkEndGame();
+
+        if (game.getPlayer().isAutoAim()) setCursor();
 
 
     }
@@ -161,5 +169,37 @@ public class GameController {
 
 
     }
+
+    public void setCursor() {
+// 1) Find closest non‐Tree enemy in world coordinates
+        Vector2 closestPos = new Vector2( Float.MAX_VALUE, Float.MAX_VALUE );
+        Vector2 playerPos  = playerController.getPlayer().getPosition();
+        float   minDist    = Float.MAX_VALUE;
+
+        for (Enemy enemy : game.getEnemies()) {
+            if (enemy instanceof Tree) continue;
+
+            Vector2 enemyPos = new Vector2(enemy.getX(), enemy.getY());
+            float   dist     = enemyPos.dst(playerPos);
+            if (dist < minDist) {
+                minDist = dist;
+                closestPos.set(enemyPos);
+            }
+        }
+
+// 2) Project that world position into screen space
+        Vector3 worldPos = new Vector3(closestPos.x, closestPos.y, 0);
+        Camera camera = view.getGameStage().getCamera();
+        camera.project(worldPos);  // now worldPos.x/y are in screen coords (origin = bottom‐left)
+
+// 3) Flip the Y coordinate for Gdx.input
+        int screenX = (int) worldPos.x;
+        int screenY = Gdx.graphics.getHeight() - (int) worldPos.y;
+
+// 4) Finally move the hardware cursor
+        Gdx.input.setCursorPosition(screenX, screenY);
+
+    }
+
 
 }
