@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -38,6 +39,7 @@ public class GameView implements Screen, InputProcessor {
     private GameController controller;
     private OrthographicCamera camera;
     private Label infoInPauseMenu;
+    private Image background;
 
     private Table uiTable;
     private Table abilitiesTable;
@@ -59,6 +61,10 @@ public class GameView implements Screen, InputProcessor {
         uiViewport = new ScreenViewport();
         gameStage = new Stage(gameViewport);
         uiStage = new Stage(uiViewport);
+        background = new Image(new Texture("other/back.png"));
+        background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
+        background.setColor(1, 1, 1, 0.3f);
+//        gameStage.addActor(background);
 
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(uiStage);
@@ -287,6 +293,14 @@ public class GameView implements Screen, InputProcessor {
         float cameraY = MathUtils.clamp(heroPosition.y, camera.viewportHeight / 2, WORLD_HEIGHT - camera.viewportHeight / 2);
         camera.position.set(cameraX, cameraY, 0);
         camera.update();
+    }
+
+    public Image getBackground() {
+        return background;
+    }
+
+    public void setBackground(Image background) {
+        this.background = background;
     }
 
     @Override

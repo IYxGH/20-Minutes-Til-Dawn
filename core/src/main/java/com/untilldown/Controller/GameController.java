@@ -71,6 +71,8 @@ public class GameController {
 
         if (game.getPlayer().isAutoAim()) setCursor();
 
+        view.getBackground().setPosition(playerController.getPlayer().getX() - Gdx.graphics.getWidth() / 2, playerController.getPlayer().getY() - Gdx.graphics.getHeight() / 2);
+
 
     }
 
