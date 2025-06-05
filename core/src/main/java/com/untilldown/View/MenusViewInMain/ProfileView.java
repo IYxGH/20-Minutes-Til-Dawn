@@ -26,6 +26,10 @@ import com.untilldown.Model.Enums.Message;
 import com.untilldown.Model.User;
 import com.untilldown.View.MainMenuView;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
+
 public class ProfileView implements Screen {
     private final ProfileController controller;
     private final Skin skin;
@@ -361,48 +365,63 @@ public class ProfileView implements Screen {
             return;
         }
 
-        String sourceFilePath = Gdx.files.getExternalStoragePath() + "test_avatar.png";
-        FileHandle sourceFile = Gdx.files.absolute(sourceFilePath);
+        // Run on UI thread (important for Swing)
+        Gdx.app.postRunnable(() -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Select an Image File");
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Image Files", "png", "jpg", "jpeg"));
 
-        if (!sourceFile.exists()) {
-            avatarStatusLabel.setText(Message.FILE_NOT_FOUND_ERROR.getMessage() + "\n" + sourceFilePath);
-            System.err.println("Source avatar file not found: " + sourceFilePath);
-            return;
-        }
-        if (sourceFile.isDirectory()) {
-            avatarStatusLabel.setText(Message.MUST_BE_IMAGE_FILE.getMessage());
-            System.err.println("Selected path is a directory, not a file: " + sourceFilePath);
-            return;
-        }
-        String extension = sourceFile.extension().toLowerCase();
-        if (!extension.equals("png") && !extension.equals("jpg") && !extension.equals("jpeg")) {
-            avatarStatusLabel.setText(Message.INVALID_IMAGE_FORMAT.getMessage());
-            System.err.println("Selected file is not a PNG or JPG: " + sourceFilePath);
-            return;
-        }
+            int result = fileChooser.showOpenDialog(null);
+            if (result != JFileChooser.APPROVE_OPTION) {
+                System.out.println("File selection cancelled.");
+                return;
+            }
 
-        FileHandle customAvatarsDir = Gdx.files.local("custom_avatars/");
-        if (!customAvatarsDir.exists()) {
-            customAvatarsDir.mkdirs();
-            System.out.println("Created custom avatars directory: " + customAvatarsDir.path());
-        }
+            File selectedFile = fileChooser.getSelectedFile();
+            FileHandle sourceFile = Gdx.files.absolute(selectedFile.getAbsolutePath());
 
-        String uniqueFileName = System.currentTimeMillis() + "_" + sourceFile.nameWithoutExtension() + "." + sourceFile.extension();
-        FileHandle destinationFile = Gdx.files.local("custom_avatars/" + uniqueFileName);
+            if (!sourceFile.exists()) {
+                avatarStatusLabel.setText(Message.FILE_NOT_FOUND_ERROR.getMessage() + "\n" + sourceFile.path());
+                System.err.println("Selected file not found: " + sourceFile.path());
+                return;
+            }
 
-        try {
-            sourceFile.copyTo(destinationFile);
-            System.out.println("Avatar copied from " + sourceFile.path() + " to: " + destinationFile.path());
+            if (sourceFile.isDirectory()) {
+                avatarStatusLabel.setText(Message.MUST_BE_IMAGE_FILE.getMessage());
+                System.err.println("Selected path is a directory: " + sourceFile.path());
+                return;
+            }
 
-            currentUser.setCustomAvatarImagePath(destinationFile.path());
+            String extension = sourceFile.extension().toLowerCase();
+            if (!extension.equals("png") && !extension.equals("jpg") && !extension.equals("jpeg")) {
+                avatarStatusLabel.setText(Message.INVALID_IMAGE_FORMAT.getMessage());
+                System.err.println("Unsupported image format: " + sourceFile.path());
+                return;
+            }
 
-            controller.updateAvatar(currentUser, avatarDialog, Message.AVATAR_UPLOAD_SUCCESS.getMessage());
+            FileHandle customAvatarsDir = Gdx.files.local("custom_avatars/");
+            if (!customAvatarsDir.exists()) {
+                customAvatarsDir.mkdirs();
+            }
 
-        } catch (Exception e) {
-            avatarStatusLabel.setText(Message.AVATAR_UPLOAD_FAILED.getMessage());
-            System.err.println("Error copying or processing avatar file: " + e.getMessage());
-            e.printStackTrace();
-        }
+            String uniqueFileName = System.currentTimeMillis() + "_" + sourceFile.name();
+            FileHandle destinationFile = customAvatarsDir.child(uniqueFileName);
+
+            try {
+                sourceFile.copyTo(destinationFile);
+                System.out.println("Avatar copied to: " + destinationFile.path());
+
+                currentUser.setCustomAvatarImagePath(destinationFile.path());
+                currentUser.setAvatarAssigned(null);
+
+                controller.updateAvatar(currentUser, avatarDialog, Message.AVATAR_UPLOAD_SUCCESS.getMessage());
+
+            } catch (Exception e) {
+                avatarStatusLabel.setText(Message.AVATAR_UPLOAD_FAILED.getMessage());
+                System.err.println("Error copying avatar file: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
     }
 
     public void updateCurrentAvatarDisplay() {
