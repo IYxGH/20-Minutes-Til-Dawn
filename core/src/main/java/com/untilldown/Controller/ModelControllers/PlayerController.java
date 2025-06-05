@@ -51,6 +51,7 @@ public class PlayerController {
         if (Gdx.input.isKeyJustPressed(gameControls.getKey(Action.CHEAT_REDUCE_TIME))) cheatReduceTime(60);
         if (Gdx.input.isKeyPressed(gameControls.getKey(Action.CHEAT_KILL_ALL_ENEMIES))) cheatKillAllEnemies();
         if (Gdx.input.isKeyPressed(gameControls.getKey(Action.CHEAT_GO_TO_BOSS))) cheatGoToBoss();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F1)) player.setAutoReload(!player.isAutoReload());
 
         // Normalize to avoid diagonal speed boost
         if (dx != 0 || dy != 0) {
